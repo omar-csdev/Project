@@ -28,7 +28,7 @@ public static class FoodMenu
         }
         else if (input == "2") { Console.WriteLine("Optie nog niet beschikbaar"); }
         else if (input == "3") { MenuItem.start(); }
-        else if (input == "4") { Menu.Start(); }
+        else if (input == "4") { MainMenu.Start(); }
         else { Console.WriteLine("Geef een valide optie"); FoodMenu.Start(); }
     }
 

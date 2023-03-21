@@ -17,6 +17,7 @@ static class MainMenu
             Say("2", "View Menu");
             Say("3", "Admin Login");
             Say("4", "Quit");
+            Say("5", "FoodMenu");
             string input = Console.ReadLine();
             if (input == "1")
             {
@@ -34,6 +35,10 @@ static class MainMenu
             {
                 // Quit
                 Environment.Exit(1);
+            }
+            else if (input == "5")
+            {
+                FoodMenu.Start();
             }
             else
             {
