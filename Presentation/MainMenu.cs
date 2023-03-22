@@ -14,10 +14,9 @@ static class MainMenu
             Console.Clear();
             WriteLogo();
             Say("1", "Make a Reservation");
-            Say("2", "View Menu");
+            Say("2", "View Food Menu");
             Say("3", "Admin Login");
             Say("4", "Quit");
-            Say("5", "FoodMenu");
             string input = Console.ReadLine();
             if (input == "1")
             {
@@ -26,6 +25,7 @@ static class MainMenu
             else if (input == "2")
             {
                 // View Menu
+                FoodMenu.Start();
             }
             else if (input == "3")
             {
@@ -35,10 +35,6 @@ static class MainMenu
             {
                 // Quit
                 Environment.Exit(1);
-            }
-            else if (input == "5")
-            {
-                FoodMenu.Start();
             }
             else
             {
