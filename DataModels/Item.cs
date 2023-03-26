@@ -1,11 +1,14 @@
 ﻿public class Item
 {
-    public static int Id { get; set; }
-    public string Category;
-    public double Price;
-    public Item(, double price)
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public double Price { get; set; }
+    public int Id { get; set; }
+
+    public Item(string name, double price, string category)
     {
-        Food sahi = new Food("dsa", 3);
-        this.Price = price;
+        Name = name;
+        Price = price;
+        Category = category;
     }
 }

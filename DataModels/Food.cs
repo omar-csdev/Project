@@ -1,12 +1,6 @@
 ﻿public class Food : Item
 {
-    public string Name;
-    public string Category;
-    public double Price;
-    public Food(string name, double price) : base("Food", price) 
+    public Food(string name, double price, string category) : base(name, price, category)
     {
-        this.Name = name;
-        this.Price = price;
-        Category = "Food";
     }
 }

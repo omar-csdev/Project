@@ -17,6 +17,7 @@ static class MainMenu
             Say("2", "View Menu");
             Say("3", "Admin Login");
             Say("4", "Quit");
+            Say("5", "Add menu item");
             string input = Console.ReadLine();
             if (input == "1")
             {
@@ -34,6 +35,39 @@ static class MainMenu
             {
                 // Quit
                 Environment.Exit(1);
+            }
+            else if (input == "5")
+            {
+                Console.WriteLine("Enter Item name ('Food' or 'Drink'):\n\r");
+                string itemName = Console.ReadLine();
+                Console.WriteLine("Enter Item price:\r\n");
+                int inputPrice;
+                bool isValidInput = int.TryParse(Console.ReadLine(), out inputPrice);
+                if (isValidInput)
+                {
+                    if (itemName == "Food")
+                    {
+                        Console.WriteLine("Enter food name:\n\r");
+                        string foodName = Console.ReadLine();
+                        Food newFood = new Food(foodName, inputPrice, "Food");
+                        JSONEditor.AddItem("menu.json", newFood);
+                    }
+                    else if (itemName == "Drink")
+                    {
+                        Console.WriteLine("Enter drink name:\n\r");
+                        string drinkName = Console.ReadLine();
+                        Drink newDrink = new Drink(drinkName, inputPrice, "Drink");
+                        JSONEditor.AddItem("menu.json", newDrink);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter either 'Food' or 'Drink'.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid integer.");
+                }
             }
             else
             {
