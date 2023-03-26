@@ -13,7 +13,7 @@ class AccountsLogic
     //This can be used to get the current logged in account from anywhere in the program
     //private set, so this can only be set by the class itself
     static public AccountModel? CurrentAccount { get; private set; }
-
+    
     public AccountsLogic()
     {
         _accounts = AccountsAccess.LoadAll();
