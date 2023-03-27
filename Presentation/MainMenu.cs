@@ -26,7 +26,9 @@ static class MainMenu
             else if (input == "2")
             {
                 // View Menu
-                FoodMenu.Start();
+                AdminDashboard.DisplayDashboard();
+                Environment.Exit(1);
+                
             }
             else if (input == "3")
             {
