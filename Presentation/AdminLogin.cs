@@ -29,7 +29,7 @@ public static class AdminLogin
 
         if (answer == "1")
         {
-            // deze codeblock zal veranderd worden wanneer de json file uitlezen werkt, dit is een tijdelijke "oplossing"
+            // dit codeblock zal veranderd worden wanneer de json file uitlezen werkt, dit is een tijdelijke "oplossing"
             Console.WriteLine("Username?", Color.Blue);
             string Username = Console.ReadLine();
             Console.WriteLine("Password?", Color.Blue);
