@@ -51,14 +51,14 @@ static class MainMenu
                         Console.WriteLine("Enter food name:\n\r");
                         string foodName = Console.ReadLine();
                         Food newFood = new Food(foodName, inputPrice, "Food");
-                        JSONEditor.AddItem("menu.json", newFood);
+                        JSONEditor.AddItem(newFood);
                     }
                     else if (itemName == "Drink")
                     {
                         Console.WriteLine("Enter drink name:\n\r");
                         string drinkName = Console.ReadLine();
                         Drink newDrink = new Drink(drinkName, inputPrice, "Drink");
-                        JSONEditor.AddItem("menu.json", newDrink);
+                        JSONEditor.AddItem(newDrink);
                     }
                     else
                     {
@@ -73,7 +73,8 @@ static class MainMenu
             else
             {
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                Thread.Sleep(1500);
+
+                Thread.Sleep(3000);
             }
         }
     }
@@ -81,7 +82,7 @@ static class MainMenu
     public static void Say(string prefix, string message)
     {
         Console.Write("[");
-        Console.Write(prefix, Color.Red);
+        Console.Write(prefix, Color.Green);
         Console.WriteLine("] " + message);
     }
 

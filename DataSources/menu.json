@@ -1,5 +1,20 @@
 [
   {
-
+    "Name": "Shoarma",
+    "Category": "Food",
+    "Price": 5.0,
+    "Id": 1
+  },
+  {
+    "Name": "Redje",
+    "Category": "Drink",
+    "Price": 2.0,
+    "Id": 2
+  },
+  {
+    "Name": "Slammers",
+    "Category": "Drink",
+    "Price": 1.0,
+    "Id": 3
   }
 ]

@@ -1,12 +1,15 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 public class JSONEditor
 {
-    public static void AddItem(string fileName, Item item)
+    public static void AddItem(Item item)
     {
-        string JSONString = File.ReadAllText(fileName);
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
+        string JSONString = File.ReadAllText(filePath);
+
         List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
 
         Item newItem;
@@ -25,12 +28,12 @@ public class JSONEditor
             throw new ArgumentException("Invalid item type.");
         }
 
-        newItem.Id = menu.Count > 0 ? menu.Max(i => i.Id) + 1 : 1; 
+        newItem.Id = menu.Count > 0 ? menu.Max(i => i.Id) + 1 : 1;
 
         menu.Add(newItem);
 
         string updatedJSONString = JsonConvert.SerializeObject(menu, Formatting.Indented);
 
-        File.WriteAllText(fileName, updatedJSONString);
+        File.WriteAllText(filePath, updatedJSONString);
     }
 }
