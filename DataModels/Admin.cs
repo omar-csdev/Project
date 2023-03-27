@@ -15,7 +15,7 @@
         if (this.UserName == u && this.Password == p) 
         {
             this.IsLoggedIn = true;
-            Console.WriteLine("Logged in succesfully!");
+            Console.WriteLine($"Admin {this.UserName} logged in succesfully!");
         }
 
         else
