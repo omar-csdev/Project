@@ -7,7 +7,7 @@ static class MainMenu
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
-    static public void Start()
+    public static void Start()
     {
         for (; ; )
         {
@@ -43,7 +43,7 @@ static class MainMenu
             else
             {
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                Thread.Sleep(1500);
+                Thread.Sleep(3000);
             }
         }
     }

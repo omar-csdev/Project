@@ -12,7 +12,16 @@
     
     public void LogIn(string u, string p) 
     {
-        this.IsLoggedIn = true;
+        if (this.UserName == u && this.Password == p) 
+        {
+            this.IsLoggedIn = true;
+            Console.WriteLine("Logged in succesfully!");
+        }
+
+        else
+        {
+            Console.WriteLine("Invalid login.");
+        }
     }
 
     public void LogOut()
