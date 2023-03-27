@@ -12,10 +12,10 @@ public static class LoginAccess
     }
 
 
-    public static void WriteAll(List<Admin> accounts)
+    public static void WriteAll(List<Admin> accounts, string fileName)
     {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        string json = JsonSerializer.Serialize(accounts, options);
-        File.WriteAllText(path, json);
+        string updatedJSONString = JsonConvert.SerializeObject(accounts, Formatting.Indented);
+
+        File.WriteAllText(fileName, updatedJSONString);
     }
 }
