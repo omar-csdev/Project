@@ -14,8 +14,14 @@ public static class AdminLogin
         //List<Admin> test = LoginAccess.LoadAll("admindata.json");
         //foreach (Admin admin in test) 
         //{
-        //    Console.WriteLine("hi");
+        //    Console.WriteLine(admin.UserName);
         //}
+        //
+        //   ^
+        //   |
+        // json werkt niet
+
+
         Console.Clear();
         Say("1", "Log In");
         Say("2", "Go back");
