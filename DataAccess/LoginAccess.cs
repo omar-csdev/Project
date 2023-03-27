@@ -1,14 +1,14 @@
-﻿using System.Text.Json;
+﻿using Newtonsoft.Json;
+
 
 public static class LoginAccess
 {
-    static string path = Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/accounts.json"));
 
-
-    public static List<Admin> LoadAll()
+    public static List<Admin> LoadAll(string fileName)
     {
-        string json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<List<Admin>>(json);
+        string JSONString = File.ReadAllText(fileName);
+        List<Admin> accounts = JsonConvert.DeserializeObject<List<Admin>>(JSONString) ?? new List<Admin>();
+        return accounts;
     }
 
 
