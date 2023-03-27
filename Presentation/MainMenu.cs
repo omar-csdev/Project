@@ -29,7 +29,7 @@ static class MainMenu
             }
             else if (input == "3")
             {
-                // Admin Login
+                AdminLogin.Start();
             }
             else if (input == "4")
             {
