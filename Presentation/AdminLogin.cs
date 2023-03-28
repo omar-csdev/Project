@@ -11,15 +11,8 @@ public static class AdminLogin
     public static void Start()
     {
 
-        //List<Admin> test = LoginAccess.LoadAll("admindata.json");
-        //foreach (Admin admin in test) 
-        //{
-        //    Console.WriteLine(admin.UserName);
-        //}
-        //
-        //   ^
-        //   |
-        // json werkt niet
+        List<Admin> test = LoginAccess.LoadAll("admindata.json");
+
 
 
         Console.Clear();
@@ -30,15 +23,53 @@ public static class AdminLogin
         if (answer == "1")
         {
             // dit codeblock zal veranderd worden wanneer de json file uitlezen werkt, dit is een tijdelijke "oplossing"
-            Console.WriteLine("Username?", Color.Blue);
-            string Username = Console.ReadLine();
-            Console.WriteLine("Password?", Color.Blue);
-            string Password = Console.ReadLine();
-            Admin newAdmin = new(Username, Password);
-            newAdmin.LogIn(Username, Password);
-            Environment.Exit(0);
-            // hier verder met admin authoriteit
-            // bijvoorbeeld: AdminAuthority.Start()
+            if (test.Count == 0) 
+            {
+                Console.WriteLine("No Admin accounts found. Would you like to register a new one? (y/n)", Color.Green);
+                string inp = Console.ReadLine().ToLower();
+                if (inp == "y")
+                {
+                    Console.WriteLine("Username?");
+                    string username = Console.ReadLine();
+                    Console.WriteLine("Password?");
+                    string password = Console.ReadLine();
+                    Admin newAdmin = new(username, password);
+                    test.Add(newAdmin);
+                    LoginAccess.WriteAll(test, "admindata.json");
+                    Console.WriteLine("Added account succesfully! You can login now.");
+                    Thread.Sleep(5000);
+                    Start();
+                }
+
+                else if (inp == "n")
+                {
+                    Start();
+                }
+
+                else
+                {
+                    Console.WriteLine("Invalid input! Please enter 'y' or 'n'.", Color.Red);
+                    Thread.Sleep(4000);
+                    Console.Clear();
+                    Start();
+                }
+            }
+            else if (test.Count > 0) 
+            {
+                Console.WriteLine("Username?d");
+                string username = Console.ReadLine();
+                Console.WriteLine("Password?");
+                string password = Console.ReadLine();
+                
+                foreach (Admin admin in test) 
+                {
+                    if (admin.UserName == username && admin.Password == password)
+                    {
+                        Console.WriteLine($"User {username} logged in succesfully!");
+                        Environment.Exit(0);
+                    }
+                }
+            }
         }
 
         else if (answer == "2") 
