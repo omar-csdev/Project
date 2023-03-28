@@ -22,8 +22,8 @@ public static class AdminLogin
 
         if (answer == "1")
         {
-            // dit codeblock zal veranderd worden wanneer de json file uitlezen werkt, dit is een tijdelijke "oplossing"
-            if (test.Count == 0) 
+            //dit codeblock zal veranderd worden wanneer de json file uitlezen werkt, dit is een tijdelijke "oplossing"
+            if (test.Count == 1)
             {
                 Console.WriteLine("No Admin accounts found. Would you like to register a new one? (y/n)", Color.Green);
                 string inp = Console.ReadLine().ToLower();
@@ -54,14 +54,14 @@ public static class AdminLogin
                     Start();
                 }
             }
-            else if (test.Count > 0) 
+            else if (test.Count > 1)
             {
-                Console.WriteLine("Username?d");
+                Console.WriteLine("Username?");
                 string username = Console.ReadLine();
                 Console.WriteLine("Password?");
                 string password = Console.ReadLine();
-                
-                foreach (Admin admin in test) 
+
+                foreach (Admin admin in test)
                 {
                     if (admin.UserName == username && admin.Password == password)
                     {
@@ -72,11 +72,11 @@ public static class AdminLogin
             }
         }
 
-        else if (answer == "2") 
+        else if (answer == "2")
         {
             Console.Clear();
             MainMenu.Start();
         }
-        
+
     }
 }

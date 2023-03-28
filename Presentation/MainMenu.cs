@@ -9,7 +9,7 @@ static class MainMenu
     //You could edit this to show different menus depending on the user's role
     public static void Start()
     {
-        for (; ; )
+        while (true)
         {
             Console.Clear();
             WriteLogo();
