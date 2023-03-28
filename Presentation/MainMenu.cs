@@ -25,13 +25,12 @@ static class MainMenu
             }
             else if (input == "2")
             {
-                // View Menu
-                AdminDashboard.DisplayDashboard();
-                Environment.Exit(1);
-                
+                FoodMenu.Start();
             }
             else if (input == "3")
             {
+                AdminDashboard.DisplayDashboard();
+                Environment.Exit(1);
                 // Admin Login
             }
             else if (input == "4")

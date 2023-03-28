@@ -11,7 +11,7 @@ namespace Menu_item_creëren
 {
     static class MenuItem
     {
-        public static void start()
+        public static void Start()
         {
 
             Console.OutputEncoding = Encoding.UTF8;
@@ -35,19 +35,38 @@ namespace Menu_item_creëren
             }
             table.Write(Format.Default);
             //met deze lijn code kunnen we het uiterlijk van de tabel aanpassen 
-            Console.WriteLine("\nClick enter to go back");
-            Console.ReadLine();
-            FoodMenu.Start();
         }
         public static DataTable MenuCreator()
         {
             var table = new DataTable();
             table.Columns.Add("nummer", typeof(int));
+            table.Columns.Add("Categorie", typeof(string));
             table.Columns.Add("naam", typeof(string));
-            table.Columns.Add("prijs", typeof(double));
-            table.Columns.Add("ingrediënten", typeof(string));
-            table.Rows.Add(1, "Burger", 3.99, "Brood, sla, ui, tomaat, hamburger, burgersaus");
-            //maakt colommen aan
+            table.Columns.Add("prijs", typeof(string));
+            Console.WriteLine("Menu Items:");
+
+
+            getMenuItems(table);
+            //de bedoeling is om een for loop te maken die langs elke item in de json file en in deze for-loop steeds een rij toe te voegen.
+            //Hierdoor kunnen we de tabel updaten (item verwijderen/toevoegen in de json zal de tabel groter/kleiner maken)
+            static void getMenuItems(DataTable table)
+            {
+                
+                string filePath = Path.Combine(Environment.CurrentDirectory, @"C:\Users\elfar\source\repos\Project\DataSources\menu.json");
+                string JSONString = File.ReadAllText(filePath);
+                List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
+                displayMenuItems(menu, table);
+            }
+
+            static void displayMenuItems(List<Item> menuToDisplay, DataTable table)
+            {
+                int num = 0;
+                foreach (Item item in menuToDisplay)
+                {
+                    num++;
+                    table.Rows.Add(num, item.Category, item.Name, "€"+item.Price);
+                }
+            }
             return table;
         }
     }
