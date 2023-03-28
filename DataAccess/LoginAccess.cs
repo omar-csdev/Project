@@ -14,10 +14,11 @@ public static class LoginAccess
     }
 
 
-    public static void WriteAll(List<Admin> accounts, string fileName)
+    public static void WriteAll(List<Admin> accounts)
     {
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\admindata.json");
         string updatedJSONString = JsonConvert.SerializeObject(accounts, Formatting.Indented);
 
-        File.WriteAllText(fileName, updatedJSONString);
+        File.WriteAllText(filePath, updatedJSONString);
     }
 }

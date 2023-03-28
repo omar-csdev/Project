@@ -35,7 +35,7 @@ public static class AdminLogin
                     string password = Console.ReadLine();
                     Admin newAdmin = new(username, password);
                     test.Add(newAdmin);
-                    LoginAccess.WriteAll(test, "admindata.json");
+                    LoginAccess.WriteAll(test);
                     Console.WriteLine("Added account succesfully! You can login now.");
                     Thread.Sleep(5000);
                     Start();
@@ -69,6 +69,8 @@ public static class AdminLogin
                         Environment.Exit(0);
                     }
                 }
+                Console.WriteLine("No users found with the matching credentials!", Color.Red);
+                Thread.Sleep(5000);
             }
         }
 
