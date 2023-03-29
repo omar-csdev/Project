@@ -17,7 +17,8 @@ public static class AdminLogin
 
         Console.Clear();
         Say("1", "Log In");
-        Say("2", "Go back");
+        Say("2", "Remove user");
+        Say("3", "Go back");
         string answer = Console.ReadLine();
 
         if (answer == "1")
@@ -73,8 +74,11 @@ public static class AdminLogin
                 Thread.Sleep(5000);
             }
         }
-
         else if (answer == "2")
+        {
+
+        }
+        else if (answer == "3")
         {
             Console.Clear();
             MainMenu.Start();
