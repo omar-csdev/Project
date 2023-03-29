@@ -19,32 +19,17 @@ static class AdminMenuEditor
             int input = Convert.ToInt32(Console.ReadLine());
             if (input == 1)
             {
-                int index = 0;
                 foreach (Item item in menu)
                 {
-                    WriteToConsole(index, item.Name);
-                    index++;
+                    WriteToConsole(item.Id, item.Name);
                 }
-                Console.WriteLine("Enter the index of the item you want to delete: ");
+                Console.WriteLine("Enter item ID to remove: ");
                 int itemIndex = Convert.ToInt32(Console.ReadLine());
-                if (itemIndex < menu.Length)
-                {   
-                    //Delete item als item bestaat
-                    JSONEditor.RemoveItem(itemIndex);
-                    Console.WriteLine("Item deleted successfully!", Color.Green);
-                    Thread.Sleep(1500);
-
-                }
-                else
-                {
-                    //Error als item niet bestaat
-                    Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                    Thread.Sleep(1500);
-                }
+                JSONEditor.RemoveItem(itemIndex);
             }
             else if (input == 2)
             {
-                int index = 0;
+                int index = 1;
                 foreach (Item item in menu)
                 {
                     WriteToConsole(index, item.Name);
@@ -85,7 +70,7 @@ static class AdminMenuEditor
 
     public static void getMenuItems()
     {
-        string filePath = Path.Combine(Environment.CurrentDirectory, @".\DataSources\menu.json");
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
         string JSONString = File.ReadAllText(filePath);
 
 

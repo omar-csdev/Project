@@ -52,13 +52,13 @@ public class JSONEditor
             string updatedJSONString = JsonConvert.SerializeObject(menu, Formatting.Indented);
 
             File.WriteAllText(filePath, updatedJSONString);
-            Console.WriteLine($"Item {itemToRemove} has been removed from the menu");
+            Console.WriteLine($"Item {itemToRemove.Name} has been removed from the menu");
             //Kan het niet beter string return maken en in de view de console.writeline doen?
             Thread.Sleep(3000);
         }
         else
         {
-            Console.WriteLine($"Item {itemToRemove} doesn't exist");
+            Console.WriteLine($"Item {itemToRemove.Name} doesn't exist");
             //Kan het niet beter string return maken en in de view de console.writeline doen?
             Thread.Sleep(3000);
         }
