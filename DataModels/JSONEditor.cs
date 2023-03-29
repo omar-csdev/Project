@@ -36,4 +36,32 @@ public class JSONEditor
 
         File.WriteAllText(filePath, updatedJSONString);
     }
+
+    public static void RemoveItem(int itemId)
+    {
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
+        string JSONString = File.ReadAllText(filePath);
+
+        List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
+
+        Item ? itemToRemove = menu.FirstOrDefault(i => i.Id == itemId);
+        if (itemToRemove != null)
+        {
+            menu.Remove(itemToRemove);
+
+            string updatedJSONString = JsonConvert.SerializeObject(menu, Formatting.Indented);
+
+            File.WriteAllText(filePath, updatedJSONString);
+            Console.WriteLine($"Item {itemToRemove} has been removed from the menu");
+            //Kan het niet beter string return maken en in de view de console.writeline doen?
+            Thread.Sleep(3000);
+        }
+        else
+        {
+            Console.WriteLine($"Item {itemToRemove} doesn't exist");
+            //Kan het niet beter string return maken en in de view de console.writeline doen?
+            Thread.Sleep(3000);
+        }
+    }
+
 }
