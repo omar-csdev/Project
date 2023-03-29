@@ -1,4 +1,5 @@
 ﻿using ConsoleTables;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -39,10 +40,10 @@ namespace Menu_item_creëren
         public static DataTable MenuCreator()
         {
             var table = new DataTable();
-            table.Columns.Add("nummer", typeof(int));
-            table.Columns.Add("Categorie", typeof(string));
-            table.Columns.Add("naam", typeof(string));
-            table.Columns.Add("prijs", typeof(string));
+            table.Columns.Add("Number", typeof(int));
+            table.Columns.Add("Category", typeof(string));
+            table.Columns.Add("Name", typeof(string));
+            table.Columns.Add("Price", typeof(string));
             Console.WriteLine("Menu Items:");
 
 
@@ -52,7 +53,7 @@ namespace Menu_item_creëren
             static void getMenuItems(DataTable table)
             {
                 
-                string filePath = Path.Combine(Environment.CurrentDirectory, @"C:\Users\elfar\source\repos\Project\DataSources\menu.json");
+                string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
                 string JSONString = File.ReadAllText(filePath);
                 List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
                 displayMenuItems(menu, table);
@@ -64,7 +65,8 @@ namespace Menu_item_creëren
                 foreach (Item item in menuToDisplay)
                 {
                     num++;
-                    table.Rows.Add(num, item.Category, item.Name, "€"+item.Price);
+                    string formattedPrice = string.Format("€{0:N2}", item.Price);
+                    table.Rows.Add(num, item.Category, item.Name, formattedPrice);
                 }
             }
             return table;

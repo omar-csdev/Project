@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 public static class OrderFood
 {
-    static List<int> ids = new List<int>();
     static List<string> Orders = new List<string>();
     public static void Start()
     {
@@ -26,7 +25,7 @@ public static class OrderFood
             {
                 Console.WriteLine("What would you like to order? Choose by the name of the id");
                 int input = Convert.ToInt32(Console.ReadLine());
-                string filePath = Path.Combine(Environment.CurrentDirectory, @"C:\Users\elfar\source\repos\Project\DataSources\menu.json");
+                string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
                 string JSONString = File.ReadAllText(filePath);
                 List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
                 bool foundItem = false;
