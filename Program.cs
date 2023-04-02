@@ -1,8 +1,11 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,23 +58,23 @@ namespace Project.Presentation
             if (success)
             {
                 // JSON NOT FUNCTIONAL YET
-                //system.SaveReservations("reservations.json");
+                system.SaveReservations();
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
 
             }
 
         }
     }
-}
 
-public class Reservation
+    public class Reservation
+    {
+        public string Name { get; set; }
+        public int PartySize { get; set; }
+        public DateTime TimeSlot { get; set; }
+    }
 
-{
-    public string Name { get; set; }
-    public int PartySize { get; set; }
-    public DateTime TimeSlot { get; set; }
-}
-
-public class ReservationSystem
+    public class ReservationSystem
 {
     private const int MAX_CAPACITY = 100;
     private const int MAX_PARTY_SIZE = 10;
@@ -80,7 +83,6 @@ public class ReservationSystem
     private List<Reservation> reservations = new List<Reservation>();
 
     public bool MakeReservation(string name, int partySize, DateTime timeSlot)
-        // Somewhere in this function a false is returned without me intending it.
     {
         // Check if party size is too big
         if (partySize > MAX_PARTY_SIZE)
@@ -104,9 +106,7 @@ public class ReservationSystem
         }
 
         // Check if reservation is within maximum days ahead
-        // This is still incorrect, will be fixed.
-
-        if (timeSlot.Date < DateTime.Now.Date.AddDays(MAX_DAYS_AHEAD))
+        if ((timeSlot.Date - DateTime.Now.Date).TotalDays > MAX_DAYS_AHEAD)
         {
             Console.WriteLine($"Sorry, reservations can only be made up to {MAX_DAYS_AHEAD} days in advance.");
             return false;
@@ -115,27 +115,36 @@ public class ReservationSystem
         // Add reservation to the list
         reservations.Add(new Reservation { Name = name, PartySize = partySize, TimeSlot = timeSlot });
 
-        Console.WriteLine($"Reservation made for {partySize} people on {timeSlot:t} under the name {name}.");
+        Console.WriteLine($"Reservation made for {partySize} people at {timeSlot:t} under the name {name}.");
         return true;
     }
 
-    public void SaveReservations(string filename)
+    public void SaveReservations()
     {
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
 
-        //string json = JsonSerializer.Serialize(reservations);
-        //File.WriteAllText(filename, json);
+
+        var FormatContent = JsonConvert.SerializeObject(reservations);
+        if (!File.Exists(filePath))
+        {
+            File.WriteAllText(filePath, FormatContent);
+        }
+        else
+        {
+            File.Delete(filePath);
+            File.WriteAllText(filePath, FormatContent);
+        }
     }
 
-    public void LoadReservations(string filename)
+    public void LoadReservations()
     {
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
 
-        //string json = File.ReadAllText(filename);
-        //using (var reader = JsonReaderWriterFactory.CreateJsonReader(Encoding.UTF8.GetBytes(json), new JsonReaderSettings()))
-        //{
-        //    reservations = JsonSerializer.Deserialize<List<Reservation>>(reader);
-        //}
+        if (File.Exists(filePath))
+        {
+            string JustText = File.ReadAllText(filePath);
+            reservations = JsonConvert.DeserializeObject<List<Reservation>>(JustText);
+        }
     }
-
 }
-
-
+}
