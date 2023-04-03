@@ -18,7 +18,8 @@ public static class AdminLogin
         Console.Clear();
         Say("1", "Log In");
         Say("2", "Remove user");
-        Say("3", "Go back");
+        Say("3", "Add user");
+        Say("4", "Go back");
         string answer = Console.ReadLine();
 
         if (answer == "1")
@@ -38,7 +39,7 @@ public static class AdminLogin
                     test.Add(newAdmin);
                     LoginAccess.WriteAll(test);
                     Console.WriteLine("Added account succesfully! You can login now.");
-                    Thread.Sleep(5000);
+                    Thread.Sleep(3000);
                     Start();
                 }
 
@@ -80,28 +81,51 @@ public static class AdminLogin
             int x = 1;
             foreach (Admin admin in updatedList)
             {
-                Console.WriteLine(x, admin.UserName);
+                Console.WriteLine($"{x} {admin.UserName}");
             }
 
             Console.WriteLine("Enter the username you'd like to remove:");
             string Name = Console.ReadLine();
-            for (int i = 0; i < updatedList.Count; i++;)
+            for (int i = 0; i < updatedList.Count; i++)
             {
                 if (updatedList[i].UserName == Name)
                 {
                     updatedList.Remove(updatedList[i]);
                     Console.WriteLine("User succesfully removed!");
                     LoginAccess.WriteAll(updatedList);
-                    Thread.Sleep(3000)
+                    Thread.Sleep(3000);
                     Start();
                 }
 
             }
             Console.WriteLine("User not found.");
-            Thread.Sleep(3000)
+            Thread.Sleep(3000);
             Start();
         }
+
         else if (answer == "3")
+        {
+            List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
+            Console.WriteLine("Username?");
+            string username = Console.ReadLine();
+            Console.WriteLine("Password?");
+            string password = Console.ReadLine();
+
+            Admin newAcc = new(username, password);
+            foreach (Admin admin in updatedList) 
+            {
+                if (admin.UserName == newAcc.UserName)
+                {
+                    Console.WriteLine("Username was already taken.");
+                    Thread.Sleep(3000);
+                    Start();
+                }
+            }
+            updatedList.Add(newAcc);
+            LoginAccess.WriteAll(updatedList);
+            Console.WriteLine("User added!");
+        }
+        else if (answer == "4")
         {
             Console.Clear();
             MainMenu.Start();
