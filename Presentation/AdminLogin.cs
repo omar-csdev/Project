@@ -67,16 +67,39 @@ public static class AdminLogin
                     if (admin.UserName == username && admin.Password == password)
                     {
                         Console.WriteLine($"User {username} logged in succesfully!");
-                        Environment.Exit(0);
+                        Environment.Exit(0); //oualid kan hier de startfunctie van zijn dashboard callen.
                     }
                 }
                 Console.WriteLine("No users found with the matching credentials!", Color.Red);
-                Thread.Sleep(5000);
+                Thread.Sleep(3000);
             }
         }
         else if (answer == "2")
         {
+            List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
+            int x = 1;
+            foreach (Admin admin in updatedList)
+            {
+                Console.WriteLine(x, admin.UserName);
+            }
 
+            Console.WriteLine("Enter the username you'd like to remove:");
+            string Name = Console.ReadLine();
+            for (int i = 0; i < updatedList.Count; i++;)
+            {
+                if (updatedList[i].UserName == Name)
+                {
+                    updatedList.Remove(updatedList[i]);
+                    Console.WriteLine("User succesfully removed!");
+                    LoginAccess.WriteAll(updatedList);
+                    Thread.Sleep(3000)
+                    Start();
+                }
+
+            }
+            Console.WriteLine("User not found.");
+            Thread.Sleep(3000)
+            Start();
         }
         else if (answer == "3")
         {
