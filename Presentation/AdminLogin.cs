@@ -81,7 +81,11 @@ public static class AdminLogin
             int x = 1;
             foreach (Admin admin in updatedList)
             {
-                Console.WriteLine($"{x} {admin.UserName}");
+                if (admin.UserName != null)
+                {
+                    Console.WriteLine($"{x} {admin.UserName}");
+                    x += 1;
+                }
             }
 
             Console.WriteLine("Enter the username you'd like to remove:");
@@ -124,6 +128,8 @@ public static class AdminLogin
             updatedList.Add(newAcc);
             LoginAccess.WriteAll(updatedList);
             Console.WriteLine("User added!");
+            Thread.Sleep(3000);
+            Start();
         }
         else if (answer == "4")
         {
