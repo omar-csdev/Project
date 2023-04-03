@@ -124,15 +124,14 @@ namespace Project.Presentation
         string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
 
 
-        var FormatContent = JsonConvert.SerializeObject(reservations);
+        var FormatContent = string.Join("\n", reservations.Select(r => JsonConvert.SerializeObject(r)));
         if (!File.Exists(filePath))
         {
             File.WriteAllText(filePath, FormatContent);
         }
         else
         {
-            File.Delete(filePath);
-            File.WriteAllText(filePath, FormatContent);
+            File.AppendAllText(filePath, FormatContent);
         }
     }
 
