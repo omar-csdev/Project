@@ -73,7 +73,6 @@ public class JSONEditor
         List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
 
         Item ? itemToUpdate = menu.FirstOrDefault(i => i.Id == ItemID);
-        Console.WriteLine(itemToUpdate);
         if (itemToUpdate != null)
         {
             itemToUpdate.Name = item.Name;

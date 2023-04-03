@@ -6,9 +6,9 @@
     "Id": 1
   },
   {
-    "Name": "Redje Edited",
+    "Name": "Redje",
     "Category": "Drink",
-    "Price": 2.5,
+    "Price": 400.0,
     "Id": 2
   },
   {
@@ -18,9 +18,9 @@
     "Id": 3
   },
   {
-    "Name": "Msemen met honing",
+    "Name": "Msemen honing",
     "Category": "Food",
-    "Price": 2.5,
+    "Price": 4.5,
     "Id": 4
   },
   {
@@ -34,5 +34,11 @@
     "Category": "Food",
     "Price": 0.5,
     "Id": 6
+  },
+  {
+    "Name": "Appel",
+    "Category": "Food",
+    "Price": 2.5,
+    "Id": 7
   }
 ]

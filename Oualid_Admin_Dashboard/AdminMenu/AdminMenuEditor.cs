@@ -49,12 +49,15 @@ static class AdminMenuEditor
                         Console.WriteLine("Category: " + chosenItem.Category);
                     }
                     
-                    Console.WriteLine("Enter the new name of the item: ");
+                    Console.WriteLine("Enter the new name of the item (Press Enter key to keep the old value): ");
                     string name = Console.ReadLine();
-                    Console.WriteLine("Enter the new price of the item (0.00) : ");
-                    double price = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("Enter the new category of the item (Food or Drink): ");
-                    string category = Console.ReadLine();
+                    name = name == "" ? chosenItem.Name : name;
+
+                    Console.WriteLine("Enter the new price of the item (0.00) (Press Enter key to keep the old value) : ");
+                    double price = Double.TryParse(Console.ReadLine(), out double priceInput) ? priceInput : chosenItem.Price;
+                    WriteToConsole(1, "Food");
+                    WriteToConsole(2, "Drink");
+                    string category = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Food" : "Drink" : Console.ReadLine();
                     if (category.ToLower() == "food")
                     {
                         Food food = new Food(name, price, category);
@@ -134,7 +137,7 @@ static class AdminMenuEditor
     }
 
     public static void getMenuItems()
-    {
+    {  
         string filePath = Path.Combine(Environment.CurrentDirectory, @".\DataSources\menu.json");
         string JSONString = File.ReadAllText(filePath);
 
