@@ -35,6 +35,7 @@ public static class AdminLogin
 
 
         Console.Clear();
+        Console.WriteLine("ADMIN MENU:", Color.RebeccaPurple);
         Say("1", "Log In");
         Say("2", "Remove user");
         Say("3", "Add user");
@@ -44,7 +45,7 @@ public static class AdminLogin
         if (answer == "1")
         {
             Console.Clear();   
-            Console.WriteLine("LOGGING IN:");
+            Console.WriteLine("LOGGING IN:", Color.RebeccaPurple);
             //dit codeblock zal veranderd worden wanneer de json file uitlezen werkt, dit is een tijdelijke "oplossing"
             if (test.Count == 1)
             {
@@ -99,14 +100,20 @@ public static class AdminLogin
         else if (answer == "2")
         {
             Console.Clear();
-            Console.WriteLine("REMOVING AN USER:");
+            Console.WriteLine("REMOVING AN USER:", Color.RebeccaPurple);
             List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
+            if (updatedList.Count == 1)
+            {
+                Console.WriteLine("No users to remove!", Color.Red);
+                Loading();
+            }
+
             int x = 1;
             foreach (Admin admin in updatedList)
             {
                 if (admin.UserName != null)
                 {
-                    Console.WriteLine($"{x} {admin.UserName}");
+                    Say($"{x}", $"{admin.UserName}");
                     x += 1;
                 }
             }
@@ -121,16 +128,19 @@ public static class AdminLogin
                 LoginAccess.WriteAll(updatedList);
                 Loading();
             }
-            Console.Clear();
-            Console.WriteLine("ID not found.", Color.Red);
-            Thread.Sleep(3000);
-            Start();
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("ID not found.", Color.Red);
+                Thread.Sleep(3000);
+                Start();
+            }
         }
 
         else if (answer == "3")
         {
             Console.Clear();
-            Console.WriteLine("ADDING AN USER:");
+            Console.WriteLine("ADDING AN USER:", Color.RebeccaPurple);
             List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
             Console.WriteLine("Username?");
             string username = Console.ReadLine();
