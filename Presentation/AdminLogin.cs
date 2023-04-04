@@ -2,6 +2,25 @@
 using Console = Colorful.Console;
 public static class AdminLogin
 {
+
+    public static void Loading()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == 0)
+            {
+                Console.Write("Loading");
+                Thread.Sleep(1000);
+            }
+
+            else
+            {
+                Console.Write(".");
+                Thread.Sleep(1000);
+            }
+        }
+        AdminLogin.Start();
+    }
     public static void Say(string prefix, string message)
     {
         Console.Write("[");
@@ -24,6 +43,8 @@ public static class AdminLogin
 
         if (answer == "1")
         {
+            Console.Clear();   
+            Console.WriteLine("LOGGING IN:");
             //dit codeblock zal veranderd worden wanneer de json file uitlezen werkt, dit is een tijdelijke "oplossing"
             if (test.Count == 1)
             {
@@ -77,6 +98,8 @@ public static class AdminLogin
         }
         else if (answer == "2")
         {
+            Console.Clear();
+            Console.WriteLine("REMOVING AN USER:");
             List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
             int x = 1;
             foreach (Admin admin in updatedList)
@@ -88,27 +111,26 @@ public static class AdminLogin
                 }
             }
 
-            Console.WriteLine("Enter the username you'd like to remove:");
-            string Name = Console.ReadLine();
-            for (int i = 0; i < updatedList.Count; i++)
+            Console.WriteLine("Enter the ID of the username you'd like to remove:");
+            string id = Console.ReadLine();
+            int ID = Convert.ToInt32(id);
+            if (ID < updatedList.Count && ID > 0)
             {
-                if (updatedList[i].UserName == Name)
-                {
-                    updatedList.Remove(updatedList[i]);
-                    Console.WriteLine("User succesfully removed!");
-                    LoginAccess.WriteAll(updatedList);
-                    Thread.Sleep(3000);
-                    Start();
-                }
-
+                Console.WriteLine($"Succesfully removed user {updatedList[ID].UserName}!");
+                updatedList.Remove(updatedList[ID]);
+                LoginAccess.WriteAll(updatedList);
+                Loading();
             }
-            Console.WriteLine("User not found.");
+            Console.Clear();
+            Console.WriteLine("ID not found.", Color.Red);
             Thread.Sleep(3000);
             Start();
         }
 
         else if (answer == "3")
         {
+            Console.Clear();
+            Console.WriteLine("ADDING AN USER:");
             List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
             Console.WriteLine("Username?");
             string username = Console.ReadLine();
@@ -128,8 +150,7 @@ public static class AdminLogin
             updatedList.Add(newAcc);
             LoginAccess.WriteAll(updatedList);
             Console.WriteLine("User added!");
-            Thread.Sleep(3000);
-            Start();
+            Loading();
         }
         else if (answer == "4")
         {
