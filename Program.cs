@@ -24,17 +24,18 @@ namespace Project.Presentation
             string name;
             while (true)
             {
+          
                 Console.WriteLine("Enter your name: ");
                 try
                 {
                     name = Console.ReadLine();
                     if (string.IsNullOrEmpty(name))
                     {
-                        throw new Exception("Name cannot be empty or null.");
+                        throw new Exception("Name cannot be empty or null, please enter a valid name.");
                     }
                     else if (name.Any(char.IsDigit))
                     {
-                        throw new Exception("Name cannot contain numbers.");
+                        throw new Exception("Name cannot contain numbers, please enter a valid name.");
                     }
                     break;
                 }
@@ -45,10 +46,14 @@ namespace Project.Presentation
             }
 
             // load reservations and get total party size.
-            //list<String> ListGuests = system.LoadReservations();
+            List<Reservation> reservations = SaveReservations.LoadAll();
+            int totalGuests = 0;
+            foreach (Reservation reservation in reservations)
+            {
+                 totalGuests += reservation.PartySize;
+            }
 
             int totalCapacity = 100;
-            int totalGuests = 0;
             int maxGuests = totalGuests > 90 ? totalCapacity - totalGuests : 10;
             Console.WriteLine($"Enter the size of your party (1-{maxGuests}): ");
             int partySize;
@@ -120,7 +125,7 @@ namespace Project.Presentation
             bool success = system.MakeReservation(name, partySize, timeSlot);
             if (success)
             {
-                system.SaveReservations();
+                SaveReservations.WriteAll(system.reservations);  
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
 
@@ -139,7 +144,7 @@ namespace Project.Presentation
     public class ReservationSystem
 {
 
-    private List<Reservation> reservations = new List<Reservation>();
+    public List<Reservation> reservations = new List<Reservation>();
 
     public bool MakeReservation(string name, int partySize, DateTime timeSlot)
     {
@@ -150,32 +155,35 @@ namespace Project.Presentation
         return true;
     }
 
-    public void SaveReservations()
-    {
-        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
-
-        // Saves new reservation to the json
-        var FormatContent = JsonConvert.SerializeObject(reservations, Formatting.Indented);
-        if (!File.Exists(filePath))
-        {
-            File.WriteAllText(filePath, FormatContent);
-        }
-        else
-        {
-            File.AppendAllText(filePath, FormatContent);
-        }
     }
 
-    public void LoadReservations()
+    public static class SaveReservations
+    {
+
+    public static List<Reservation> LoadAll()
     {
         string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+        string JSONString = File.ReadAllText(filePath);
 
-        if (File.Exists(filePath))
-        {   
-            // Load all reservations and returns them in a list
-            string JustText = File.ReadAllText(filePath);
-            List<String> ReservationsList = JsonConvert.DeserializeObject<List<String>>(JustText) ?? new List<String>();
-        }
+        List<Reservation> Allreservations = JsonConvert.DeserializeObject<List<Reservation>>(JSONString) ?? new List<Reservation>();
+        return Allreservations;
+    }
+
+        
+    public static void WriteAll(List<Reservation> NewReservations)
+    {
+
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+
+        string jsonString = File.ReadAllText(filePath);
+
+        List<Reservation> existingReservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString) ?? new List<Reservation>();
+    
+        existingReservations.AddRange(NewReservations);
+
+        string updatedJSONString = JsonConvert.SerializeObject(existingReservations, Formatting.Indented);
+
+        File.WriteAllText(filePath, updatedJSONString);
     }
 }
 }
