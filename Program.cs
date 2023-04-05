@@ -24,7 +24,7 @@ namespace Project.Presentation
             string name;
             while (true)
             {
-          
+                
                 Console.WriteLine("Enter your name: ");
                 try
                 {
@@ -45,12 +45,21 @@ namespace Project.Presentation
                 }
             }
 
-            // load reservations and get total party size.
+            // load reservations and get total party size, not yet seperated by timeslot.
             List<Reservation> reservations = SaveReservations.LoadAll();
             int totalGuests = 0;
             foreach (Reservation reservation in reservations)
             {
                  totalGuests += reservation.PartySize;
+            }
+            // If restaurant is fully booked you get notified but for now time slots are not functional yet.
+            if (totalGuests == 100)
+            {
+                System.Console.WriteLine("We are fully booked");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+                Environment.Exit(0);
+                
             }
 
             int totalCapacity = 100;
