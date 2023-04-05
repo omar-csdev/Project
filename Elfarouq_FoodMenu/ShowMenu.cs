@@ -63,7 +63,7 @@ namespace Menu_item_creëren
                 {
                     num++;
                     string formattedPrice = string.Format("€{0:N2}", item.Price);
-                    table.Rows.Add(num, item.Category, item.Name, formattedPrice);
+                    table.Rows.Add(num, item.Type, item.Name, formattedPrice);
                 }
             }
             return table;
