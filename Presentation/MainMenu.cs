@@ -25,14 +25,15 @@ static class MainMenu
             }
             else if (input == "2")
             {
-                // View Menu
-                AdminDashboard.DisplayDashboard();
-                Environment.Exit(1);
+                // View Client Menu
                 
             }
             else if (input == "3")
             {
-                // Admin Login
+                // Admin Login Hier moet de logica komen om de admin in te loggen en te redirecten naar de admin dashboard
+                //(Oualid heeft hier wat code geschreven om zijn eigen code te kunnen testen)
+                AdminDashboard.DisplayDashboard();
+                Environment.Exit(1);
             }
             else if (input == "4")
             {
