@@ -17,10 +17,10 @@ public static class FoodMenu
 {
     public static void Start()
     {
-        Console.WriteLine("What would you like to do");
-        Say("1", "SHOW food-menu");
+        WriteLogo();
+        Say("1", "Show food-menu");
         Say("2", "Order food");
-        Say("3", "GO back");
+        Say("3", "Go back");
 
         string input = Console.ReadLine();
         if (input == "1")
@@ -28,25 +28,39 @@ public static class FoodMenu
             MenuItem.Start();
             Console.WriteLine("\nClick enter to go back");
             Console.ReadLine();
+            Console.Clear();
             Start();
         }
         else if (input == "2")
         {
-            MenuItem.Start();
+            Console.Clear();
             OrderFood.Start();
         }
         else if (input == "3") 
         {
+            Console.Clear();
             MainMenu.Start();
         }
-        else { Console.WriteLine("Geef een valide optie"); FoodMenu.Start(); }
+        else { Console.WriteLine("Give a valid option"); FoodMenu.Start(); }
     }
 
     public static void Say(string prefix, string message)
     {
         Console.Write("[");
-        Console.Write(prefix, Color.Red);
+        Console.Write(prefix, Color.Green);
         Console.WriteLine("] " + message);
     }
 
+    public static void WriteLogo()
+    {
+        string logo = @"  _____               _ __  __                  
+ |  ___|__   ___   __| |  \/  | ___ _ __  _   _ 
+ | |_ / _ \ / _ \ / _` | |\/| |/ _ \ '_ \| | | |
+ |  _| (_) | (_) | (_| | |  | |  __/ | | | |_| |
+ |_|  \___/ \___/ \__,_|_|  |_|\___|_| |_|\__,_|
+                                                                                                
+";
+
+        Console.WriteLine(logo, Color.Wheat);
+    }
 }

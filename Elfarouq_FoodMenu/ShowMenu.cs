@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Menu_item_creëren
 {
     static class MenuItem
@@ -45,8 +44,6 @@ namespace Menu_item_creëren
             table.Columns.Add("Name", typeof(string));
             table.Columns.Add("Price", typeof(string));
             Console.WriteLine("Menu Items:");
-
-
             getMenuItems(table);
             //de bedoeling is om een for loop te maken die langs elke item in de json file en in deze for-loop steeds een rij toe te voegen.
             //Hierdoor kunnen we de tabel updaten (item verwijderen/toevoegen in de json zal de tabel groter/kleiner maken)
