@@ -7,17 +7,17 @@ static class MainMenu
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
-    static public void Start()
+    public static void Start()
     {
-        for (; ; )
+        while (true)
         {
             Console.Clear();
             WriteLogo();
             Say("1", "Make a Reservation");
-            Say("2", "View Food Menu");
+            Say("2", "View Menu");
             Say("3", "Admin Login");
             Say("4", "Quit");
-            Say("5", "Add menu item");
+            Say("5", "FoodMenu");
             string input = Console.ReadLine();
             if (input == "1")
             {
@@ -25,15 +25,11 @@ static class MainMenu
             }
             else if (input == "2")
             {
-                // View Client Menu
-                
+                // View Menu
             }
             else if (input == "3")
             {
-                // Admin Login Hier moet de logica komen om de admin in te loggen en te redirecten naar de admin dashboard
-                //(Oualid heeft hier wat code geschreven om zijn eigen code te kunnen testen)
-                AdminDashboard.DisplayDashboard();
-                Environment.Exit(1);
+                AdminLogin.Start();
             }
             else if (input == "4")
             {
@@ -42,41 +38,11 @@ static class MainMenu
             }
             else if (input == "5")
             {
-                Console.WriteLine("Enter Item name ('Food' or 'Drink'):\n\r");
-                string itemName = Console.ReadLine();
-                Console.WriteLine("Enter Item price:\r\n");
-                double inputPrice;
-                bool isValidInput = double.TryParse(Console.ReadLine(), out inputPrice);
-                if (isValidInput)
-                {
-                    if (itemName == "Food")
-                    {
-                        Console.WriteLine("Enter food name:\n\r");
-                        string foodName = Console.ReadLine();
-                        Food newFood = new Food(foodName, inputPrice, "Food");
-                        JSONEditor.AddItem(newFood);
-                    }
-                    else if (itemName == "Drink")
-                    {
-                        Console.WriteLine("Enter drink name:\n\r");
-                        string drinkName = Console.ReadLine();
-                        Drink newDrink = new Drink(drinkName, inputPrice, "Drink");
-                        JSONEditor.AddItem(newDrink);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid input. Please enter either 'Food' or 'Drink'.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please enter a valid integer.");
-                }
+                FoodMenu.Start();
             }
             else
             {
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-
                 Thread.Sleep(3000);
             }
         }
@@ -85,7 +51,7 @@ static class MainMenu
     public static void Say(string prefix, string message)
     {
         Console.Write("[");
-        Console.Write(prefix, Color.Green);
+        Console.Write(prefix, Color.Red);
         Console.WriteLine("] " + message);
     }
 

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Menu_item_creëren
+namespace Project.DataModels
 {
     static class MenuItem
     {
