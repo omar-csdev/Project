@@ -90,7 +90,7 @@ public static class AdminLogin
                     if (admin.UserName == username && admin.Password == password)
                     {
                         Console.WriteLine($"User {username} logged in succesfully!");
-                        Environment.Exit(0); //oualid kan hier de startfunctie van zijn dashboard callen.
+                        AdminDashboard.DisplayDashboard(); //oualid kan hier de startfunctie van zijn dashboard callen.
                     }
                 }
                 Console.WriteLine("No users found with the matching credentials!", Color.Red);
