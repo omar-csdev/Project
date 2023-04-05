@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Diagnostics;
+using Menu_item_creëren;
+using System.Drawing;
+using Console = Colorful.Console;
+
+public static class FoodMenu
+{
+    public static void Start()
+    {
+        WriteLogo();
+        Say("1", "Show food-menu");
+        Say("2", "Order food");
+        Say("3", "Go back");
+
+        string input = Console.ReadLine();
+        if (input == "1")
+        {
+            MenuItem.Start();
+            Console.WriteLine("\nClick enter to go back");
+            Console.ReadLine();
+            Console.Clear();
+            Start();
+        }
+        else if (input == "2")
+        {
+            Console.Clear();
+            OrderFood.Start();
+        }
+        else if (input == "3") 
+        {
+            Console.Clear();
+            MainMenu.Start();
+        }
+        else { Console.WriteLine("Give a valid option"); FoodMenu.Start(); }
+    }
+
+    public static void Say(string prefix, string message)
+    {
+        Console.Write("[");
+        Console.Write(prefix, Color.Green);
+        Console.WriteLine("] " + message);
+    }
+
+    public static void WriteLogo()
+    {
+        string logo = @"  _____               _ __  __                  
+ |  ___|__   ___   __| |  \/  | ___ _ __  _   _ 
+ | |_ / _ \ / _ \ / _` | |\/| |/ _ \ '_ \| | | |
+ |  _| (_) | (_) | (_| | |  | |  __/ | | | |_| |
+ |_|  \___/ \___/ \__,_|_|  |_|\___|_| |_|\__,_|
+                                                                                                
+";
+
+        Console.WriteLine(logo, Color.Wheat);
+    }
+}

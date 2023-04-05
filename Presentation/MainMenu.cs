@@ -25,7 +25,8 @@ static class MainMenu
             }
             else if (input == "2")
             {
-                // View Menu
+                Console.Clear();
+                FoodMenu.Start();
             }
             else if (input == "3")
             {
