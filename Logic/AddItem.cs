@@ -27,4 +27,3 @@ static class AddItem
             // maak een overschrijving van de info naar een json file. Anders kan de informatie niet overgezet worden naar de tabel.
         }
     }
-}
