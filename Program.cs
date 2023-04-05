@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Project.Presentation
 {
@@ -20,11 +21,55 @@ namespace Project.Presentation
 
             ReservationSystem system = new ReservationSystem();
 
-            Console.WriteLine("Enter your name: ");
-            string name = Console.ReadLine();
+            string name;
+            while (true)
+            {
+                Console.WriteLine("Enter your name: ");
+                try
+                {
+                    name = Console.ReadLine();
+                    if (string.IsNullOrEmpty(name))
+                    {
+                        throw new Exception("Name cannot be empty or null.");
+                    }
+                    else if (name.Any(char.IsDigit))
+                    {
+                        throw new Exception("Name cannot contain numbers.");
+                    }
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
 
-            Console.WriteLine("Enter the size of your party (1-10): ");
-            int partySize = int.Parse(Console.ReadLine());
+            // load reservations and get total party size.
+            //list<String> ListGuests = system.LoadReservations();
+
+            int totalCapacity = 100;
+            int totalGuests = 0;
+            int maxGuests = totalGuests > 90 ? totalCapacity - totalGuests : 10;
+            Console.WriteLine($"Enter the size of your party (1-{maxGuests}): ");
+            int partySize;
+            while (true)
+            {
+                try
+                {
+                    partySize = int.Parse(Console.ReadLine());
+                    if (partySize < 1 || partySize > maxGuests)
+                    {
+                        Console.WriteLine($"Enter a number between 1 and {maxGuests} as you're not allowed to make a reservation for a party of this size.");
+                        continue;
+                    }
+                    break;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Please enter a valid number between 1 and 10 to make your reservation.");
+                }
+            }
+
 
             Console.WriteLine("Choose a reservation time:");
             Console.WriteLine("1. 12:30-15:00");
@@ -32,7 +77,25 @@ namespace Project.Presentation
             Console.WriteLine("3. 17:30-20:00");
             Console.WriteLine("4. 20:00-22:30");
             Console.Write("Enter your choice (1-4): ");
-            int choice = int.Parse(Console.ReadLine());
+
+            int choice;
+            while (true)
+            {
+                try
+                {
+                    choice = int.Parse(Console.ReadLine());
+                    if (choice < 1 || choice > 4)
+                    {
+                        Console.WriteLine($"Enter a number between 1 and 4.");
+                        continue;
+                    }
+                    break;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Please enter a valid number between 1 and 4.");
+                }
+            }
 
             DateTime timeSlot;
             switch (choice)
@@ -57,7 +120,6 @@ namespace Project.Presentation
             bool success = system.MakeReservation(name, partySize, timeSlot);
             if (success)
             {
-                // JSON NOT FUNCTIONAL YET
                 system.SaveReservations();
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
@@ -76,42 +138,11 @@ namespace Project.Presentation
 
     public class ReservationSystem
 {
-    private const int MAX_CAPACITY = 100;
-    private const int MAX_PARTY_SIZE = 10;
-    private const int MAX_DAYS_AHEAD = 1;
 
     private List<Reservation> reservations = new List<Reservation>();
 
     public bool MakeReservation(string name, int partySize, DateTime timeSlot)
     {
-        // Check if party size is too big
-        if (partySize > MAX_PARTY_SIZE)
-        {
-            Console.WriteLine($"Sorry, we cannot accommodate parties larger than {MAX_PARTY_SIZE} people.");
-            return false;
-        }
-
-        // Check if restaurant is already at maximum capacity
-        int totalReserved = reservations.Where(r => r.TimeSlot == timeSlot).Sum(r => r.PartySize);
-        if (totalReserved + partySize > MAX_CAPACITY)
-        {
-            Console.WriteLine($"Sorry, we are fully booked for the size of your party at this: {timeSlot:t} time slot.");
-            if (MAX_CAPACITY - totalReserved != 0)
-            {
-                Console.WriteLine($"We do have {MAX_CAPACITY - totalReserved} spots left.");
-
-            }
-            Console.WriteLine($"");
-            return false;
-        }
-
-        // Check if reservation is within maximum days ahead
-        if ((timeSlot.Date - DateTime.Now.Date).TotalDays > MAX_DAYS_AHEAD)
-        {
-            Console.WriteLine($"Sorry, reservations can only be made up to {MAX_DAYS_AHEAD} days in advance.");
-            return false;
-        }
-
         // Add reservation to the list
         reservations.Add(new Reservation { Name = name, PartySize = partySize, TimeSlot = timeSlot });
 
@@ -123,8 +154,8 @@ namespace Project.Presentation
     {
         string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
 
-
-        var FormatContent = string.Join("\n", reservations.Select(r => JsonConvert.SerializeObject(r)));
+        // Saves new reservation to the json
+        var FormatContent = JsonConvert.SerializeObject(reservations, Formatting.Indented);
         if (!File.Exists(filePath))
         {
             File.WriteAllText(filePath, FormatContent);
@@ -140,9 +171,10 @@ namespace Project.Presentation
         string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
 
         if (File.Exists(filePath))
-        {
+        {   
+            // Load all reservations and returns them in a list
             string JustText = File.ReadAllText(filePath);
-            reservations = JsonConvert.DeserializeObject<List<Reservation>>(JustText);
+            List<String> ReservationsList = JsonConvert.DeserializeObject<List<String>>(JustText) ?? new List<String>();
         }
     }
 }
