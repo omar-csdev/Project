@@ -41,6 +41,7 @@ class AccountsLogic
 
     public AccountModel GetById(int id)
     {
+        
         return _accounts.Find(i => i.Id == id);
     }
 

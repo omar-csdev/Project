@@ -21,7 +21,7 @@ public static class FoodMenu
         Console.WriteLine("3. Toon alle gerechten");
         Console.WriteLine("4.Ga terug");
 
-        string input = Console.ReadLine();
+        string ? input = Console.ReadLine();
         if (input == "1") 
         {
         AddItem.Start();

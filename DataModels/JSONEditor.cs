@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Drawing;
+using Console = Colorful.Console;
 
 public class JSONEditor
 {
@@ -37,9 +39,9 @@ public class JSONEditor
         File.WriteAllText(filePath, updatedJSONString);
     }
 
-    public static void RemoveItem(int itemId)
+    public static bool RemoveItem(int itemId)
     {
-        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
+        string filePath = Path.Combine(Environment.CurrentDirectory, @".\DataSources\menu.json");
         string JSONString = File.ReadAllText(filePath);
 
         List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
@@ -52,15 +54,13 @@ public class JSONEditor
             string updatedJSONString = JsonConvert.SerializeObject(menu, Formatting.Indented);
 
             File.WriteAllText(filePath, updatedJSONString);
-            Console.WriteLine($"Item {itemToRemove.Name} has been removed from the menu");
+            return true;
             //Kan het niet beter string return maken en in de view de console.writeline doen?
-            Thread.Sleep(3000);
         }
         else
         {
-            Console.WriteLine($"Item {itemToRemove.Name} doesn't exist");
             //Kan het niet beter string return maken en in de view de console.writeline doen?
-            Thread.Sleep(3000);
+            return false;
         }
     }
 

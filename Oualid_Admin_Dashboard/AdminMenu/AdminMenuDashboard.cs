@@ -34,11 +34,9 @@ static class AdminDashboardMenuDashboard
             else
             {
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                Thread.Sleep(1500);
             }
         }
     }
-
     public static void WriteToConsole(int prefix, string message)
     {
         Console.Write("[");
