@@ -52,7 +52,7 @@ static class AdminMenuEditor
                     if(chosenItem != null){
                         Console.WriteLine("Name: " + chosenItem.Name);
                         Console.WriteLine("Price: " + chosenItem.Price);
-                        Console.WriteLine("Category: " + chosenItem.Category);
+                        Console.WriteLine("Type: " + chosenItem.Type);
                     }
                     
                     Console.WriteLine("Enter the new name of the item (Press Enter key to keep the old value): ");
@@ -173,7 +173,7 @@ static class AdminMenuEditor
 
     public static void getMenuItems()
     {  
-        string filePath = Path.Combine(Environment.CurrentDirectory, @".\DataSources\menu.json");
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
         string JSONString = File.ReadAllText(filePath);
 
 

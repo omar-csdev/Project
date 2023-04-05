@@ -14,7 +14,7 @@ static class AdminMenuView
             Console.Clear();
             WriteLogo();
             WriteToConsole(1, "View Whole Menu");
-            WriteToConsole(2, "View Menu by Category");
+            WriteToConsole(2, "View Menu by Type");
             WriteToConsole(3, "Back to Menu Dashboard");
             int input = Convert.ToInt32(Console.ReadLine());
             if (input == 1)
@@ -65,7 +65,7 @@ static class AdminMenuView
 
     public static void getMenuItems()
     {
-        string filePath = Path.Combine(Environment.CurrentDirectory, @".\DataSources\menu.json");
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
         string JSONString = File.ReadAllText(filePath);
 
 
@@ -77,31 +77,37 @@ static class AdminMenuView
         Console.WriteLine("Menu Items:");
         foreach (Item item in menu)
         {
-            Console.WriteLine($"{item.Name} - {item.Price}eu - {item.Category}");
+            Console.WriteLine($"{item.Name} - {item.Price}eu - {item.Type}");
         }
-        Console.ReadKey();  
+        Console.WriteLine("Press a key to continue", Color.Orange);
+        Console.ReadKey();
+        DisplayMenuDisplayOptions();
     }
     
     public static void displayFoodMenuItems(){
         Console.WriteLine("Food Menu Items:");
         foreach (Item item in menu)
         {
-            if(item.Category == "Food"){
-                Console.WriteLine($"{item.Name} - {item.Price}eu - {item.Category}");
+            if(item.Type == "Food"){
+                Console.WriteLine($"{item.Name} - {item.Price}eu - {item.Type}");
             }
         }
+        Console.WriteLine("Press a key to continue");
         Console.ReadKey();
+        DisplayMenuDisplayOptions();
     }
 
     public static void displayDrinkMenuItems(){
         Console.WriteLine("Drink Menu Items:");
         foreach (Item item in menu)
         {
-            if(item.Category == "Drink"){
-                Console.WriteLine($"{item.Name} - {item.Price}eu - {item.Category}");
+            if(item.Type == "Drink"){
+                Console.WriteLine($"{item.Name} - {item.Price}eu - {item.Type}");
             }
         }
+        Console.WriteLine("Press a key to continue");
         Console.ReadKey();
+        DisplayMenuDisplayOptions();
     }
     public static void WriteLogo()
     {

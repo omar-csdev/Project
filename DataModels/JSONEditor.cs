@@ -9,7 +9,7 @@ public class JSONEditor
 {
     public static void AddItem(Item item)
     {
-        string filePath = Path.Combine(Environment.CurrentDirectory, @".\DataSources\menu.json");
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
         string JSONString = File.ReadAllText(filePath);
 
         List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
@@ -41,7 +41,7 @@ public class JSONEditor
 
     public static bool RemoveItem(int itemId)
     {
-        string filePath = Path.Combine(Environment.CurrentDirectory, @".\DataSources\menu.json");
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
         string JSONString = File.ReadAllText(filePath);
 
         List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
@@ -67,7 +67,7 @@ public class JSONEditor
     //Gets an item as parameter with updated values and updates the item in the JSON file with the same ID
     public static bool UpdateItem(int ItemID, Item item)
     {
-        string filePath = Path.Combine(Environment.CurrentDirectory, @".\DataSources\menu.json");
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
         string JSONString = File.ReadAllText(filePath);
 
         List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
@@ -77,7 +77,7 @@ public class JSONEditor
         {
             itemToUpdate.Name = item.Name;
             itemToUpdate.Price = item.Price;
-            itemToUpdate.Category = item.Category;
+            itemToUpdate.Type = item.Type;
             string updatedJSONString = JsonConvert.SerializeObject(menu, Formatting.Indented);
             File.WriteAllText(filePath, updatedJSONString);
             return true;
