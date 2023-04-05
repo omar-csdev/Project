@@ -45,8 +45,8 @@ static class MainMenu
                 Console.WriteLine("Enter Item name ('Food' or 'Drink'):\n\r");
                 string itemName = Console.ReadLine();
                 Console.WriteLine("Enter Item price:\r\n");
-                int inputPrice;
-                bool isValidInput = int.TryParse(Console.ReadLine(), out inputPrice);
+                double inputPrice;
+                bool isValidInput = double.TryParse(Console.ReadLine(), out inputPrice);
                 if (isValidInput)
                 {
                     if (itemName == "Food")

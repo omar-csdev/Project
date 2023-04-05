@@ -18,12 +18,12 @@ public class JSONEditor
         if (item is Food)
         {
             Food food = (Food)item;
-            newItem = new Food(food.Name, food.Price, food.Category);
+            newItem = new Food(food.Name, food.Price, food.Type);
         }
         else if (item is Drink)
         {
             Drink drink = (Drink)item;
-            newItem = new Drink(drink.Name, drink.Price, drink.Category);
+            newItem = new Drink(drink.Name, drink.Price, drink.Type);
         }
         else
         {
