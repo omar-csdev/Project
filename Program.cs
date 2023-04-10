@@ -25,7 +25,8 @@ namespace Project.Presentation
             while (true)
             {
                 
-                Console.WriteLine("Enter your name: ");
+                Console.WriteLine("Enter your name for your reservation: ");
+                // Input checks
                 try
                 {
                     name = Console.ReadLine();
@@ -66,6 +67,7 @@ namespace Project.Presentation
             int maxGuests = totalGuests > 90 ? totalCapacity - totalGuests : 10;
             Console.WriteLine($"Enter the size of your party (1-{maxGuests}): ");
             int partySize;
+            // Input checks
             while (true)
             {
                 try
@@ -93,6 +95,7 @@ namespace Project.Presentation
             Console.Write("Enter your choice (1-4): ");
 
             int choice;
+            // Input checks
             while (true)
             {
                 try
