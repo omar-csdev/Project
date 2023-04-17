@@ -1,3 +1,4 @@
+using Project.Olivier_Reservations;
 using System.Drawing;
 using Console = Colorful.Console;
 
@@ -20,7 +21,7 @@ static class MainMenu
             string input = Console.ReadLine();
             if (input == "1")
             {
-                // Make a reservation
+                Reservations.Reservationstart();
             }
             else if (input == "2")
             {

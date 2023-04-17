@@ -1,1 +1,22 @@
-
+[
+  {
+    "Name": "Olivier",
+    "PartySize": 7,
+    "TimeSlot": "2023-04-17T15:00:00"
+  },
+  {
+    "Name": "apaap",
+    "PartySize": 4,
+    "TimeSlot": "2023-04-17T17:30:00"
+  },
+  {
+    "Name": "aaaaaa",
+    "PartySize": 1,
+    "TimeSlot": "2023-04-17T12:30:00"
+  },
+  {
+    "Name": "trnymu",
+    "PartySize": 9,
+    "TimeSlot": "2023-04-17T20:00:00"
+  }
+]
