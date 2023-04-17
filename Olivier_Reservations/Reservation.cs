@@ -158,6 +158,7 @@ namespace Project.Olivier_Reservations
             reservations.Add(new Reservation { Name = name, PartySize = partySize, TimeSlot = timeSlot });
 
             Console.WriteLine($"Reservation made for {partySize} people at {timeSlot:t} under the name {name}.");
+            Console.WriteLine($"Reservation code: 1234");
             return true;
         }
 
