@@ -29,6 +29,10 @@ public static class AdminDashboard
             else if (input == 3)
             {
                 //Log out
+                Console.Clear();
+                Console.WriteLine("Logged out succesfully!");
+                Thread.Sleep(1500);
+                AdminLogin.Start();
             }
             else
             {
