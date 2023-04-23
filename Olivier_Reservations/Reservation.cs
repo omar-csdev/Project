@@ -144,21 +144,46 @@ namespace Project.Olivier_Reservations
     {
         public string Name { get; set; }
         public int PartySize { get; set; }
+        public string Code { get; set; }
         public DateTime TimeSlot { get; set; }
     }
+
 
     public class ReservationSystem
     {
 
         public List<Reservation> reservations = new List<Reservation>();
+        public string GenerateRandomString()
+        {
+            const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string digits = "0123456789";
 
+            Random random = new Random();
+
+            char[] chars = new char[6];
+            for (int i = 0; i < 6; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    chars[i] = letters[random.Next(letters.Length)];
+                }
+                else
+                {
+                    chars[i] = digits[random.Next(digits.Length)];
+                }
+            }
+
+            string randomString = new string(chars);
+            return randomString;
+        }
         public bool MakeReservation(string name, int partySize, DateTime timeSlot)
         {
+            string code = GenerateRandomString();
             // Add reservation to the list
-            reservations.Add(new Reservation { Name = name, PartySize = partySize, TimeSlot = timeSlot });
+            reservations.Add(new Reservation { Name = name, PartySize = partySize, TimeSlot = timeSlot, Code = code});
 
             Console.WriteLine($"Reservation made for {partySize} people at {timeSlot:t} under the name {name}.");
-            Console.WriteLine($"Reservation code: 1234");
+            Console.WriteLine($"Reservation code: {code}");
             return true;
         }
 
