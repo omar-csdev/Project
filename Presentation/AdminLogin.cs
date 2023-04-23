@@ -46,7 +46,8 @@ public static class AdminLogin
         {
             Console.Clear();   
             Console.WriteLine("LOGGING IN:", Color.RebeccaPurple);
-            //dit codeblock zal veranderd worden wanneer de json file uitlezen werkt, dit is een tijdelijke "oplossing"
+
+            //geen accounts in de json:
             if (test.Count == 1)
             {
                 Console.WriteLine("No Admin accounts found. Would you like to register a new one? (y/n)", Color.Green);
@@ -55,13 +56,51 @@ public static class AdminLogin
                 {
                     Console.WriteLine("Username?");
                     string username = Console.ReadLine();
+                    foreach (Admin admin in test)
+                    {
+                        if (admin.UserName == username)
+                        {
+                            Console.WriteLine("Username already taken!", Color.Red);
+                            Thread.Sleep(2000);
+                            Start();
+                        }
+                    }
+
+                    //checks op het wachtwoord dat aangemaakt wordt
                     Console.WriteLine("Password?");
-                    string password = Console.ReadLine();
-                    Admin newAdmin = new(username, password);
-                    test.Add(newAdmin);
-                    LoginAccess.WriteAll(test);
+                    List<char> symbols = new List<char>() { '!', '@', '?', '#', '&' };
+
+                    bool creatingAccount = true;
+                    while (creatingAccount)
+                    {
+                        int checking = 0;
+                        Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
+                        string password = Console.ReadLine();
+                        foreach (char character in password)
+                        {
+                            if (symbols.Contains(character))
+                            {
+                                checking += 1;
+                            }
+                        }
+                        bool containsInt = password.Any(char.IsDigit);
+
+                        if (containsInt && checking > 0)
+                        {
+                            Admin newAdmin = new(username, password);
+                            test.Add(newAdmin);
+                            LoginAccess.WriteAll(test);
+                            creatingAccount = false;
+                        }
+
+                        else
+                        {
+                            Say("!", "Password does not meet criteria");
+                            Thread.Sleep(2500);
+                        }
+                    }
                     Console.WriteLine("Added account succesfully! You can login now.");
-                    Thread.Sleep(3000);
+                    Loading();
                     Start();
                 }
 
@@ -78,6 +117,8 @@ public static class AdminLogin
                     Start();
                 }
             }
+
+            //wel accounts in de json: door naar inloggen
             else if (test.Count > 1)
             {
                 Console.WriteLine("Username?");
@@ -111,6 +152,8 @@ public static class AdminLogin
                 Thread.Sleep(3000);
             }
         }
+
+        //verwijderen van een gebruiker
         else if (answer == "2")
         {
             Console.Clear();
@@ -151,6 +194,8 @@ public static class AdminLogin
             }
         }
 
+
+        //toevoegen van een gebruiker
         else if (answer == "3")
         {
             Console.Clear();
@@ -158,24 +203,55 @@ public static class AdminLogin
             List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
             Console.WriteLine("Username?");
             string username = Console.ReadLine();
-            Console.WriteLine("Password?");
-            string password = Console.ReadLine();
-
-            Admin newAcc = new(username, password);
-            foreach (Admin admin in updatedList) 
+            foreach (Admin admin in updatedList)
             {
-                if (admin.UserName == newAcc.UserName)
+                if (admin.UserName == username)
                 {
-                    Console.WriteLine("Username was already taken.");
-                    Thread.Sleep(3000);
+                    Console.WriteLine("Username already taken!", Color.Red);
+                    Thread.Sleep(2000);
                     Start();
                 }
             }
-            updatedList.Add(newAcc);
-            LoginAccess.WriteAll(updatedList);
-            Console.WriteLine("User added!");
+
+            //checks op het wachtwoord dat aangemaakt wordt
+            Console.WriteLine("Password?");
+            List<char> symbols = new List<char>() { '!', '@', '?', '#', '&' };
+
+            bool creatingAccount = true;
+            while (creatingAccount)
+            {
+                int checking = 0;
+                Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
+                string password = Console.ReadLine();
+                foreach (char character in password)
+                {
+                    if (symbols.Contains(character))
+                    {
+                        checking += 1;
+                    }
+                }
+                bool containsInt = password.Any(char.IsDigit);
+
+                if (containsInt && checking > 0)
+                {
+                    Admin newAdmin = new(username, password);
+                    updatedList.Add(newAdmin);
+                    LoginAccess.WriteAll(updatedList);
+                    creatingAccount = false;
+                }
+
+                else
+                {
+                    Say("!", "Password does not meet criteria");
+                    Thread.Sleep(2500);
+                }
+            }
+            Console.WriteLine("Added account succesfully! You can login now.");
             Loading();
+            Start();
         }
+
+        //terug naar startscherm
         else if (answer == "4")
         {
             Console.Clear();
