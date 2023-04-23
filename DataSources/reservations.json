@@ -1,68 +1,14 @@
 [
   {
-    "Name": "Olivier",
-    "PartySize": 7,
-    "Code": null,
-    "TimeSlot": "2023-04-17T15:00:00"
-  },
-  {
-    "Name": "apaap",
-    "PartySize": 4,
-    "Code": null,
-    "TimeSlot": "2023-04-17T17:30:00"
-  },
-  {
-    "Name": "aaaaaa",
-    "PartySize": 1,
-    "Code": null,
-    "TimeSlot": "2023-04-17T12:30:00"
-  },
-  {
-    "Name": "trnymu",
-    "PartySize": 9,
-    "Code": null,
-    "TimeSlot": "2023-04-17T20:00:00"
-  },
-  {
-    "Name": "Omar",
-    "PartySize": 5,
-    "Code": null,
-    "TimeSlot": "2023-04-23T17:30:00"
-  },
-  {
-    "Name": "Omar",
-    "PartySize": 3,
-    "Code": null,
-    "TimeSlot": "2023-04-23T17:30:00"
-  },
-  {
-    "Name": "OI\\",
-    "PartySize": 3,
-    "Code": null,
-    "TimeSlot": "2023-04-23T17:30:00"
-  },
-  {
-    "Name": "da",
-    "PartySize": 3,
-    "Code": null,
-    "TimeSlot": "2023-04-23T17:30:00"
-  },
-  {
-    "Name": "Omar",
-    "PartySize": 5,
-    "Code": null,
-    "TimeSlot": "2023-04-23T12:30:00"
-  },
-  {
-    "Name": "testing",
-    "PartySize": 3,
-    "Code": null,
-    "TimeSlot": "2023-04-23T20:00:00"
-  },
-  {
     "Name": "New",
     "PartySize": 3,
     "Code": "Y1Y8I6",
     "TimeSlot": "2023-04-23T17:30:00"
+  },
+  {
+    "Name": "Omar",
+    "PartySize": 8,
+    "Code": "C3N0W8",
+    "TimeSlot": "2023-04-24T17:30:00"
   }
 ]

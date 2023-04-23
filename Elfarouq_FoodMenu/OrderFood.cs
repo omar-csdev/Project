@@ -1,5 +1,6 @@
 ﻿using Menu_item_creëren;
 using Newtonsoft.Json;
+using Project.Olivier_Reservations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ public static class OrderFood
         Say("1", "Make order");
         Say("2", "Check order-basket");
         Say("3", "Show food-menu");
-        Say("4", "Go back to the mainenu");
+        Say("4", "Go back to the mainmenu");
 
         string firstinput = Console.ReadLine();
         bool running = true;
@@ -33,68 +34,7 @@ public static class OrderFood
         {
             if (firstinput == "1")
             {
-                Console.Clear();
-                MenuItem.Start();
-                Console.WriteLine("What would you like to order? Select the number.");
-                string inputstr = Console.ReadLine();
-                bool check = int.TryParse(inputstr, out int input);
-                if (!check)
-                {
-                    Console.WriteLine("Input format incorrect.");
-                    Console.WriteLine("Click enter to go back.");
-                    Console.ReadLine();
-                    Console.Clear();
-                    Start();
-
-                }
-                foreach (Item item in menu)
-                {
-                    if (input == item.Id)
-                    {
-                        if (Orders.Contains(item.Name))
-                        {
-                            Console.WriteLine($"Would you like to proceed adding {item.Name} with id: {item.Id} for a second time? Y/N");
-                            string inpt = Console.ReadLine();
-                            if (inpt.ToLower() == "y")
-                            {
-                                RawOrders.Add(item.Name);
-                                Orders.Add($"{item.Name} x2");
-                                Orders.Remove(item.Name);
-                                Console.WriteLine($"Succesfully added {item.Name} with id: {item.Id} x2");
-                                break;
-                            }
-                            else if ((inpt.ToLower() == "n"))
-                            {
-                                Console.WriteLine(item.Name + " has not been added.");
-                                break;
-                                
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input. Try again please");
-                            }
-                        }
-                        else
-                        {
-                            RawOrders.Add(item.Name);
-                            Orders.Add(item.Name);
-                            Console.WriteLine($"Succesfully added {item.Name} to your cart");
-                            break;
-                        }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("No such id is found. Try again please");
-                    }
-
-                }
-                
-                Console.WriteLine("Click enter to go back.");
-                Console.ReadLine();
-
-
-
+                Order();
             }
             else if (firstinput == "2")
             {
@@ -145,6 +85,91 @@ public static class OrderFood
 
         }
         
+    }
+
+    public static void Order()
+    {
+        bool found = false;
+        Console.Clear();
+        Console.WriteLine("Please enter your reservation code: ");
+        string code = Console.ReadLine();
+        List<Reservation> reservations = SaveReservations.LoadAll();
+        foreach (Reservation reservation in reservations)
+        {
+            if (reservation.Code == code)
+            {
+                found = true;
+            }
+        }
+        if (found == false)
+        {
+            Console.WriteLine("Reservation code invalid\nPress enter to go back...");
+            Console.ReadKey();
+            Console.Clear();
+            Start();
+        }
+        Console.Clear();
+        MenuItem.Start();
+        Console.WriteLine("What would you like to order? Select the number.");
+        string inputstr = Console.ReadLine();
+        bool check = int.TryParse(inputstr, out int input);
+        if (!check)
+        {
+            Console.WriteLine("Input format incorrect.");
+            Console.WriteLine("Click enter to go back.");
+            Console.ReadLine();
+            Console.Clear();
+            Start();
+
+        }
+        foreach (Item item in menu)
+        {
+            if (input == item.Id)
+            {
+                if (Orders.Contains(item.Name))
+                {
+                    Console.WriteLine($"Would you like to proceed adding {item.Name} with id: {item.Id} for a second time? Y/N");
+                    string inpt = Console.ReadLine();
+                    if (inpt.ToLower() == "y")
+                    {
+                        RawOrders.Add(item.Name);
+                        Orders.Add($"{item.Name} x2");
+                        Orders.Remove(item.Name);
+                        Console.WriteLine($"Succesfully added {item.Name} with id: {item.Id} x2");
+                        break;
+                    }
+                    else if ((inpt.ToLower() == "n"))
+                    {
+                        Console.WriteLine(item.Name + " has not been added.");
+                        break;
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Try again please");
+                    }
+                }
+                else
+                {
+                    RawOrders.Add(item.Name);
+                    Orders.Add(item.Name);
+                    Console.WriteLine($"Succesfully added {item.Name} to your cart");
+                    break;
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("No such id is found. Try again please");
+            }
+
+        }
+
+        Console.WriteLine("Click enter to go back.");
+        Console.ReadLine();
+
+
+
     }
     public static void Say(string prefix, string message)
     {
