@@ -29,6 +29,13 @@ public static class AdminDashboard
             else if (input == 3)
             {
                 //Log out
+                List<Admin> test = LoginAccess.LoadAll("admindata.json");
+                foreach (Admin admin in test)
+                {
+                    admin.IsLoggedIn = false;
+                }
+                LoginAccess.WriteAll(test);
+                
                 Console.Clear();
                 Console.WriteLine("Logged out succesfully!");
                 Thread.Sleep(1500);

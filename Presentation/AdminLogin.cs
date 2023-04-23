@@ -31,7 +31,11 @@ public static class AdminLogin
     {
 
         List<Admin> test = LoginAccess.LoadAll("admindata.json");
-
+        foreach (Admin accounts in test) 
+        {
+            accounts.IsLoggedIn = false;
+        }
+        LoginAccess.WriteAll(test);
 
 
         Console.Clear();
@@ -131,12 +135,15 @@ public static class AdminLogin
                         check += 1;
                     }
                 }
+
+                //check of gebruikersnaam bestaat
                 if (check == 0)
                 {
                     Console.WriteLine("Username doesn't exist!", Color.Red);
                     Thread.Sleep(2500);
                     Start();
                 }
+
                 Console.WriteLine("Password?");
                 string password = Console.ReadLine();
 
@@ -144,12 +151,16 @@ public static class AdminLogin
                 {
                     if (admin.UserName == username && admin.Password == password)
                     {
+                        admin.IsLoggedIn = true;
+                        LoginAccess.WriteAll(test);
                         Console.WriteLine($"User {username} logged in succesfully!");
+                        Thread.Sleep(3000);
                         AdminDashboard.DisplayDashboard(); //oualid kan hier de startfunctie van zijn dashboard callen.
                     }
                 }
                 Console.WriteLine("No users found with the matching credentials!", Color.Red);
                 Thread.Sleep(3000);
+                Start();
             }
         }
 
