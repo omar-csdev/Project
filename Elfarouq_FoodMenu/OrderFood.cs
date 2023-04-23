@@ -36,9 +36,17 @@ public static class OrderFood
                 Console.Clear();
                 MenuItem.Start();
                 Console.WriteLine("What would you like to order? Select the number.");
-                int input = Convert.ToInt32(Console.ReadLine());
+                string inputstr = Console.ReadLine();
+                bool check = int.TryParse(inputstr, out int input);
+                if (!check)
+                {
+                    Console.WriteLine("Input format incorrect.");
+                    Console.WriteLine("Click enter to go back.");
+                    Console.ReadLine();
+                    Console.Clear();
+                    Start();
 
-                bool foundItem = false;
+                }
                 foreach (Item item in menu)
                 {
                     if (input == item.Id)
@@ -53,13 +61,11 @@ public static class OrderFood
                                 Orders.Add($"{item.Name} x2");
                                 Orders.Remove(item.Name);
                                 Console.WriteLine($"Succesfully added {item.Name} with id: {item.Id} x2");
-                                foundItem = true;
                                 break;
                             }
                             else if ((inpt.ToLower() == "n"))
                             {
                                 Console.WriteLine(item.Name + " has not been added.");
-                                foundItem = true;
                                 break;
                                 
                             }
@@ -73,17 +79,17 @@ public static class OrderFood
                             RawOrders.Add(item.Name);
                             Orders.Add(item.Name);
                             Console.WriteLine($"Succesfully added {item.Name} to your cart");
-                            foundItem = true;
                             break;
                         }
 
                     }
+                    else
+                    {
+                        Console.WriteLine("No such id is found. Try again please");
+                    }
 
                 }
-                if (!foundItem)
-                {
-                    Console.WriteLine("No such id is found. Try again please");
-                }
+                
                 Console.WriteLine("Click enter to go back.");
                 Console.ReadLine();
 
