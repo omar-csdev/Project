@@ -82,6 +82,20 @@ public static class AdminLogin
             {
                 Console.WriteLine("Username?");
                 string username = Console.ReadLine();
+                int check = 0;
+                foreach (Admin i in test) 
+                {
+                    if (i.UserName == username)
+                    {
+                        check += 1;
+                    }
+                }
+                if (check == 0)
+                {
+                    Console.WriteLine("Username doesn't exist!", Color.Red);
+                    Thread.Sleep(2500);
+                    Start();
+                }
                 Console.WriteLine("Password?");
                 string password = Console.ReadLine();
 
