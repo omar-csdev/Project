@@ -15,21 +15,22 @@ static class AdminDashboardReservationsDashboard
         {
             Console.Clear();
             WriteLogo();
-            Console.WriteLine("THIS PAGE IS BEING WORKED ON", Color.Wheat);
-            WriteToConsole(1, "Back to Admin Dashboard");
+            WriteToConsole(1, "View Reservations");
+            WriteToConsole(2, "Edit Reservations");
+            WriteToConsole(3, "Back to Dashboard");
             int input = Convert.ToInt32(Console.ReadLine());
             if (input == 1)
             {
+                
+            }
+            else if (input == 2)
+            {
+                //
+            }
+            else if (input == 3)
+            {
                 AdminDashboard.DisplayDashboard();
             }
-            // else if (input == 2)
-            // {
-            //     AdminMenuEditor.DisplayMenuEditOptions();
-            // }
-            // else if (input == 3)
-            // {
-            //     AdminDashboard.DisplayDashboard();
-            // }
             else
             {
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
