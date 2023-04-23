@@ -33,6 +33,8 @@ public static class OrderFood
         {
             if (firstinput == "1")
             {
+                Console.Clear();
+                MenuItem.Start();
                 Console.WriteLine("What would you like to order? Select the number.");
                 int input = Convert.ToInt32(Console.ReadLine());
 
@@ -54,7 +56,7 @@ public static class OrderFood
                                 foundItem = true;
                                 break;
                             }
-                            else if ((inpt.ToLower() == "y"))
+                            else if ((inpt.ToLower() == "n"))
                             {
                                 Console.WriteLine(item.Name + " has not been added.");
                                 foundItem = true;
@@ -81,14 +83,16 @@ public static class OrderFood
                 if (!foundItem)
                 {
                     Console.WriteLine("No such id is found. Try again please");
-                    Thread.Sleep(2000);
                 }
+                Console.WriteLine("Click enter to go back.");
+                Console.ReadLine();
 
 
 
             }
             else if (firstinput == "2")
             {
+                Console.Clear();
                 double totalprice = 0;
                 string orderPrint = string.Join("\n", Orders);
                 Console.WriteLine($"Your cart:\n{orderPrint}\n");
@@ -104,17 +108,19 @@ public static class OrderFood
                     }
                 }
                 Console.WriteLine($"Total Price: €{totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
-
-                Thread.Sleep(3000);
+                Console.WriteLine("Click enter to go back.");
+                Console.ReadLine();
             }
             else if (firstinput == "3")
             {
+                Console.Clear();
                 MenuItem.Start();
                 Console.WriteLine("Click enter to go back.");
                 Console.ReadLine();
             }
             else if (firstinput == "4") 
             {
+                Console.Clear();
                 FoodMenu.Start();
             }
             else
@@ -128,7 +134,7 @@ public static class OrderFood
                 Say("1", "Make order");
                 Say("2", "Check order-basket");
                 Say("3", "Show food-menu");
-                Say("4", "Go back to the mainenu");
+                Say("4", "Go back");
             firstinput = Console.ReadLine();
 
         }
