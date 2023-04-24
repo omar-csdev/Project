@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,61 +14,46 @@ namespace Menu_item_creëren
     {
         public static void Start()
         {
-
             Console.OutputEncoding = Encoding.UTF8;
-            var data = MenuCreator();
-            //voert de tabelcommands uit.
-            string[] columnNames = data.Columns.Cast<DataColumn>()
-                                 .Select(x => x.ColumnName)
-                                 .ToArray();
-            //maakt het mogelijk om per colom data toe te voegen.
 
-            DataRow[] rows = data.Select();
-            //alle rijen van de tabel worden geselecteerd
+            // Get all menu items
+            var allMenuItems = getMenuItems();
 
-            var table = new ConsoleTable(columnNames);
-            //maakt een nieuwe tabel aan met de configuraties van DataTable
-            table.Configure(o => o.EnableCount = false);
-            //Verwijdert de count die er standaard wordt geprint (op deze manier: Count: 0-10000)
-            foreach (DataRow row in rows)
-            {
-                table.AddRow(row.ItemArray);
-            }
-            table.Write(Format.Default);
-            //met deze lijn code kunnen we het uiterlijk van de tabel aanpassen 
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Type == "Food").ToList();
+            createAndDisplayTable(foodItems, "Food Menu");
+
+            var drinkItems = allMenuItems.Where(item => item.Type == "Drink").ToList();
+            createAndDisplayTable(drinkItems, "Drink Menu");
         }
-        public static DataTable MenuCreator()
+
+        private static List<Item> getMenuItems()
         {
-            var table = new DataTable();
-            table.Columns.Add("Number", typeof(int));
-            table.Columns.Add("Category", typeof(string));
-            table.Columns.Add("Name", typeof(string));
-            table.Columns.Add("Price", typeof(string));
-            Console.WriteLine("Menu Items:");
-            getMenuItems(table);
-            //de bedoeling is om een for loop te maken die langs elke item in de json file en in deze for-loop steeds een rij toe te voegen.
-            //Hierdoor kunnen we de tabel updaten (item verwijderen/toevoegen in de json zal de tabel groter/kleiner maken)
-            static void getMenuItems(DataTable table)
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
+            string JSONString = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
+        }
+
+        private static void createAndDisplayTable(List<Item> items, string tableName)
+        {
+            var table = new ConsoleTable("Number", "Name", "Price");
+
+            // Add rows to table
+            int num = 0;
+            foreach (var item in items)
             {
-                
-                string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
-                string JSONString = File.ReadAllText(filePath);
-                List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
-                displayMenuItems(menu, table);
+                num++;
+                string formattedPrice = string.Format("€{0:N2}", item.Price);
+                table.AddRow(num, item.Name, formattedPrice);
             }
 
-            static void displayMenuItems(List<Item> menuToDisplay, DataTable table)
-            {
-                int num = 0;
-                foreach (Item item in menuToDisplay)
-                {
-                    num++;
-                    string formattedPrice = string.Format("€{0:N2}", item.Price);
-                    table.Rows.Add(num, item.Type, item.Name, formattedPrice);
-                }
-            }
-            return table;
+            // Display table with given name
+            Console.WriteLine(tableName + ":");
+            table.Configure(o => o.EnableCount = false);
+            table.Write(Format.Default);
+            Console.WriteLine();
         }
     }
 }
+
 
