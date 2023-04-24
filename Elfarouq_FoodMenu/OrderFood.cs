@@ -88,7 +88,24 @@ public static class OrderFood
             else if (firstinput == "2")
             {
                 Console.Clear();
-                checkingorder.checkorder();
+                Console.Clear();
+                Console.WriteLine("Your cart:");
+                Console.WriteLine("--------------");
+                double totalprice = 0;
+                foreach (var order in orders)
+                {
+                    Item item = menu.FirstOrDefault(i => i.Name == order.Key);
+                    if (item != null)
+                    {
+                        double itemprice = item.Price * order.Value;
+                        totalprice += itemprice;
+                        Console.WriteLine($"{order.Value}x {item.Name} = €{itemprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
+                    }
+                }
+                Console.WriteLine("--------------");
+                Console.WriteLine($"Total Price: €{totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
+                Console.WriteLine("Click enter to go back.");
+                Console.ReadLine();
             }
             else if (firstinput == "3")
             {
