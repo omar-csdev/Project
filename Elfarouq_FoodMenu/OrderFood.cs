@@ -17,15 +17,14 @@ public static class OrderFood
     static string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
     static string JSONString = File.ReadAllText(filePath);
     static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
-    static List<string> Orders = new List<string>();
-    static List<string> RawOrders = new List<string>();
+    static Dictionary<string, int> orders = new Dictionary<string, int>();
     public static void Start()
     {
         WriteLogo();
         Say("1", "Make order");
         Say("2", "Check order-basket");
-        Say("3", "Show food-menu");
-        Say("4", "Go back to the mainenu");
+        Say("3", "Show menu");
+        Say("4", "Go back to the main menu");
 
         string firstinput = Console.ReadLine();
         bool running = true;
@@ -47,72 +46,62 @@ public static class OrderFood
                     Start();
 
                 }
-                foreach (Item item in menu)
+                Item item = menu.FirstOrDefault(i => i.Id == input);
+                if (item != null)
                 {
-                    if (input == item.Id)
+                    Console.WriteLine($"You have selected {item.Name}. How many would you like to order?");
+                    string quantitystr = Console.ReadLine();
+                    check = int.TryParse(quantitystr, out int quantity);
+                    if (!check)
                     {
-                        if (Orders.Contains(item.Name))
-                        {
-                            Console.WriteLine($"Would you like to proceed adding {item.Name} with id: {item.Id} for a second time? Y/N");
-                            string inpt = Console.ReadLine();
-                            if (inpt.ToLower() == "y")
-                            {
-                                RawOrders.Add(item.Name);
-                                Orders.Add($"{item.Name} x2");
-                                Orders.Remove(item.Name);
-                                Console.WriteLine($"Succesfully added {item.Name} with id: {item.Id} x2");
-                                break;
-                            }
-                            else if ((inpt.ToLower() == "n"))
-                            {
-                                Console.WriteLine(item.Name + " has not been added.");
-                                break;
-                                
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input. Try again please");
-                            }
-                        }
-                        else
-                        {
-                            RawOrders.Add(item.Name);
-                            Orders.Add(item.Name);
-                            Console.WriteLine($"Succesfully added {item.Name} to your cart");
-                            break;
-                        }
-
+                        Console.WriteLine("Input format incorrect.");
+                        Console.WriteLine("Click enter to go back.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        Start();
+                    }
+                    if (quantity <= 0)
+                    {
+                        Console.WriteLine("Invalid quantity.");
+                        Console.WriteLine("Click enter to go back.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        Start();
+                    }
+                    if (orders.ContainsKey(item.Name))
+                    {
+                        orders[item.Name] += quantity;
                     }
                     else
                     {
-                        Console.WriteLine("No such id is found. Try again please");
+                        orders[item.Name] = quantity;
                     }
-
+                    Console.WriteLine($"Succesfully added {quantity}x {item.Name} to your cart.");
                 }
-                
+                else
+                {
+                    Console.WriteLine("No item found with the specified ID.");
+                }
                 Console.WriteLine("Click enter to go back.");
                 Console.ReadLine();
-
-
-
             }
             else if (firstinput == "2")
             {
                 Console.Clear();
+                Console.WriteLine("Your cart:");
+                Console.WriteLine("--------------");
                 double totalprice = 0;
-                string orderPrint = string.Join("\n", Orders);
-                Console.WriteLine($"Your cart:\n{orderPrint}\n");
-
-                foreach (string priceperitem in RawOrders)
+                foreach (var order in orders)
                 {
-                    foreach (Item item in menu)
+                    Item item = menu.FirstOrDefault(i => i.Name == order.Key);
+                    if (item != null)
                     {
-                        if (item.Name == priceperitem)
-                        {
-                            totalprice += item.Price;
-                        }
+                        double itemprice = item.Price * order.Value;
+                        totalprice += itemprice;
+                        Console.WriteLine($"{order.Value}x {item.Name} = €{itemprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
                     }
                 }
+                Console.WriteLine("--------------");
                 Console.WriteLine($"Total Price: €{totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
                 Console.WriteLine("Click enter to go back.");
                 Console.ReadLine();
