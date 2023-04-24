@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "Name": "Omar",
+    "PartySize": 2,
+    "Code": "I2Y0I9",
+    "TimeSlot": "2023-04-24T12:30:00",
+    "TimeSlotNum": 1
+  },
+  {
+    "Name": "Choukri",
+    "PartySize": 2,
+    "Code": "A5J5H0",
+    "TimeSlot": "2023-04-24T12:30:00",
+    "TimeSlotNum": 1
+  }
+]
