@@ -3,66 +3,70 @@
     "Name": "Olivier",
     "PartySize": 7,
     "Code": null,
-    "TimeSlot": "2023-04-17T15:00:00"
+    "TimeSlot": "2023-04-17T15:00:00",
+    "TimeSlotNum": 2
   },
   {
     "Name": "apaap",
     "PartySize": 4,
     "Code": null,
-    "TimeSlot": "2023-04-17T17:30:00"
+    "TimeSlot": "2023-04-17T17:30:00",
+    "TimeSlotNum": 3
   },
   {
     "Name": "aaaaaa",
     "PartySize": 1,
     "Code": null,
-    "TimeSlot": "2023-04-17T12:30:00"
+    "TimeSlot": "2023-04-17T12:30:00",
+    "TimeSlotNum": 1
   },
   {
     "Name": "trnymu",
     "PartySize": 9,
     "Code": null,
-    "TimeSlot": "2023-04-17T20:00:00"
+    "TimeSlot": "2023-04-17T20:00:00",
+    "TimeSlotNum": 4
   },
   {
     "Name": "Omar",
     "PartySize": 5,
     "Code": null,
-    "TimeSlot": "2023-04-23T17:30:00"
+    "TimeSlot": "2023-04-23T17:30:00",
+    "TimeSlotNum": 3
   },
   {
     "Name": "Omar",
     "PartySize": 3,
     "Code": null,
-    "TimeSlot": "2023-04-23T17:30:00"
+    "TimeSlot": "2023-04-23T17:30:00",
+    "TimeSlotNum": 3
   },
   {
     "Name": "OI\\",
     "PartySize": 3,
     "Code": null,
-    "TimeSlot": "2023-04-23T17:30:00"
+    "TimeSlot": "2023-04-23T17:30:00",
+    "TimeSlotNum": 3
   },
   {
     "Name": "da",
     "PartySize": 3,
     "Code": null,
-    "TimeSlot": "2023-04-23T17:30:00"
+    "TimeSlot": "2023-04-23T17:30:00",
+    "TimeSlotNum": 3
   },
   {
     "Name": "Omar",
     "PartySize": 5,
     "Code": null,
-    "TimeSlot": "2023-04-23T12:30:00"
+    "TimeSlot": "2023-04-23T12:30:00",
+    "TimeSlotNum": 1
   },
   {
-    "Name": "testing",
-    "PartySize": 3,
-    "Code": null,
-    "TimeSlot": "2023-04-23T20:00:00"
-  },
-  {
-    "Name": "New",
-    "PartySize": 3,
-    "Code": "Y1Y8I6",
-    "TimeSlot": "2023-04-23T17:30:00"
+    "Name": "gh",
+    "PartySize": 10,
+    "Code": "E3K9W2",
+    "TimeSlot": "2023-04-24T20:00:00",
+    "TimeSlotNum": 4
   }
 ]
