@@ -9,6 +9,7 @@ using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Console = Colorful.Console;
@@ -154,6 +155,8 @@ public static class OrderFood
                     RawOrders.Add(item.Name);
                     Orders.Add(item.Name);
                     Console.WriteLine($"Succesfully added {item.Name} to your cart");
+                    AddOrderJSON(code, item.Id);
+
                     break;
                 }
 
@@ -171,6 +174,41 @@ public static class OrderFood
 
 
     }
+
+    public static void AddOrderJSON(string orderCode, int itemId)
+    {
+        // Define the file path
+        string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
+
+        // Deserialize the existing JSON data
+        List<Dictionary<string, List<int>>> jsonData;
+        if (File.Exists(filePath))
+        {
+            string jsonString = File.ReadAllText(filePath);
+            jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<int>>>>(jsonString);
+        }
+        else
+        {
+            jsonData = new List<Dictionary<string, List<int>>>();
+        }
+
+        // Find the dictionary with the given order code or create a new one
+        Dictionary<string, List<int>> orderData = jsonData.FirstOrDefault(d => d.ContainsKey(orderCode));
+        if (orderData == null)
+        {
+            orderData = new Dictionary<string, List<int>>();
+            orderData.Add(orderCode, new List<int>());
+            jsonData.Add(orderData);
+        }
+
+        // Add the item ID to the list for the given order code
+        orderData[orderCode].Add(itemId);
+
+        // Serialize the updated JSON data and write it back to the file
+        string updatedJsonString = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
+        File.WriteAllText(filePath, updatedJsonString);
+    }
+
     public static void Say(string prefix, string message)
     {
         Console.Write("[");

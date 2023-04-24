@@ -3,6 +3,12 @@
     "Name": "Redje",
     "Type": "Drink",
     "Price": 1.5,
-    "Id": 1
+    "Id": 5
+  },
+  {
+    "Name": "Capri-sun",
+    "Type": "Drink",
+    "Price": 1.0,
+    "Id": 6
   }
 ]
