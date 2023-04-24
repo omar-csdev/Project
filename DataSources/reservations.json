@@ -3,14 +3,54 @@
     "Name": "Omar",
     "PartySize": 2,
     "Code": "I2Y0I9",
-    "TimeSlot": "2023-04-24T12:30:00",
-    "TimeSlotNum": 1
+    "TimeSlot": "2023-04-24T12:30:00"
   },
   {
     "Name": "Choukri",
     "PartySize": 2,
     "Code": "A5J5H0",
-    "TimeSlot": "2023-04-24T12:30:00",
-    "TimeSlotNum": 1
+    "TimeSlot": "2023-04-24T12:30:00"
+  },
+  {
+    "Name": "f",
+    "PartySize": 2,
+    "Code": "G2Y0S9",
+    "TimeSlot": "2023-04-24T12:30:00"
+  },
+  {
+    "Name": "f",
+    "PartySize": 2,
+    "Code": "Z2M7T3",
+    "TimeSlot": "2023-04-24T17:30:00"
+  },
+  {
+    "Name": "olivier",
+    "PartySize": 5,
+    "Code": "J5N0I5",
+    "TimeSlot": "2023-04-24T17:30:00"
+  },
+  {
+    "Name": "Olivier",
+    "PartySize": 5,
+    "Code": "C4E7H2",
+    "TimeSlot": "2023-05-07T17:30:00"
+  },
+  {
+    "Name": "a",
+    "PartySize": 4,
+    "Code": "H6L0E1",
+    "TimeSlot": "2023-05-07T17:30:00"
+  },
+  {
+    "Name": "a",
+    "PartySize": 10,
+    "Code": "G5Q6D0",
+    "TimeSlot": "2023-05-04T17:30:00"
+  },
+  {
+    "Name": "Olivier",
+    "PartySize": 5,
+    "Code": "Q1Z8J1",
+    "TimeSlot": "2023-04-25T17:30:00"
   }
 ]
