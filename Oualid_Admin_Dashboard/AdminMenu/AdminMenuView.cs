@@ -1,6 +1,7 @@
 using System.Drawing;
 using Console = Colorful.Console;
 using Newtonsoft.Json;
+using Menu_item_creëren;
 
 static class AdminMenuView
 {
@@ -25,8 +26,10 @@ static class AdminMenuView
             }
             else if (input == 2)
             {
-                Console.WriteLine("Enter the category you want to view: (Food or Drink)");
-                string category = Console.ReadLine();
+                WriteToConsole(1, "Food");
+                WriteToConsole(2, "Drink");
+                string category = Convert.ToInt32(Console.ReadLine()) == 1 ? "Food" : "Drink";
+
                 for(; ; ){
                     if(category.ToLower() == "food"){
                         displayFoodMenuItems();
@@ -74,37 +77,21 @@ static class AdminMenuView
     }
 
     public static void displayAllMenuItems(){
-        Console.WriteLine("Menu Items:");
-        foreach (Item item in menu)
-        {
-            Console.WriteLine($"{item.Name} - {item.Price}eu - {item.Type}");
-        }
+        MenuItem.Start();
         Console.WriteLine("Press a key to continue", Color.Orange);
         Console.ReadKey();
         DisplayMenuDisplayOptions();
     }
     
     public static void displayFoodMenuItems(){
-        Console.WriteLine("Food Menu Items:");
-        foreach (Item item in menu)
-        {
-            if(item.Type == "Food"){
-                Console.WriteLine($"{item.Name} - {item.Price}eu - {item.Type}");
-            }
-        }
+        MenuItem.DisplayFood();
         Console.WriteLine("Press a key to continue");
         Console.ReadKey();
         DisplayMenuDisplayOptions();
     }
 
     public static void displayDrinkMenuItems(){
-        Console.WriteLine("Drink Menu Items:");
-        foreach (Item item in menu)
-        {
-            if(item.Type == "Drink"){
-                Console.WriteLine($"{item.Name} - {item.Price}eu - {item.Type}");
-            }
-        }
+        MenuItem.DisplayDrink();
         Console.WriteLine("Press a key to continue");
         Console.ReadKey();
         DisplayMenuDisplayOptions();
