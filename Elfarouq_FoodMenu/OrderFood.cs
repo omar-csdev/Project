@@ -121,9 +121,7 @@ public static class OrderFood
             else
             {
                 Console.WriteLine("Invalid input. Try again please");
-                Thread.Sleep(2000);
             }
-            Thread.Sleep(2000);
             Console.Clear();
                 WriteLogo();
                 Say("1", "Make order");
