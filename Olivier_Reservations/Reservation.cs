@@ -215,6 +215,7 @@ namespace Project.Olivier_Reservations
     public class Reservation
     {
         public string Name { get; set; }
+        public string LastName { get; set; }
         public int PartySize { get; set; }
         public string Code { get; set; }
         public DateTime TimeSlot { get; set; }
@@ -252,7 +253,7 @@ namespace Project.Olivier_Reservations
         {
             string code = GenerateRandomString();
             // Add reservation to the list
-            reservations.Add(new Reservation { Name = name, PartySize = partySize, TimeSlot = timeSlot, Code = code});
+            reservations.Add(new Reservation { Name = name, LastName = lastname, PartySize = partySize, TimeSlot = timeSlot, Code = code});
 
             Console.WriteLine($"Reservation made for {partySize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:t} under the name {name} {lastname}.");
             Console.WriteLine($"Reservation code: {code}");
