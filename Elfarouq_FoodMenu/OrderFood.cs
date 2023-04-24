@@ -1,5 +1,6 @@
 ﻿using Menu_item_creëren;
 using Newtonsoft.Json;
+using Project.Olivier_Reservations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Console = Colorful.Console;
@@ -16,8 +18,8 @@ public static class OrderFood
 {
     static string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
     static string JSONString = File.ReadAllText(filePath);
-    static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
-    static Dictionary<string, int> orders = new Dictionary<string, int>();
+    public static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
+    public static Dictionary<string, int> orders = new Dictionary<string, int>();
     public static void Start()
     {
         WriteLogo();
@@ -88,6 +90,7 @@ public static class OrderFood
             else if (firstinput == "2")
             {
                 Console.Clear();
+                Console.Clear();
                 Console.WriteLine("Your cart:");
                 Console.WriteLine("--------------");
                 double totalprice = 0;
@@ -133,6 +136,128 @@ public static class OrderFood
         }
         
     }
+
+    public static void Order()
+    {
+        bool found = false;
+        Console.Clear();
+        Console.WriteLine("Please enter your reservation code: ");
+        string code = Console.ReadLine();
+        List<Reservation> reservations = SaveReservations.LoadAll();
+        foreach (Reservation reservation in reservations)
+        {
+            if (reservation.Code == code)
+            {
+                found = true;
+            }
+        }
+        if (found == false)
+        {
+            Console.WriteLine("Reservation code invalid\nPress enter to go back...");
+            Console.ReadKey();
+            Console.Clear();
+            Start();
+        }
+        Console.Clear();
+        MenuItem.Start();
+        Console.WriteLine("What would you like to order? Select the number.");
+        string inputstr = Console.ReadLine();
+        bool check = int.TryParse(inputstr, out int input);
+        if (!check)
+        {
+            Console.WriteLine("Input format incorrect.");
+            Console.WriteLine("Click enter to go back.");
+            Console.ReadLine();
+            Console.Clear();
+            Start();
+
+        }
+        foreach (Item item in menu)
+        {
+            if (input == item.Id)
+            {
+                if (Orders.Contains(item.Name))
+                {
+                    Console.WriteLine($"Would you like to proceed adding {item.Name} with id: {item.Id} for a second time? Y/N");
+                    string inpt = Console.ReadLine();
+                    if (inpt.ToLower() == "y")
+                    {
+                        RawOrders.Add(item.Name);
+                        Orders.Add($"{item.Name} x2");
+                        Orders.Remove(item.Name);
+                        Console.WriteLine($"Succesfully added {item.Name} with id: {item.Id} x2");
+                        break;
+                    }
+                    else if ((inpt.ToLower() == "n"))
+                    {
+                        Console.WriteLine(item.Name + " has not been added.");
+                        break;
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Try again please");
+                    }
+                }
+                else
+                {
+                    RawOrders.Add(item.Name);
+                    Orders.Add(item.Name);
+                    Console.WriteLine($"Succesfully added {item.Name} to your cart");
+                    AddOrderJSON(code, item.Id);
+
+                    break;
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("No such id is found. Try again please");
+            }
+
+        }
+
+        Console.WriteLine("Click enter to go back.");
+        Console.ReadLine();
+
+
+
+    }
+
+    public static void AddOrderJSON(string orderCode, int itemId)
+    {
+        // Define the file path
+        string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
+
+        // Deserialize the existing JSON data
+        List<Dictionary<string, List<int>>> jsonData;
+        if (File.Exists(filePath))
+        {
+            string jsonString = File.ReadAllText(filePath);
+            jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<int>>>>(jsonString);
+        }
+        else
+        {
+            jsonData = new List<Dictionary<string, List<int>>>();
+        }
+
+        // Find the dictionary with the given order code or create a new one
+        Dictionary<string, List<int>> orderData = jsonData.FirstOrDefault(d => d.ContainsKey(orderCode));
+        if (orderData == null)
+        {
+            orderData = new Dictionary<string, List<int>>();
+            orderData.Add(orderCode, new List<int>());
+            jsonData.Add(orderData);
+        }
+
+        // Add the item ID to the list for the given order code
+        orderData[orderCode].Add(itemId);
+
+        // Serialize the updated JSON data and write it back to the file
+        string updatedJsonString = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
+        File.WriteAllText(filePath, updatedJsonString);
+    }
+
     public static void Say(string prefix, string message)
     {
         Console.Write("[");
