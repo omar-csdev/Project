@@ -16,8 +16,8 @@ public static class OrderFood
 {
     static string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
     static string JSONString = File.ReadAllText(filePath);
-    static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
-    static Dictionary<string, int> orders = new Dictionary<string, int>();
+    public static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
+    public static Dictionary<string, int> orders = new Dictionary<string, int>();
     public static void Start()
     {
         WriteLogo();
@@ -87,6 +87,7 @@ public static class OrderFood
             }
             else if (firstinput == "2")
             {
+                Console.Clear();
                 Console.Clear();
                 Console.WriteLine("Your cart:");
                 Console.WriteLine("--------------");
