@@ -16,8 +16,8 @@ public static class OrderFood
 {
     static string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
     static string JSONString = File.ReadAllText(filePath);
-    static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
-    static Dictionary<string, int> orders = new Dictionary<string, int>();
+    public static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
+    public static Dictionary<string, int> orders = new Dictionary<string, int>();
     public static void Start()
     {
         WriteLogo();
@@ -88,23 +88,7 @@ public static class OrderFood
             else if (firstinput == "2")
             {
                 Console.Clear();
-                Console.WriteLine("Your cart:");
-                Console.WriteLine("--------------");
-                double totalprice = 0;
-                foreach (var order in orders)
-                {
-                    Item item = menu.FirstOrDefault(i => i.Name == order.Key);
-                    if (item != null)
-                    {
-                        double itemprice = item.Price * order.Value;
-                        totalprice += itemprice;
-                        Console.WriteLine($"{order.Value}x {item.Name} = €{itemprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
-                    }
-                }
-                Console.WriteLine("--------------");
-                Console.WriteLine($"Total Price: €{totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
-                Console.WriteLine("Click enter to go back.");
-                Console.ReadLine();
+                checkingorder.checkorder();
             }
             else if (firstinput == "3")
             {
