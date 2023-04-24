@@ -21,11 +21,11 @@ static class AdminDashboardReservationsDashboard
             int input = Convert.ToInt32(Console.ReadLine());
             if (input == 1)
             {
-                
+                AdminReservationsView.Run();
             }
             else if (input == 2)
             {
-                //
+                AdminReservationsEditor.Run();
             }
             else if (input == 3)
             {

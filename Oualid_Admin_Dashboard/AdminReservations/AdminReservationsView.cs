@@ -7,7 +7,7 @@ static class AdminReservationsView
 
     public static List<Project.Olivier_Reservations.Reservation> reservations = Project.Olivier_Reservations.SaveReservations.LoadAll();
 
-    static public void DisplayMenuDisplayOptions()
+    static public void Run()
     {
         for (; ; )
         {   
@@ -16,8 +16,8 @@ static class AdminReservationsView
             WriteToConsole(1, "View All Reservations");
             WriteToConsole(2, "View Reservations by Date");
             WriteToConsole(3, "View Reservations by Name");
-            WriteToConsole(4, "View Reservations by Code");
-            WriteToConsole(3, "Back to Reservations Dashboard");
+            WriteToConsole(4, "View Reservation by Code");
+            WriteToConsole(5, "Back to Reservations Dashboard");
             int input = Convert.ToInt32(Console.ReadLine());
             if (input == 1)
             {
@@ -25,20 +25,31 @@ static class AdminReservationsView
                 {
                     Console.WriteLine("Name: " + reservation.Name);
                     Console.WriteLine("Party size: " + reservation.PartySize);
-                    Console.WriteLine("Time slote: " + reservation.TimeSlot);
+                    Console.WriteLine("Time slot: " + reservation.TimeSlot);
+                    Console.WriteLine();
                 }
+                Console.WriteLine("Press enter to return...");
+                Console.ReadKey();
+                Console.Clear();
+                AdminReservationsView.Run();
             }
             else if (input == 2)
             {
-                Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Red);
+                Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
+                Thread.Sleep(1500);
+                AdminReservationsView.Run();
             }
             else if (input == 3)
             {
-                Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Red);
+                Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
+                Thread.Sleep(1500);
+                AdminReservationsView.Run();
             }
             else if (input == 4)
             {
-                Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Red);
+                Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
+                Thread.Sleep(1500);
+                AdminReservationsView.Run();
             }
             else if (input == 5)
             {
@@ -68,7 +79,7 @@ static class AdminReservationsView
  | |_) / _ \/ __|/ _ \ '__\ \ / / _` | __| |/ _ \| '_ \/ __| | | | | / __| '_ \| |/ _` | | | |
  |  _ <  __/\__ \  __/ |   \ V / (_| | |_| | (_) | | | \__ \ | |_| | \__ \ |_) | | (_| | |_| |
  |_| \_\___||___/\___|_|    \_/ \__,_|\__|_|\___/|_| |_|___/ |____/|_|___/ .__/|_|\__,_|\__, |
-                                                                         |_|            |___/                    
+                                                                         |_|            |___/                   
 ";
 
         Console.WriteLine(logo, Color.Wheat);

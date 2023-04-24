@@ -18,6 +18,7 @@ static class AdminMenuEditor
             WriteToConsole(3, "Add Item");
             WriteToConsole(4, "Back to Menu Dashboard");
             int input = Convert.ToInt32(Console.ReadLine());
+
             if (input == 1)
             {
                 foreach (Item item in menu)
@@ -181,7 +182,6 @@ static class AdminMenuEditor
         menu = menuFromJson.ToArray();
     }
 
-    
     public static void WriteLogo()
     {
         string logo = @"
