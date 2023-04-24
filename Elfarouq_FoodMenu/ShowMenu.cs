@@ -39,12 +39,11 @@ namespace Menu_item_creëren
             var table = new ConsoleTable("Number", "Name", "Price");
 
             // Add rows to table
-            int num = 0;
             foreach (var item in items)
             {
-                num++;
                 string formattedPrice = string.Format("€{0:N2}", item.Price);
-                table.AddRow(num, item.Name, formattedPrice);
+                table.AddRow(item.Id, item.Name, formattedPrice);
+                
             }
 
             // Display table with given name

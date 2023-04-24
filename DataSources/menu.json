@@ -4,5 +4,41 @@
     "Type": "Drink",
     "Price": 1.5,
     "Id": 1
+  },
+  {
+    "Name": "Burger",
+    "Type": "Food",
+    "Price": 4.5,
+    "Id": 4
+  },
+  {
+    "Name": "Water",
+    "Type": "Drink",
+    "Price": 1,
+    "Id": 2
+  },
+  {
+    "Name": "Haram drink",
+    "Type": "Drink",
+    "Price": 4,
+    "Id": 3
+  },
+  {
+    "Name": "Fries",
+    "Type": "Food",
+    "Price": 2.5,
+    "Id": 5
+  },
+  {
+    "Name": "Pasta",
+    "Type": "Food",
+    "Price": 6.5,
+    "Id": 6
+  },
+  {
+    "Name": "Chicken Salad",
+    "Type": "Food",
+    "Price": 3.5,
+    "Id": 7
   }
 ]
