@@ -23,7 +23,7 @@ public static class OrderFood
         WriteLogo();
         Say("1", "Make order");
         Say("2", "Check order-basket");
-        Say("3", "Show food-menu");
+        Say("3", "Show menu");
         Say("4", "Go back to the main menu");
 
         string firstinput = Console.ReadLine();
