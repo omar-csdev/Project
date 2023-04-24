@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace Project.Olivier_Reservations
 {
@@ -20,7 +21,7 @@ namespace Project.Olivier_Reservations
             while (true)
             {
 
-                Console.WriteLine("Enter your name for your reservation: ");
+                Console.WriteLine("Enter your first name for your reservation: ");
                 // Input checks
                 try
                 {
@@ -40,6 +41,66 @@ namespace Project.Olivier_Reservations
                     Console.WriteLine(ex.Message);
                 }
             }
+
+            string lastname;
+            while (true)
+            {
+
+                Console.WriteLine("Enter your last name for your reservation: ");
+                // Input checks
+                try
+                {
+                    lastname = Console.ReadLine();
+                    if (string.IsNullOrEmpty(lastname))
+                    {
+                        throw new Exception("Last name cannot be empty or null, please enter a valid last name.");
+                    }
+                    else if (lastname.Any(char.IsDigit))
+                    {
+                        throw new Exception("Last name cannot contain numbers, please enter a valid last name.");
+                    }
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            DateTime twoWeeksAway = DateTime.Today.AddDays(14);
+
+            Console.WriteLine($"Choose a reservation date by entering a date in the following format (dd-mm-yyyy). The latest date you can book is: {twoWeeksAway:dd-MM-yyyy}");
+
+            string inputDate;
+            DateTime reservationDate;
+
+            do
+            {
+                Console.Write("Enter reservation date: ");
+                inputDate = Console.ReadLine();
+
+                if (!DateTime.TryParseExact(inputDate, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out reservationDate))
+                {
+                    Console.WriteLine("Invalid date format. Please enter a valid date in the format (dd-mm-yyyy).");
+                    continue;
+                }
+
+                if (reservationDate == DateTime.Today)
+                {
+                    Console.WriteLine("Reservations for the current day cannot be made. Please enter a date in the future.");
+                    continue;
+                }
+
+                if (reservationDate > twoWeeksAway)
+                {
+                    Console.WriteLine($"Reservation date must be on or before {twoWeeksAway:dd-MM-yyyy}. Please enter a valid reservation date.");
+                    continue;
+                }
+
+            } while (reservationDate == DateTime.MinValue);
+
+            Console.WriteLine($"Reservation date set to: {reservationDate:dd-MM-yyyy}");
+
 
             Console.WriteLine("Choose a reservation time:");
             Console.WriteLine("1. 12:30-15:00");
@@ -69,72 +130,39 @@ namespace Project.Olivier_Reservations
             }
 
             DateTime timeSlot;
-            int timeSlotNum;
+            TimeSpan timeSlotTime1 = new TimeSpan(12, 30, 0);
+            TimeSpan timeSlotTime2 = new TimeSpan(15, 00, 0);
+            TimeSpan timeSlotTime3 = new TimeSpan(17, 30, 0);
+            TimeSpan timeSlotTime4 = new TimeSpan(20, 00, 0);
             switch (choice)
             {
                 case 1:
-                    timeSlot = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 30, 0);
-                    timeSlotNum = 1;
+                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime1.Hours, timeSlotTime1.Minutes, timeSlotTime1.Seconds);
                     break;
                 case 2:
-                    timeSlot = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 0, 0);
-                    timeSlotNum = 2;
+                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime2.Hours, timeSlotTime2.Minutes, timeSlotTime2.Seconds);
                     break;
                 case 3:
-                    timeSlot = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 30, 0);
-                    timeSlotNum = 3;
+                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime3.Hours, timeSlotTime3.Minutes, timeSlotTime3.Seconds);
                     break;
                 case 4:
-                    timeSlot = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 20, 0, 0);
-                    timeSlotNum = 4;
+                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime3.Hours, timeSlotTime3.Minutes, timeSlotTime3.Seconds);
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");
                     return;
             }
 
-            // load reservations and get total party size seperated by timeslot.
+            // load reservations and get total party size seperated by timeslot and date.
             List<Reservation> reservations = SaveReservations.LoadAll();
-            int totalGuests1 = 0;
-            int totalGuests2 = 0;
-            int totalGuests3 = 0;
-            int totalGuests4 = 0;
+            int totalGuests = 0;
             foreach (Reservation reservation in reservations)
             {
-                if (reservation.TimeSlotNum == 1)
+                if (reservation.TimeSlot.Day == timeSlot.Day)
                 {
-                    totalGuests1 += reservation.PartySize;
-                }
-                else if (reservation.TimeSlotNum == 2)
-                {
-                    totalGuests2 += reservation.PartySize;
-                }
-                else if (reservation.TimeSlotNum == 3)
-                {
-                    totalGuests3 += reservation.PartySize;
-                }
-                else if (reservation.TimeSlotNum == 4)
-                {
-                    totalGuests4 += reservation.PartySize;
+                    totalGuests += reservation.PartySize;
                 }
                 
-            }
-            int totalGuests = 0;
-            if (choice == 1)
-            {
-                totalGuests = totalGuests1;
-            }
-            else if (choice == 2)
-            {
-                totalGuests = totalGuests2;
-            }
-            else if (choice == 3)
-            {
-                totalGuests = totalGuests3;
-            }
-            else if (choice == 4)
-            {
-                totalGuests = totalGuests4;
             }
             // If restaurant is fully booked for your timeslot you get notified 
             if (totalGuests == 100)
@@ -172,7 +200,7 @@ namespace Project.Olivier_Reservations
 
             
 
-            bool success = system.MakeReservation(name, partySize, timeSlot, timeSlotNum);
+            bool success = system.MakeReservation(name, lastname, partySize, timeSlot);
             if (success)
             {
                 SaveReservations.WriteAll(system.reservations);
@@ -187,10 +215,10 @@ namespace Project.Olivier_Reservations
     public class Reservation
     {
         public string Name { get; set; }
+        public string LastName { get; set; }
         public int PartySize { get; set; }
         public string Code { get; set; }
         public DateTime TimeSlot { get; set; }
-        public int TimeSlotNum { get; set; }
     }
 
 
@@ -221,13 +249,13 @@ namespace Project.Olivier_Reservations
             string randomString = new string(chars);
             return randomString;
         }
-        public bool MakeReservation(string name, int partySize, DateTime timeSlot, int TimeSlotNum)
+        public bool MakeReservation(string name, string lastname,int partySize, DateTime timeSlot)
         {
             string code = GenerateRandomString();
             // Add reservation to the list
-            reservations.Add(new Reservation { Name = name, PartySize = partySize, TimeSlot = timeSlot, Code = code, TimeSlotNum = TimeSlotNum});
+            reservations.Add(new Reservation { Name = name, LastName = lastname, PartySize = partySize, TimeSlot = timeSlot, Code = code});
 
-            Console.WriteLine($"Reservation made for {partySize} people at {timeSlot:t} under the name {name}.");
+            Console.WriteLine($"Reservation made for {partySize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:t} under the name {name} {lastname}.");
             Console.WriteLine($"Reservation code: {code}");
             return true;
         }
