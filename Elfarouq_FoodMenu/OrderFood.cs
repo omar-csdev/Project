@@ -162,36 +162,48 @@ public static class OrderFood
         string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
 
         // Deserialize the existing JSON data
-        List<Dictionary<string, List<int>>> jsonData;
+        List<Dictionary<string, List<Dictionary<string, int>>>> jsonData;
         if (File.Exists(filePath))
         {
             string jsonString = File.ReadAllText(filePath);
-            jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<int>>>>(jsonString);
+            jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<Dictionary<string, int>>>>>(jsonString);
         }
         else
         {
-            jsonData = new List<Dictionary<string, List<int>>>();
+            jsonData = new List<Dictionary<string, List<Dictionary<string, int>>>>();
         }
 
         // Find the dictionary with the given order code or create a new one
-        Dictionary<string, List<int>> orderData = jsonData.FirstOrDefault(d => d.ContainsKey(orderCode));
+        Dictionary<string, List<Dictionary<string, int>>> orderData = jsonData.FirstOrDefault(d => d.ContainsKey(orderCode));
         if (orderData == null)
         {
-            orderData = new Dictionary<string, List<int>>();
-            orderData.Add(orderCode, new List<int>());
+            orderData = new Dictionary<string, List<Dictionary<string, int>>>();
+            orderData.Add(orderCode, new List<Dictionary<string, int>>());
             jsonData.Add(orderData);
         }
 
-        // Add the item IDs to the list for the given order code
-        for (int i = 0; i < quantity; i++)
+        // Check if the item already exists in the order and update its quantity
+        Dictionary<string, int> existingItem = orderData[orderCode].FirstOrDefault(item => item["itemId"] == itemId);
+        if (existingItem != null)
         {
-            orderData[orderCode].Add(itemId);
+            existingItem["quantity"] += quantity;
+        }
+        else
+        {
+            // Add the new item to the order data
+            Dictionary<string, int> itemData = new Dictionary<string, int>();
+            itemData.Add("itemId", itemId);
+            itemData.Add("quantity", quantity);
+            orderData[orderCode].Add(itemData);
         }
 
         // Serialize the updated JSON data and write it back to the file
         string updatedJsonString = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
         File.WriteAllText(filePath, updatedJsonString);
     }
+
+
+
 
     public static void Say(string prefix, string message)
     {
