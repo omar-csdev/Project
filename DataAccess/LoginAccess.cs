@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-
+//omar's jsoneditor aangepast naar admin behoeftes
 public static class LoginAccess
 {
 

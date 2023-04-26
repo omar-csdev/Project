@@ -2,9 +2,9 @@
 using Console = Colorful.Console;
 public static class AdminLogin
 {
-    //loading function added
-    //its purpose is to let the user know the program hasn't crashed
-    //use this instead of just a Thread.sleep()
+    //loading functie toegevoegd
+    //gebruiker geruststellen dat het programma doorgaat
+    //dit gebruiken ipv alleen Thread.sleep()
     public static void Loading()
     {
         for (int i = 0; i < 4; i++)
@@ -63,6 +63,8 @@ public static class AdminLogin
                 {
                     Console.WriteLine("Username:");
                     string username = Console.ReadLine();
+
+                    //checken of gebruikersnaam al ingenomen is
                     foreach (Admin admin in test)
                     {
                         if (admin.UserName == username)
@@ -149,7 +151,9 @@ public static class AdminLogin
 
                 Console.WriteLine("Password:");
                 string password = Console.ReadLine();
+                
 
+                //kijken in de json of de gegeven combinatie van wachtwoord en gebruikersnaam bestaat.
                 foreach (Admin admin in test)
                 {
                     if (admin.UserName == username && admin.Password == password)
@@ -172,7 +176,14 @@ public static class AdminLogin
         {
             Console.Clear();
             Console.WriteLine("REMOVING AN USER:", Color.RebeccaPurple);
+
+
+            //bij de functies verwijderen en toevoegen van een gebruiker altijd nieuwe list van de json
+            //als we de oude "test" list gebruiken en er zijn hiervoor gebruiker toegevoegd worden deze
+            //niet aangetoond bij het verwijderen
             List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
+
+
             if (updatedList.Count == 1)
             {
                 Console.WriteLine("No users to remove!", Color.Red);
@@ -215,7 +226,7 @@ public static class AdminLogin
             Console.Clear();
             Console.WriteLine("ADDING AN USER:", Color.RebeccaPurple);
             List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
-            Console.WriteLine("Username?");
+            Console.WriteLine("Username:");
             string username = Console.ReadLine();
             foreach (Admin admin in updatedList)
             {
@@ -228,7 +239,7 @@ public static class AdminLogin
             }
 
             //checks op het wachtwoord dat aangemaakt wordt
-            Console.WriteLine("Password?");
+            Console.WriteLine("Password:");
             List<char> symbols = new List<char>() { '!', '@', '?', '#', '&' };
 
             bool creatingAccount = true;
