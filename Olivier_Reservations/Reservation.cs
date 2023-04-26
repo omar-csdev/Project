@@ -158,7 +158,7 @@ namespace Project.Olivier_Reservations
             int totalGuests = 0;
             foreach (Reservation reservation in reservations)
             {
-                if (reservation.TimeSlot.Day == timeSlot.Day)
+                if (reservation.TimeSlot.Day == timeSlot.Day && reservation.TimeSlot.TimeOfDay == timeSlot.TimeOfDay)
                 {
                     totalGuests += reservation.PartySize;
                 }
