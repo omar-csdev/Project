@@ -2,7 +2,9 @@
 using Console = Colorful.Console;
 public static class AdminLogin
 {
-
+    //loading function added
+    //its purpose is to let the user know the program hasn't crashed
+    //use this instead of just a Thread.sleep()
     public static void Loading()
     {
         for (int i = 0; i < 4; i++)
@@ -52,6 +54,7 @@ public static class AdminLogin
             Console.WriteLine("LOGGING IN:", Color.RebeccaPurple);
 
             //geen accounts in de json:
+            //vergelijking is 1 vanwege "null"bug in de json
             if (test.Count == 1)
             {
                 Console.WriteLine("No Admin accounts found. Would you like to register a new one? (y/n)", Color.Green);
