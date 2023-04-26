@@ -58,7 +58,7 @@ public static class AdminLogin
                 string inp = Console.ReadLine().ToLower();
                 if (inp == "y")
                 {
-                    Console.WriteLine("Username?");
+                    Console.WriteLine("Username:");
                     string username = Console.ReadLine();
                     foreach (Admin admin in test)
                     {
@@ -71,7 +71,7 @@ public static class AdminLogin
                     }
 
                     //checks op het wachtwoord dat aangemaakt wordt
-                    Console.WriteLine("Password?");
+                    Console.WriteLine("Password:");
                     List<char> symbols = new List<char>() { '!', '@', '?', '#', '&' };
 
                     bool creatingAccount = true;
@@ -125,7 +125,7 @@ public static class AdminLogin
             //wel accounts in de json: door naar inloggen
             else if (test.Count > 1)
             {
-                Console.WriteLine("Username?");
+                Console.WriteLine("Username:");
                 string username = Console.ReadLine();
                 int check = 0;
                 foreach (Admin i in test) 
@@ -144,7 +144,7 @@ public static class AdminLogin
                     Start();
                 }
 
-                Console.WriteLine("Password?");
+                Console.WriteLine("Password:");
                 string password = Console.ReadLine();
 
                 foreach (Admin admin in test)
