@@ -176,7 +176,7 @@ namespace Project.Olivier_Reservations
 
             int totalCapacity = 100;
             int maxGuests = totalGuests > 90 ? totalCapacity - totalGuests : 10;
-            Console.WriteLine($"Enter the size of your party (1-{maxGuests}): ");
+            Console.WriteLine($"Enter the size of your group (1-{maxGuests}): ");
             int partySize;
             // Input checks
             while (true)
@@ -226,37 +226,35 @@ namespace Project.Olivier_Reservations
     {
 
         public List<Reservation> reservations = new List<Reservation>();
-        public string GenerateRandomString()
+        public string GenerateRandomCode()
         {
+            // Define the sets of letters and digits that can be used to generate the code.
             const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string digits = "0123456789";
 
+            // Create a new random number generator.
             Random random = new Random();
 
-            char[] chars = new char[6];
-            for (int i = 0; i < 6; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    chars[i] = letters[random.Next(letters.Length)];
-                }
-                else
-                {
-                    chars[i] = digits[random.Next(digits.Length)];
-                }
-            }
+            // Generate the random code by concatenating the letters and digits in a fixed order.
+            string randomString = string.Format("{0}{1}{2}{3}{4}{5}",
+                letters[random.Next(letters.Length)],
+                letters[random.Next(letters.Length)],
+                digits[random.Next(digits.Length)],
+                digits[random.Next(digits.Length)],
+                digits[random.Next(digits.Length)],
+                digits[random.Next(digits.Length)]);
 
-            string randomString = new string(chars);
+            // Return the random code.
             return randomString;
         }
         public bool MakeReservation(string name, string lastname,int partySize, DateTime timeSlot)
         {
-            string code = GenerateRandomString();
+            string code = GenerateRandomCode();
             // Add reservation to the list
             reservations.Add(new Reservation { Name = name, LastName = lastname, PartySize = partySize, TimeSlot = timeSlot, Code = code});
 
-            Console.WriteLine($"Reservation made for {partySize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:t} under the name {name} {lastname}.");
-            Console.WriteLine($"Reservation code: {code}");
+            Console.WriteLine($"Reservation made for {partySize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
+            Console.WriteLine($"Reservation code: {code}. Please keep this code for future use.");
             return true;
         }
 
