@@ -74,30 +74,36 @@ namespace Project.Olivier_Reservations
             string inputDate;
             DateTime reservationDate;
 
-            do
+            while (true)
             {
-                Console.Write("Enter reservation date: ");
-                inputDate = Console.ReadLine();
+                try
+                {
+                    Console.Write("Enter reservation date: ");
+                    inputDate = Console.ReadLine();
 
-                if (!DateTime.TryParseExact(inputDate, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out reservationDate))
+                    reservationDate = DateTime.ParseExact(inputDate, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
+
+                    if (reservationDate == DateTime.Today)
+                    {
+                        throw new Exception("Reservations for the current day cannot be made. Please enter a date in the future.");
+                    }
+
+                    if (reservationDate > twoWeeksAway)
+                    {
+                        throw new Exception($"Reservation date must be on or before {twoWeeksAway:dd-MM-yyyy}. Please enter a valid reservation date.");
+                    }
+                    break;
+
+                }
+                catch (FormatException)
                 {
                     Console.WriteLine("Invalid date format. Please enter a valid date in the format (dd-mm-yyyy).");
-                    continue;
                 }
-
-                if (reservationDate == DateTime.Today)
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Reservations for the current day cannot be made. Please enter a date in the future.");
-                    continue;
+                    Console.WriteLine(ex.Message);
                 }
-
-                if (reservationDate > twoWeeksAway)
-                {
-                    Console.WriteLine($"Reservation date must be on or before {twoWeeksAway:dd-MM-yyyy}. Please enter a valid reservation date.");
-                    continue;
-                }
-
-            } while (reservationDate == DateTime.MinValue);
+            }
 
             Console.WriteLine($"Reservation date set to: {reservationDate:dd-MM-yyyy}");
 
