@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Globalization;
+using System.Data;
 
 namespace Project.Olivier_Reservations
 {
@@ -28,17 +29,23 @@ namespace Project.Olivier_Reservations
                     name = Console.ReadLine();
                     if (string.IsNullOrEmpty(name))
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         throw new Exception("Name cannot be empty or null, please enter a valid name.");
+                        Console.ResetColor();
                     }
                     else if (name.Any(char.IsDigit))
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         throw new Exception("Name cannot contain numbers, please enter a valid name.");
+                        Console.ResetColor();
                     }
                     break;
                 }
                 catch (Exception ex)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(ex.Message);
+                    Console.ResetColor();
                 }
             }
 
@@ -53,17 +60,23 @@ namespace Project.Olivier_Reservations
                     lastname = Console.ReadLine();
                     if (string.IsNullOrEmpty(lastname))
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         throw new Exception("Last name cannot be empty or null, please enter a valid last name.");
+                        Console.ResetColor();
                     }
                     else if (lastname.Any(char.IsDigit))
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         throw new Exception("Last name cannot contain numbers, please enter a valid last name.");
+                        Console.ResetColor();
                     }
                     break;
                 }
                 catch (Exception ex)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(ex.Message);
+                    Console.ResetColor();
                 }
             }
 
@@ -85,23 +98,31 @@ namespace Project.Olivier_Reservations
 
                     if (reservationDate == DateTime.Today)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         throw new Exception("Reservations for the current day cannot be made. Please enter a date in the future.");
+                        Console.ResetColor();
                     }
 
                     if (reservationDate > twoWeeksAway)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         throw new Exception($"Reservation date must be on or before {twoWeeksAway:dd-MM-yyyy}. Please enter a valid reservation date.");
+                        Console.ResetColor();
                     }
                     break;
 
                 }
                 catch (FormatException)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid date format. Please enter a valid date in the format (dd-mm-yyyy).");
+                    Console.ResetColor();
                 }
                 catch (Exception ex)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(ex.Message);
+                    Console.ResetColor();
                 }
             }
 
@@ -124,14 +145,24 @@ namespace Project.Olivier_Reservations
                     choice = int.Parse(Console.ReadLine());
                     if (choice < 1 || choice > 4)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"Enter a number between 1 and 4.");
+                        Console.ResetColor();
                         continue;
                     }
                     break;
                 }
                 catch (FormatException)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Please enter a valid number between 1 and 4.");
+                    Console.ResetColor();
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ex.Message);
+                    Console.ResetColor();
                 }
             }
 
@@ -173,7 +204,9 @@ namespace Project.Olivier_Reservations
             // If restaurant is fully booked for your timeslot you get notified 
             if (totalGuests == 100)
             {
-                System.Console.WriteLine("We are fully booked at this time");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("We are fully booked at this time");
+                Console.ResetColor();
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
                 Environment.Exit(0);
@@ -192,14 +225,24 @@ namespace Project.Olivier_Reservations
                     partySize = int.Parse(Console.ReadLine());
                     if (partySize < 1 || partySize > maxGuests)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"Enter a number between 1 and {maxGuests} as you're not allowed to make a reservation for a party of this size.");
+                        Console.ResetColor();
                         continue;
                     }
                     break;
                 }
                 catch (FormatException)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Please enter a valid number between 1 and 10 to make your reservation.");
+                    Console.ResetColor();
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ex.Message);
+                    Console.ResetColor();
                 }
             }
 
@@ -287,6 +330,14 @@ namespace Project.Olivier_Reservations
             string jsonString = File.ReadAllText(filePath);
 
             List<Reservation> existingReservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString) ?? new List<Reservation>();
+
+            for (int i = existingReservations.Count - 1; i >= 0; i--)
+            {
+                if (existingReservations[i].TimeSlot < DateTime.Now)
+                {
+                    existingReservations.RemoveAt(i);
+                }
+            }
 
             existingReservations.AddRange(NewReservations);
 
