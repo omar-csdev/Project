@@ -303,7 +303,11 @@ namespace Project.Olivier_Reservations
             reservations.Add(new Reservation { Name = name, LastName = lastname, PartySize = partySize, TimeSlot = timeSlot, Code = code});
 
             Console.WriteLine($"Reservation made for {partySize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
-            Console.WriteLine($"Reservation code: {code}. Please keep this code for future use.");
+            Console.Write("Reservation code: ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(code);
+            Console.ResetColor();
+            Console.WriteLine(". Please keep this code for future use.");
             return true;
         }
 
