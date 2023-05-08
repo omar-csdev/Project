@@ -109,6 +109,13 @@ namespace Project.Olivier_Reservations
                         throw new Exception($"Reservation date must be on or before {twoWeeksAway:dd-MM-yyyy}. Please enter a valid reservation date.");
                         Console.ResetColor();
                     }
+
+                    if (reservationDate < DateTime.Today)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        throw new Exception("Reservations for dates that have already passed cannot be made. Please enter a date in the future.");
+                        Console.ResetColor();
+                    }
                     break;
 
                 }
@@ -205,9 +212,9 @@ namespace Project.Olivier_Reservations
             if (totalGuests == 100)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("We are fully booked at this time");
+                Console.WriteLine("We are fully booked at this time and date, You can try to book a diffrent time and date.");
                 Console.ResetColor();
-                Console.WriteLine("Press any key to exit...");
+                Console.WriteLine("Press any key to go back to the main menu...");
                 Console.ReadKey();
                 Environment.Exit(0);
 
@@ -253,7 +260,7 @@ namespace Project.Olivier_Reservations
             if (success)
             {
                 SaveReservations.WriteAll(system.reservations);
-                Console.WriteLine("Press any key to exit...");
+                Console.WriteLine("Press any key to go back to the main menu...");
                 Console.ReadKey();
 
             }
