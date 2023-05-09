@@ -46,5 +46,11 @@
     "Type": "Halal",
     "Price": 6.0,
     "Id": 9
+  },
+  {
+    "Name": "Burger",
+    "Type": "Vegan",
+    "Price": 3.0,
+    "Id": 10
   }
 ]

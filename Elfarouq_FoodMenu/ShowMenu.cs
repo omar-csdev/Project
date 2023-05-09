@@ -20,7 +20,7 @@ namespace Menu_item_creëren
             var allMenuItems = getMenuItems();
 
             // Create and display tables for food and drinks
-            var foodItems = allMenuItems.Where(item => item.Type == "Food").ToList();
+            var foodItems = allMenuItems.Where(item => item.Type == "Food" || item.Type == "Halal" || item.Type == "Vegan" ).ToList();
             createAndDisplayTable(foodItems, "Food Menu");
 
             var drinkItems = allMenuItems.Where(item => item.Type == "Drink").ToList();
@@ -32,7 +32,7 @@ namespace Menu_item_creëren
             var allMenuItems = getMenuItems();
 
             // Create and display tables for food and drinks
-            var foodItems = allMenuItems.Where(item => item.Type == "Food").ToList();
+            var foodItems = allMenuItems.Where(item => item.Type == "Food" || item.Type == "Halal" || item.Type == "Vegan").ToList();
             createAndDisplayTable(foodItems, "Food Menu");
         }
 
