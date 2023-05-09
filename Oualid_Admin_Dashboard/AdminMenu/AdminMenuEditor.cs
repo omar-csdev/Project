@@ -9,7 +9,7 @@ static class AdminMenuEditor
     static public void DisplayMenuEditOptions()
     {
         for (; ; )
-        {   
+        {
             getMenuItems();
             Console.Clear();
             WriteLogo();
@@ -29,9 +29,12 @@ static class AdminMenuEditor
                 int itemIndex = Convert.ToInt32(Console.ReadLine());
                 bool success = JSONEditor.RemoveItem(itemIndex);
                 Loading("Deleting item");
-                if(success){
+                if (success)
+                {
                     Console.WriteLine("Item Deleted!", Color.Green);
-                }else{
+                }
+                else
+                {
                     Console.WriteLine("Something went wrong try again", Color.Red);
                 }
             }
@@ -47,15 +50,17 @@ static class AdminMenuEditor
                 {
                     Loading();
                     Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                }else
-                {   
-                    Item ? chosenItem = menu.FirstOrDefault(i => i.Id == itemIndex); 
-                    if(chosenItem != null){
+                }
+                else
+                {
+                    Item? chosenItem = menu.FirstOrDefault(i => i.Id == itemIndex);
+                    if (chosenItem != null)
+                    {
                         Console.WriteLine("Name: " + chosenItem.Name);
                         Console.WriteLine("Price: " + chosenItem.Price);
                         Console.WriteLine("Type: " + chosenItem.Type);
                     }
-                    
+
                     Console.WriteLine("Enter the new name of the item (Press Enter key to keep the old value): ");
                     string name = Console.ReadLine();
                     name = name == "" ? chosenItem.Name : name;
@@ -69,9 +74,11 @@ static class AdminMenuEditor
                     {
                         Food food = new Food(name, price, category);
                         bool success = JSONEditor.UpdateItem(itemIndex, food);
-                        if(success){
+                        if (success)
+                        {
                             Loading("Editing item");
-                            Console.WriteLine("Item edited successfully!", Color.Green);                        }
+                            Console.WriteLine("Item edited successfully!", Color.Green);
+                        }
                         else
                         {
                             Loading("Editing item");
@@ -82,7 +89,8 @@ static class AdminMenuEditor
                     {
                         Drink drink = new Drink(name, price, category);
                         bool success = JSONEditor.UpdateItem(itemIndex, drink);
-                        if(success){
+                        if (success)
+                        {
                             Loading("Editing item");
                             Console.WriteLine("Item edited successfully!", Color.Green);
                         }
@@ -107,39 +115,43 @@ static class AdminMenuEditor
                 double price = Convert.ToDouble(Console.ReadLine());
                 WriteToConsole(1, "Food");
                 WriteToConsole(2, "Drink");
-                string category = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Food" : "Drink" : Console.ReadLine();
-                if(category == null){
+                WriteToConsole(3, "Vegan");
+                WriteToConsole(4, "Halal");
+                string category = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Food" : categoryInput == 2 ? "Drink" : categoryInput == 3 ? "Vegan" : categoryInput == 4 ? "Halal" : Console.ReadLine() : Console.ReadLine();
+                if (category == null)
+                {
                     Loading();
-                    Console.WriteLine("Error! Please choose a valid option (Food or Drink)!", Color.Red);
+                    Console.WriteLine("Error! Please choose a valid option (Food, Drink, Vegan or Halal)!", Color.Red);
                 }
-                else if(category.ToLower() == "food"){
+                else if (category.ToLower() == "food")
+                {
                     Food food = new Food(name, price, category);
                     JSONEditor.AddItem(food);
                     Loading("Adding item");
                     Console.WriteLine("Item added successfully!", Color.Green);
-                }else if (category.ToLower() == "drink"){
+                }
+                else if (category.ToLower() == "drink")
+                {
                     Drink drink = new Drink(name, price, category);
                     JSONEditor.AddItem(drink);
                     Loading("Adding item");
                     Console.WriteLine("Item added successfully!", Color.Green);
                 }
-                else{
-                    Console.WriteLine("Error! Please choose a valid option (Food or Drink)!", Color.Red);
-                    Loading();
+                else if (category.ToLower() == "vegan")
+                {
+                    Vegan vegan = new Vegan(name, price, category);
+                    JSONEditor.AddItem(vegan);
+                    Loading("Adding item");
+                    Console.WriteLine("Item added successfully!", Color.Green);
                 }
-            }
-            else if (input == 4)
-            {
-                AdminDashboardMenuDashboard.DisplayMenuDashboard();
-            }
-            if(input <= 4 && input >= 1){
-                Thread.Sleep(3000);
-                DisplayMenuEditOptions();
-            }
-            else
-            {
-                Loading();
-                Console.WriteLine("Error! Please choose a valid option!", Color.Red);
+                else if (category.ToLower() == "halal")
+                {
+                    Halal halal = new Halal(name, price, category);
+                    JSONEditor.AddItem(halal);
+                    Loading("Adding item");
+                    Console.WriteLine("Item added successfully!", Color.Green);
+                    
+                }
             }
         }
     }

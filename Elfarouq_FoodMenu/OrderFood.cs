@@ -120,7 +120,7 @@ public static class OrderFood
                         found = true;
                     }
                 }
-                if (found == false)
+                if (!found)
                 {
                     Console.WriteLine("Reservation code invalid\nPress enter to go back...");
                     Console.ReadKey();
