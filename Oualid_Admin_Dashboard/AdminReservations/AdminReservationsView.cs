@@ -19,8 +19,10 @@ static class AdminReservationsView
             WriteToConsole(3, "View Reservations by Name");
             WriteToConsole(4, "View Reservation by Code");
             WriteToConsole(5, "Back to Reservations Dashboard");
-            int input = Convert.ToInt32(Console.ReadLine());
-            if (input == 1)
+            string? input = Console.ReadLine();
+            
+            
+            if (input == "1")
             {
                 //Alle reserveringen die gevonden zijn in de json bij het laden van de applicatie worden getoond door het aanroepen
                 //van de DisplayAllReservations functie. Daarna wordt de optie gegeven om terug te keren door "Any key" in te drukken.
@@ -31,7 +33,9 @@ static class AdminReservationsView
                 AdminReservationsView.Run();
             }
             //Vraagt de admin voor datum checkt deze datum en roept de functie aan die alle reserveringen op deze datum naar de console schrijft.
-            else if (input == 2)
+            
+            
+            else if (input == "2")
             {
                 string date;
                 while (true)
@@ -63,7 +67,9 @@ static class AdminReservationsView
             }
             //Vraagt de admin voor naam en achternaam. Roept de functie die alle reserveringen checkt op de gekregen parameters (name, lastname)
             //en de reserveringen met dezelfde naam en achternaam naar de console schrijft.
-            else if (input == 3)
+            
+            
+            else if (input == "3")
             {
                 Console.WriteLine("First name");
                 string ? firstName = Console.ReadLine();
@@ -79,7 +85,9 @@ static class AdminReservationsView
             }
             //Vraagt de admin voor de reserverings code. Roept de functie aan die alle reserveringen filtert op deze reserveringscode.
             //De functie schrijft of de reserverings informatie naar de console of meldt dat er geen reservering gevonden is op deze code.
-            else if (input == 4)
+            
+            
+            else if (input == "4")
             {
                 string code;
                 while (true)
@@ -105,14 +113,23 @@ static class AdminReservationsView
                 Console.Clear();
                 AdminReservationsView.Run();
             }
-            else if (input == 5)
+            
+            
+            
+            //Terug naar de admin reservations dashboard
+            
+            
+            else if (input == "5")
             {
                 AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
             }
+            
             else
             {
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("Press any key to return...");
+                Console.ReadKey();
             }
         }
     }
@@ -122,10 +139,7 @@ static class AdminReservationsView
     {
         foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
         {
-            Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
-            Console.WriteLine("Party size: " + reservation.PartySize);
-            Console.WriteLine("Time slot: " + reservation.TimeSlot);
-            Console.WriteLine();
+            DisplayReservation(reservation);
         }
     }
 
@@ -138,10 +152,7 @@ static class AdminReservationsView
         {
             if (reservation.TimeSlot.Date == inputDate)
             {
-                Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
-                Console.WriteLine("Party size: " + reservation.PartySize);
-                Console.WriteLine("Time slot: " + reservation.TimeSlot);
-                Console.WriteLine();
+                   DisplayReservation(reservation);
             }
         }
     }
@@ -149,18 +160,19 @@ static class AdminReservationsView
     //Toont alle reserveringen op basis van gekregen 'name' en 'lastName' als deze geen null is.
     public static void DisplayAllReservationsByName(string name, string ? lastName)
     {
-        if(!string.IsNullOrEmpty(lastName)){
+        Project.Olivier_Reservations.Reservation foundReservation = null;
+        
+        if (!string.IsNullOrEmpty(lastName)){
             foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
             {
-                if (reservation.Name.ToLower() == name.ToLower() && reservation.LastName.ToLower() == lastName.ToLower())
-                {
-                    Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
-                    Console.WriteLine("Party size: " + reservation.PartySize);
-                    Console.WriteLine("Time slot: " + reservation.TimeSlot);
-                    Console.WriteLine();
+                if (!string.IsNullOrEmpty(reservation.LastName)){
+                    if (reservation.Name.ToLower() == name.ToLower() && reservation.LastName.ToLower() == lastName.ToLower())
+                    {
+                        foundReservation = reservation;
+                        break;
+                    }
                 }
             }
-
         }
         else
         {
@@ -168,13 +180,22 @@ static class AdminReservationsView
             {
                 if (reservation.Name.ToLower() == name.ToLower())
                 {
-                    Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
-                    Console.WriteLine("Party size: " + reservation.PartySize);
-                    Console.WriteLine("Time slot: " + reservation.TimeSlot);
-                    Console.WriteLine();
+                    foundReservation = reservation;
+                    break;
                 }
             }
         }
+
+        if (foundReservation != null)
+        {
+            DisplayReservation(foundReservation);
+        }
+        else
+        {
+            Console.WriteLine();
+            Console.WriteLine("No reservation found with name: " + name + " " + lastName);
+        }
+   
     }
 
     //Toont de reservering waar de reserverings code hetzelfde is als de gekregen 'code' parameter. Als deze niet gevonden is wordt dat gemeld.
@@ -192,17 +213,23 @@ static class AdminReservationsView
 
         if(foundReservation != null)
         {
-            Console.WriteLine();
-            Console.WriteLine("Name: " + foundReservation.Name + " " + foundReservation.LastName);
-            Console.WriteLine("Party size: " + foundReservation.PartySize);
-            Console.WriteLine("Time slot: " + foundReservation.TimeSlot);
-            Console.WriteLine();
+            DisplayReservation(foundReservation);
         }
         else
         {
             Console.WriteLine();
             Console.WriteLine("No reservation found with code: " + code);
         }
+    }
+
+    //Displays a reservations information
+    public static void DisplayReservation(Project.Olivier_Reservations.Reservation reservation)
+    {
+        Console.WriteLine();
+        Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
+        Console.WriteLine("Party size: " + reservation.PartySize);
+        Console.WriteLine("Time slot: " + reservation.TimeSlot);
+        Console.WriteLine();
     }
 
     //Checkt of datum in juiste format is en of het een reeele en relevante datum is.

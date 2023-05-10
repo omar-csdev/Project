@@ -18,22 +18,25 @@ static class AdminDashboardMenuDashboard
             WriteToConsole(1, "View Menu");
             WriteToConsole(2, "Edit Menu");
             WriteToConsole(3, "Back to Admin Dashboard");
-            int input = Convert.ToInt32(Console.ReadLine());
-            if (input == 1)
+            string ? input = Console.ReadLine();
+            if (input == "1")
             {
                 AdminMenuView.DisplayMenuDisplayOptions();
             }
-            else if (input == 2)
+            else if (input == "2")
             {
                 AdminMenuEditor.DisplayMenuEditOptions();
             }
-            else if (input == 3)
+            else if (input == "3")
             {
                 AdminDashboard.DisplayDashboard();
             }
             else
             {
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
+                Console.WriteLine();
+                Console.WriteLine("Press any key to return...");
+                Console.ReadKey();
             }
         }
     }
@@ -51,8 +54,7 @@ static class AdminDashboardMenuDashboard
  |  \/  | ___ _ __  _   _ 
  | |\/| |/ _ \ '_ \| | | |
  | |  | |  __/ | | | |_| |
- |_|  |_|\___|_| |_|\__,_|
-                          
+ |_|  |_|\___|_| |_|\__,_|                      
 ";
 
         Console.WriteLine(logo, Color.Wheat);

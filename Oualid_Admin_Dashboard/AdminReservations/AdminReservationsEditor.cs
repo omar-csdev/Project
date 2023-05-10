@@ -17,33 +17,54 @@ static class AdminReservationsEditor
             WriteToConsole(2, "Delete Reservation");
             WriteToConsole(3, "Edit Reservation");
             WriteToConsole(4, "Back to Reservations Menu");
-            int input = Convert.ToInt32(Console.ReadLine());
-            if (input == 1)
+            string ? input = Console.ReadLine();
+            try
             {
-                Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
-                Thread.Sleep(1500);
-                AdminReservationsEditor.Run();
+                if (input == "1")
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+
+                }
+                else if (input == "2")
+                {
+                    Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
+                    Thread.Sleep(1500);
+                    AdminReservationsEditor.Run();
+                }
+                else if (input == "3")
+                {
+                    Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
+                    Thread.Sleep(1500);
+                    AdminReservationsEditor.Run();
+                }
+                else if (input == "4")
+                {
+                    AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
+                }
+                else
+                {
+                    Console.WriteLine("Error! Please choose a valid option!", Color.Red);
+                    Console.WriteLine();
+                    Console.WriteLine("Press any key to return...");
+                    Console.ReadKey();
+                }
             }
-            else if (input == 2)
+            catch(Exception ex)
             {
-                Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
-                Thread.Sleep(1500);
-                AdminReservationsEditor.Run();
-            }
-            else if (input == 3)
-            {
-                Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
-                Thread.Sleep(1500);
-                AdminReservationsEditor.Run();
-            }
-            else if (input == 4)
-            {
-                AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
-            }
-            else
-            {
-                Console.WriteLine("Error! Please choose a valid option!", Color.Blue);
-                Thread.Sleep(1500);
+                Console.ForegroundColor = Color.Red;
+                Console.WriteLine("Something went wrong!" + " " + ex.Message, Color.Red);
+                Console.WriteLine();
+                Console.WriteLine("Press any key to return...");
+                Console.ReadKey();
             }
         }
     }
