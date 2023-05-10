@@ -52,6 +52,7 @@ namespace Menu_item_creëren
             return JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
         }
 
+
         private static void createAndDisplayTable(List<Item> items, string tableName)
         {
             var table = new ConsoleTable("Number", "Name", "Price");
