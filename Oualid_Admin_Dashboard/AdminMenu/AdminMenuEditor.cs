@@ -69,10 +69,15 @@ static class AdminMenuEditor
                     double price = Double.TryParse(Console.ReadLine(), out double priceInput) ? priceInput : chosenItem.Price;
                     WriteToConsole(1, "Food");
                     WriteToConsole(2, "Drink");
-                    string category = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Food" : "Drink" : Console.ReadLine();
-                    if (category.ToLower() == "food")
+                    string type = Int32.TryParse(Console.ReadLine(), out int typeInput) ? typeInput == 1 ? "Food" : "Drink" : Console.ReadLine();
+
+                    WriteToConsole(1, "Halal");
+                    WriteToConsole(2, "Vegan");
+                    WriteToConsole(3, "Vega");
+                    string categoryFood = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Halal" : categoryInput == 2 ? "Vegan" : categoryInput == 3 ? "Vega" : Console.ReadLine() : Console.ReadLine();
+                    if (type.ToLower() == "food")
                     {
-                        Food food = new Food(name, price, category);
+                        Food food = new Food(name, price, type, categoryFood);
                         bool success = JSONEditor.UpdateItem(itemIndex, food);
                         if (success)
                         {
@@ -85,9 +90,12 @@ static class AdminMenuEditor
                             Console.WriteLine("Something went wrong try again", Color.Red);
                         }
                     }
-                    else if (category.ToLower() == "drink")
+                    else if (type.ToLower() == "drink")
                     {
-                        Drink drink = new Drink(name, price, category);
+                        WriteToConsole(1, "Non-Alcoholic");
+                        WriteToConsole(2, "Alcoholic");
+                        string categoryDrink = Int32.TryParse(Console.ReadLine(), out int categoryDrinkInput) ? categoryDrinkInput == 1 ? "Non-Alcoholic" : "Alcoholic" : Console.ReadLine();
+                        Drink drink = new Drink(name, price, type, categoryDrink);
                         bool success = JSONEditor.UpdateItem(itemIndex, drink);
                         if (success)
                         {
@@ -115,43 +123,52 @@ static class AdminMenuEditor
                 double price = Convert.ToDouble(Console.ReadLine());
                 WriteToConsole(1, "Food");
                 WriteToConsole(2, "Drink");
-                WriteToConsole(3, "Vegan");
-                WriteToConsole(4, "Halal");
-                string category = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Food" : categoryInput == 2 ? "Drink" : categoryInput == 3 ? "Vegan" : categoryInput == 4 ? "Halal" : Console.ReadLine() : Console.ReadLine();
-                if (category == null)
+                string type = Console.ReadLine();
+                if (type == null)
                 {
                     Loading();
                     Console.WriteLine("Error! Please choose a valid option (Food, Drink, Vegan or Halal)!", Color.Red);
                 }
-                else if (category.ToLower() == "food")
+                else if (type.ToLower() == "1")
                 {
-                    Food food = new Food(name, price, category);
-                    JSONEditor.AddItem(food);
-                    Loading("Adding item");
-                    Console.WriteLine("Item added successfully!", Color.Green);
+                    WriteToConsole(1, "Halal");
+                    WriteToConsole(2, "Vegan");
+                    WriteToConsole(3, "Vega");
+                     string categoryFood = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Halal" : categoryInput == 2 ? "Vegan" : categoryInput == 3 ? "Vega" : Console.ReadLine() : Console.ReadLine();
+                    if (categoryFood == "1" || categoryFood == "2" || categoryFood == "3")
+                    {
+                        Food food = new Food(name, price, "Food", "test");
+                        JSONEditor.AddItem(food);
+                        Loading("Adding item");
+                        Console.WriteLine("Item added successfully!", Color.Green);
+                    }
+                    else
+                    {
+                        Loading();
+                        Console.WriteLine("Error! Please choose a valid option (Halal, Vegan or Vega)!", Color.Red);
+                    }
+ 
                 }
-                else if (category.ToLower() == "drink")
+                else if (type.ToLower() == "2")
                 {
-                    Drink drink = new Drink(name, price, category);
-                    JSONEditor.AddItem(drink);
-                    Loading("Adding item");
-                    Console.WriteLine("Item added successfully!", Color.Green);
+                    WriteToConsole(1, "Non-Alcoholic");
+                    WriteToConsole(2, "Alcoholic");
+                    string category = Console.ReadLine();
+                    List<string> categoryCheck = new List<string>() { "1", "2"};
+                    if (categoryCheck.Contains(category))
+                    {
+                        Drink drink = new Drink(name, price, "Drink", category);
+                        JSONEditor.AddItem(drink);
+                        Loading("Adding item");
+                        Console.WriteLine("Item added successfully!", Color.Green);
+                    }
+                    else
+                    {
+                        Loading();
+                        Console.WriteLine("Error! Please choose a valid option (Halal, Vegan or Vega)!", Color.Red);
+                    }
                 }
-                else if (category.ToLower() == "vegan")
-                {
-                    Vegan vegan = new Vegan(name, price, category);
-                    JSONEditor.AddItem(vegan);
-                    Loading("Adding item");
-                    Console.WriteLine("Item added successfully!", Color.Green);
-                }
-                else if (category.ToLower() == "halal")
-                {
-                    Halal halal = new Halal(name, price, category);
-                    JSONEditor.AddItem(halal);
-                    Loading("Adding item");
-                    Console.WriteLine("Item added successfully!", Color.Green);
-                    
-                }
+
             }
         }
     }

@@ -3,54 +3,77 @@
     "Name": "Redje",
     "Type": "Drink",
     "Price": 1.5,
+    "Category": null,
     "Id": 1
   },
   {
     "Name": "Burger",
     "Type": "Food",
     "Price": 4.5,
+    "Category": null,
     "Id": 4
   },
   {
     "Name": "Water",
     "Type": "Drink",
     "Price": 1.0,
+    "Category": null,
     "Id": 2
   },
   {
     "Name": "Haram drink",
     "Type": "Drink",
     "Price": 4.0,
+    "Category": null,
     "Id": 3
   },
   {
     "Name": "Fries",
     "Type": "Food",
     "Price": 2.5,
+    "Category": null,
     "Id": 8
   },
   {
     "Name": "Pasta",
     "Type": "Food",
     "Price": 6.5,
+    "Category": null,
     "Id": 6
   },
   {
     "Name": "Chicken Salad",
     "Type": "Food",
     "Price": 3.5,
+    "Category": null,
     "Id": 7
   },
   {
     "Name": "kapsalon",
     "Type": "Halal",
     "Price": 6.0,
+    "Category": null,
     "Id": 9
   },
   {
     "Name": "Burger",
-    "Type": "Vegan",
+    "Type": "Food",
     "Price": 3.0,
+    "Category": null,
     "Id": 10
+  },
+  {
+    "Name": "Omar",
+    "Type": "Drink",
+    "Price": 3.0,
+    "Category": null,
+    "Id": 11
+  },
+  {
+    "Name": "TEsting",
+    "Type": "Drink",
+    "Price": 91.0,
+    "Category": "2",
+    "Id": 12
   }
 ]

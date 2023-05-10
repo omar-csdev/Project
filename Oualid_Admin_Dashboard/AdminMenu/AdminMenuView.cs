@@ -28,15 +28,15 @@ static class AdminMenuView
             {
                 WriteToConsole(1, "Food");
                 WriteToConsole(2, "Drink");
-                string category = Convert.ToInt32(Console.ReadLine()) == 1 ? "Food" : "Drink";
+                string type = Convert.ToInt32(Console.ReadLine()) == 1 ? "Food" : "Drink";
 
                 for(; ; ){
-                    if(category.ToLower() == "food"){
+                    if(type.ToLower() == "food"){
                         displayFoodMenuItems();
                         Thread.Sleep(4000);
                         break;
                     }
-                    else if(category.ToLower() == "drink"){
+                    else if(type.ToLower() == "drink"){
                         displayDrinkMenuItems();
                         Thread.Sleep(4000);
 

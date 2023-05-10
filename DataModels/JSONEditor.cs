@@ -18,22 +18,12 @@ public class JSONEditor
         if (item is Food)
         {
             Food food = (Food)item;
-            newItem = new Food(food.Name, food.Price, food.Type);
+            newItem = new Food(food.Name, food.Price, food.Type, food.Category);
         }
         else if (item is Drink)
         {
             Drink drink = (Drink)item;
-            newItem = new Drink(drink.Name, drink.Price, drink.Type);
-        }
-        else if (item is Halal)
-        {
-            Halal halal = (Halal)item;
-            newItem = new Halal(halal.Name, halal.Price, halal.Type);
-        }
-        else if (item is Vegan)
-        {
-            Vegan vegan = (Vegan)item;
-            newItem = new Vegan(vegan.Name, vegan.Price, vegan.Type);
+            newItem = new Drink(drink.Name, drink.Price, drink.Type, drink.Category);
         }
         else
         {
@@ -96,20 +86,6 @@ public class JSONEditor
                 ((Drink)itemToUpdate).Name = drink.Name;
                 ((Drink)itemToUpdate).Price = drink.Price;
                 ((Drink)itemToUpdate).Type = drink.Type;
-            }
-            else if (updatedItem is Halal)
-            {
-                Halal halal = (Halal)updatedItem;
-                ((Halal)itemToUpdate).Name = halal.Name;
-                ((Halal)itemToUpdate).Price = halal.Price;
-                ((Halal)itemToUpdate).Type = halal.Type;
-            }
-            else if (updatedItem is Vegan)
-            {
-                Vegan vegan = (Vegan)updatedItem;
-                ((Vegan)itemToUpdate).Name = vegan.Name;
-                ((Vegan)itemToUpdate).Price = vegan.Price;
-                ((Vegan)itemToUpdate).Type = vegan.Type;
             }
             else
             {
