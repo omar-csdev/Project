@@ -1,10 +1,5 @@
 [
   {
-    "UserName": null,
-    "Password": null,
-    "IsLoggedIn": false
-  },
-  {
     "UserName": "Admin",
     "Password": "123",
     "IsLoggedIn": false
