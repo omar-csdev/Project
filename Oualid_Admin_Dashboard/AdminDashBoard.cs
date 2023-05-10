@@ -17,27 +17,31 @@ public static class AdminDashboard
             WriteToConsole(1, "Reservations");
             WriteToConsole(2, "Menu");
             WriteToConsole(3, "Log out");
-            int input = Convert.ToInt32(Console.ReadLine());
-            if (input == 1)
+            string ? input = Console.ReadLine();
+            if (input == "1")
             {
                 AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
             }
-            else if (input == 2)
+            else if (input == "2")
             {
                 AdminDashboardMenuDashboard.DisplayMenuDashboard();
             }
-            else if (input == 3)
+            else if (input == "3")
             {
                 //Log out
                 Console.Clear();
                 Console.WriteLine("Logged out succesfully!");
-                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("Press any key to return...");
+                Console.ReadKey(); 
                 AdminLogin.Start();
             }
             else
             {
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("Press any key to return...");
+                Console.ReadKey();
             }
         }
     }

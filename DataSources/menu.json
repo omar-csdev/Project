@@ -1,6 +1,6 @@
 [
   {
-    "Name": "Redje",
+    "Name": "Red bull",
     "Type": "Drink",
     "Price": 1.5,
     "Id": 1
@@ -14,14 +14,8 @@
   {
     "Name": "Water",
     "Type": "Drink",
-    "Price": 1,
+    "Price": 1.0,
     "Id": 2
-  },
-  {
-    "Name": "Haram drink",
-    "Type": "Drink",
-    "Price": 4,
-    "Id": 3
   },
   {
     "Name": "Fries",
@@ -40,5 +34,11 @@
     "Type": "Food",
     "Price": 3.5,
     "Id": 7
+  },
+  {
+    "Name": "Spa water",
+    "Type": "Drink",
+    "Price": 250.0,
+    "Id": 9
   }
 ]

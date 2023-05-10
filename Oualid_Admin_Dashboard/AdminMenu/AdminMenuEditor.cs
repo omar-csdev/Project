@@ -17,129 +17,244 @@ static class AdminMenuEditor
             WriteToConsole(2, "Edit Item");
             WriteToConsole(3, "Add Item");
             WriteToConsole(4, "Back to Menu Dashboard");
-            int input = Convert.ToInt32(Console.ReadLine());
+            string? input = Console.ReadLine();
 
-            if (input == 1)
+            if (input == "1")
             {
-                foreach (Item item in menu)
+                int itemIndexToDelete;
+                bool success = false;
+                while (true)
                 {
-                    WriteToConsole(item.Id, item.Name);
-                }
-                Console.WriteLine("Enter item ID to remove: ");
-                int itemIndex = Convert.ToInt32(Console.ReadLine());
-                bool success = JSONEditor.RemoveItem(itemIndex);
-                Loading("Deleting item");
-                if(success){
-                    Console.WriteLine("Item Deleted!", Color.Green);
-                }else{
-                    Console.WriteLine("Something went wrong try again", Color.Red);
+                    Console.Clear();
+                    WriteLogo();
+
+
+                    foreach (Item item in menu)
+                    {
+                        WriteToConsole(item.Id, item.Name);
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine("Enter item ID to remove: ");
+
+                    try
+                    {
+                        bool isInt = int.TryParse(Console.ReadLine(), out itemIndexToDelete);
+                        if (isInt && !menu.All(i => i.Id != itemIndexToDelete))
+                        {
+                            success = JSONEditor.RemoveItem(itemIndexToDelete);
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error! Please enter a valid option!", Color.Red);
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                            continue;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    if (success)
+                    {
+                        Console.WriteLine("Item Deleted!", Color.Red);
+                        Console.WriteLine("Error! Please enter a valid option!", Color.Red);
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+                        AdminMenuEditor.DisplayMenuEditOptions();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Something went wrong try again", Color.Green);
+                        Console.WriteLine("Press any key to return...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        AdminMenuEditor.DisplayMenuEditOptions();
+                    }
+
                 }
             }
-            else if (input == 2)
+            else if (input == "2")
             {
-                foreach (Item item in menu)
+                int itemIndex;
+                while (true)
                 {
-                    WriteToConsole(item.Id, item.Name);
-                }
-                Console.WriteLine("Enter the number of the item you want to edit: ");
-                int itemIndex = Convert.ToInt32(Console.ReadLine());
-                if (menu.All(i => i.Id != itemIndex))
-                {
-                    Loading();
-                    Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                }else
-                {   
-                    Item ? chosenItem = menu.FirstOrDefault(i => i.Id == itemIndex); 
-                    if(chosenItem != null){
-                        Console.WriteLine("Name: " + chosenItem.Name);
-                        Console.WriteLine("Price: " + chosenItem.Price);
-                        Console.WriteLine("Type: " + chosenItem.Type);
+                    Console.Clear();
+                    WriteLogo();
+                    foreach (Item item in menu)
+                    {
+                        WriteToConsole(item.Id, item.Name);
                     }
-                    
-                    Console.WriteLine("Enter the new name of the item (Press Enter key to keep the old value): ");
-                    string name = Console.ReadLine();
-                    name = name == "" ? chosenItem.Name : name;
 
-                    Console.WriteLine("Enter the new price of the item (0.00) (Press Enter key to keep the old value) : ");
-                    double price = Double.TryParse(Console.ReadLine(), out double priceInput) ? priceInput : chosenItem.Price;
+
+                    Console.WriteLine();
+                    Console.WriteLine("Enter the number of the item you want to edit: ");
+                    try
+                    {
+                        bool isInt = int.TryParse(Console.ReadLine(), out itemIndex);
+                        if (isInt && !menu.All(i => i.Id != itemIndex))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error! Please enter a valid option!", Color.Red);
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                            continue;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }  
+                
+                Item ? chosenItem = menu.FirstOrDefault(i => i.Id == itemIndex); 
+                if(chosenItem != null){
+                    Console.WriteLine("Name: " + chosenItem.Name);
+                    Console.WriteLine("Price: " + chosenItem.Price);
+                    Console.WriteLine("Type: " + chosenItem.Type);
+                }
+                else
+                {
+                    Console.WriteLine("Something went wrong finding the chosen item.", Color.Green);
+                    Console.WriteLine();
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                    AdminMenuEditor.DisplayMenuEditOptions();
+                }
+                    
+                Console.WriteLine("Enter the new name of the item (Press Enter key to keep the old value): ");
+                string name = Console.ReadLine();
+                name = name == "" ? chosenItem.Name : name;
+
+                Console.WriteLine("Enter the new price of the item (0.00) (Press Enter key to keep the old value): ");
+                double price = Double.TryParse(Console.ReadLine(), out double priceInput) ? priceInput : chosenItem.Price;
+
+                while (true)
+                {
+                    Console.WriteLine("Any other value than 1 will lead to the item category being drink.");
                     WriteToConsole(1, "Food");
                     WriteToConsole(2, "Drink");
                     string category = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Food" : "Drink" : Console.ReadLine();
+
                     if (category.ToLower() == "food")
                     {
                         Food food = new Food(name, price, category);
                         bool success = JSONEditor.UpdateItem(itemIndex, food);
-                        if(success){
-                            Loading("Editing item");
-                            Console.WriteLine("Item edited successfully!", Color.Green);                        }
+                        if (success)
+                        {
+                            Console.WriteLine("Item edited successfully!", Color.Red);
+                        }
                         else
                         {
-                            Loading("Editing item");
-                            Console.WriteLine("Something went wrong try again", Color.Red);
+                            Console.WriteLine("Something went wrong try again", Color.Green);
                         }
+                        Console.WriteLine("Press any key to return...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        AdminMenuEditor.DisplayMenuEditOptions();
+                        break;
                     }
                     else if (category.ToLower() == "drink")
                     {
                         Drink drink = new Drink(name, price, category);
                         bool success = JSONEditor.UpdateItem(itemIndex, drink);
-                        if(success){
-                            Loading("Editing item");
+                        if (success)
+                        {
                             Console.WriteLine("Item edited successfully!", Color.Green);
                         }
                         else
                         {
-                            Loading("Editing item");
                             Console.WriteLine("Something went wrong try again", Color.Red);
                         }
+
+                        Console.WriteLine("Press any key to return...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        AdminMenuEditor.DisplayMenuEditOptions();
+                        break;
                     }
                     else
                     {
-                        Loading();
-                        Console.WriteLine("Error! Please choose a valid option (Food or Drink)!", Color.Red);
+                        Console.WriteLine("Error! Please enter something.", Color.Red);
+                        continue;
                     }
                 }
+
+                Console.WriteLine("Press any key to return...");
+                Console.ReadKey();
+                Console.Clear();
+                AdminMenuEditor.DisplayMenuEditOptions();
             }
-            else if (input == 3)
+            else if (input == "3")
             {
+                Console.Clear();
+                WriteLogo();
                 Console.WriteLine("Enter the name of the item: ");
                 string name = Console.ReadLine();
-                Console.WriteLine("Enter the price of the item: ");
-                double price = Convert.ToDouble(Console.ReadLine());
+                
+                
+                double price;
+                while (true)
+                {
+                    Console.WriteLine("Enter the price of the item: ");
+                    try
+                    {
+                        bool isDouble = double.TryParse(Console.ReadLine(), out price);
+                        if (isDouble)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error! Please enter a valid option!", Color.Red);
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                            continue;
+                        }
+                    }catch(Exception ex) { Console.WriteLine(ex.Message); }
+                }
+
+                Console.WriteLine("Any value other than 1 will be recorded as Drink. ");
                 WriteToConsole(1, "Food");
                 WriteToConsole(2, "Drink");
                 string category = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Food" : "Drink" : Console.ReadLine();
+                
                 if(category == null){
-                    Loading();
                     Console.WriteLine("Error! Please choose a valid option (Food or Drink)!", Color.Red);
                 }
                 else if(category.ToLower() == "food"){
                     Food food = new Food(name, price, category);
                     JSONEditor.AddItem(food);
-                    Loading("Adding item");
-                    Console.WriteLine("Item added successfully!", Color.Green);
+                    Console.WriteLine("Item added successfully!", Color.Red);
                 }else if (category.ToLower() == "drink"){
                     Drink drink = new Drink(name, price, category);
                     JSONEditor.AddItem(drink);
-                    Loading("Adding item");
-                    Console.WriteLine("Item added successfully!", Color.Green);
+                    Console.WriteLine("Item added successfully!", Color.Red);
                 }
                 else{
-                    Console.WriteLine("Error! Please choose a valid option (Food or Drink)!", Color.Red);
-                    Loading();
+                    Console.WriteLine("Error! Please enter a value!", Color.Green);
                 }
+
+                Console.WriteLine("Press any key to return...");
+                Console.ReadKey();
+                Console.Clear();
+                AdminMenuEditor.DisplayMenuEditOptions();
+
             }
-            else if (input == 4)
+            else if (input == "4")
             {
                 AdminDashboardMenuDashboard.DisplayMenuDashboard();
             }
-            if(input <= 4 && input >= 1){
-                Thread.Sleep(3000);
-                DisplayMenuEditOptions();
-            }
             else
             {
-                Loading();
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
+                Console.WriteLine();
+                Console.WriteLine("Press any key to return...");
+                Console.ReadKey();
             }
         }
     }
@@ -150,7 +265,6 @@ static class AdminMenuEditor
         Console.Write(prefix, Color.Red);
         Console.WriteLine("] " + message);
     }
-
     
     public static void Loading(string message="Loading")
     {
