@@ -40,6 +40,8 @@ namespace Menu_item_creëren
 
             var NonAlcoholicItems = allMenuItems.Where(item => item.Category == "Non-Alcoholic").ToList();
             createAndDisplayTable(veganItems, "Non-Alcoholic Menu");
+            var FullMenuItems = allMenuItems.Where(item => item.Type == "Drink" || item.Type == "Food").ToList();
+            createAndDisplayTable(FullMenuItems, "Whole Menu");
 
         }
 
@@ -114,6 +116,14 @@ namespace Menu_item_creëren
             var drinkItems = allMenuItems.Where(item => item.Type == "Drink").ToList();
             createAndDisplayTable(drinkItems, "Drink Menu");
         }
+        public static void DisplayFullMenu()
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var FullMenuItems = allMenuItems.Where(item => item.Type == "Drink" || item.Type == "Food").ToList();
+            createAndDisplayTable(FullMenuItems, "Whole Menu");
+        }
 
         private static List<Item> getMenuItems()
         {
@@ -130,7 +140,7 @@ namespace Menu_item_creëren
             // Add rows to table
             foreach (var item in items)
             {
-                string formattedPrice = string.Format("€{0:N2}", item.Price);
+                string formattedPrice = string.Format("€{00:N2}", item.Price);
                 table.AddRow(item.Id, item.Name, formattedPrice);
                 
             }

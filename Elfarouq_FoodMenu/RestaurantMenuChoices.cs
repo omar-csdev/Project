@@ -15,7 +15,6 @@ public class MenuChoices
     {
         for (; ; )
         {
-            getMenuItems();
             Console.Clear();
             WriteLogo();
             AdminMenuView.WriteToConsole(1, "View Whole Menu");
@@ -25,7 +24,7 @@ public class MenuChoices
             int input = Convert.ToInt32(Console.ReadLine());
             if (input == 1)
             {
-                displayAllMenuItems();
+                MenuItem.DisplayFullMenu();
                 Thread.Sleep(4000);
 
             }
@@ -39,13 +38,13 @@ public class MenuChoices
                 {
                     if (type.ToLower() == "food")
                     {
-                        displayFoodMenuItems();
+                        MenuItem.DisplayFood();
                         Thread.Sleep(4000);
                         break;
                     }
                     else if (type.ToLower() == "drink")
                     {
-                        displayDrinkMenuItems();
+                        MenuItem.DisplayDrink();
                         Thread.Sleep(4000);
 
                         break;
@@ -135,40 +134,6 @@ public class MenuChoices
         Console.Write("[");
         Console.Write(prefix, Color.Red);
         Console.WriteLine("] " + message);
-    }
-
-    public static void getMenuItems()
-    {
-        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
-        string JSONString = File.ReadAllText(filePath);
-
-
-        List<Item> menuFromJson = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
-        menu = menuFromJson.ToArray();
-    }
-
-    public static void displayAllMenuItems()
-    {
-        MenuItem.Start();
-        Console.WriteLine("Press a key to continue", Color.Orange);
-        Console.ReadKey();
-        DisplayMenuOptions();
-    }
-
-    public static void displayFoodMenuItems()
-    {
-        MenuItem.DisplayFood();
-        Console.WriteLine("Press a key to continue");
-        Console.ReadKey();
-        DisplayMenuOptions();
-    }
-
-    public static void displayDrinkMenuItems()
-    {
-        MenuItem.DisplayDrink();
-        Console.WriteLine("Press a key to continue");
-        Console.ReadKey();
-        DisplayMenuOptions();
     }
     public static void WriteLogo()
     {
