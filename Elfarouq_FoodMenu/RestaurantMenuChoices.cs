@@ -25,7 +25,8 @@ public class MenuChoices
             if (input == 1)
             {
                 MenuItem.DisplayFullMenu();
-                Thread.Sleep(4000);
+                Console.WriteLine("\nClick enter to go back");
+                Console.ReadLine();
 
             }
             else if (input == 2)
@@ -39,13 +40,15 @@ public class MenuChoices
                     if (type.ToLower() == "food")
                     {
                         MenuItem.DisplayFood();
-                        Thread.Sleep(4000);
+                        Console.WriteLine("\nClick enter to go back");
+                        Console.ReadLine();
                         break;
                     }
                     else if (type.ToLower() == "drink")
                     {
                         MenuItem.DisplayDrink();
-                        Thread.Sleep(4000);
+                        Console.WriteLine("\nClick enter to go back");
+                        Console.ReadLine();
 
                         break;
                     }

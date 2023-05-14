@@ -140,7 +140,7 @@ namespace Menu_item_creëren
             // Add rows to table
             foreach (var item in items)
             {
-                string formattedPrice = string.Format("€{00:N2}", item.Price);
+                string formattedPrice = string.Format("${00:N2}", item.Price);
                 table.AddRow(item.Id, item.Name, formattedPrice);
                 
             }
