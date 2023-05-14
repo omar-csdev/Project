@@ -124,49 +124,83 @@ static class AdminMenuEditor
                 WriteToConsole(1, "Food");
                 WriteToConsole(2, "Drink");
                 string type = Console.ReadLine();
-                if (type == null)
+                if (type.ToLower() == "1")
                 {
-                    Loading();
-                    Console.WriteLine("Error! Please choose a valid option (Food, Drink, Vegan or Halal)!", Color.Red);
-                }
-                else if (type.ToLower() == "1")
-                {
-                    WriteToConsole(1, "Halal");
-                    WriteToConsole(2, "Vegan");
+                    WriteToConsole(1, "General");
+                    WriteToConsole(2, "Halal");
                     WriteToConsole(3, "Vega");
-                     string categoryFood = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Halal" : categoryInput == 2 ? "Vegan" : categoryInput == 3 ? "Vega" : Console.ReadLine() : Console.ReadLine();
-                    if (categoryFood == "1" || categoryFood == "2" || categoryFood == "3")
+                    WriteToConsole(4, "Vegan");
+                    string categoryFood;
+                    if (Int32.TryParse(Console.ReadLine(), out int categoryInput))
                     {
-                        Food food = new Food(name, price, "Food", "test");
-                        JSONEditor.AddItem(food);
-                        Loading("Adding item");
-                        Console.WriteLine("Item added successfully!", Color.Green);
+                        if (categoryInput == 1)
+                        {
+                            categoryFood = "General";
+                        }
+                        else if (categoryInput == 2)
+                        {
+                            categoryFood = "Halal";
+                        }
+                        else if (categoryInput == 3)
+                        {
+                            categoryFood = "Vega";
+                        }
+                        else if (categoryInput == 4)
+                        {
+                            categoryFood = "Vegan";
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. Please enter 1, 2, or 3.");
+                            categoryFood = Console.ReadLine();
+                        }
                     }
                     else
                     {
-                        Loading();
-                        Console.WriteLine("Error! Please choose a valid option (Halal, Vegan or Vega)!", Color.Red);
+
+                        Console.WriteLine("Invalid input. Please enter a valid integer.");
+                        categoryFood = Console.ReadLine();
                     }
- 
+                    Food food = new Food(name, price, "Food", categoryFood);
+                    JSONEditor.AddItem(food);
+                    Loading("Adding item");
+                    Console.WriteLine("Item added successfully!", Color.Green);
+                    Console.WriteLine();
+                    Helper.ContinueDisplay();
                 }
                 else if (type.ToLower() == "2")
                 {
                     WriteToConsole(1, "Non-Alcoholic");
                     WriteToConsole(2, "Alcoholic");
-                    string category = Console.ReadLine();
-                    List<string> categoryCheck = new List<string>() { "1", "2"};
-                    if (categoryCheck.Contains(category))
+                    string categoryDrink;
+                    if (Int32.TryParse(Console.ReadLine(), out int categoryInput))
                     {
-                        Drink drink = new Drink(name, price, "Drink", category);
-                        JSONEditor.AddItem(drink);
-                        Loading("Adding item");
-                        Console.WriteLine("Item added successfully!", Color.Green);
+                        if (categoryInput == 1)
+                        {
+                            categoryDrink = "Non-Alcoholic";
+                        }
+                        else if (categoryInput == 2)
+                        {
+                            categoryDrink = "Alcoholic";
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. Please enter 1 or 2.");
+                            categoryDrink = Console.ReadLine();
+                        }
                     }
                     else
                     {
-                        Loading();
-                        Console.WriteLine("Error! Please choose a valid option (Halal, Vegan or Vega)!", Color.Red);
+
+                        Console.WriteLine("Invalid input. Please enter a valid integer.");
+                        categoryDrink = Console.ReadLine();
                     }
+                    Drink drink = new Drink(name, price, "Drink", categoryDrink);
+                    JSONEditor.AddItem(drink);
+                    Loading("Adding item");
+                    Console.WriteLine("Item added successfully!", Color.Green);
+                    Console.WriteLine();
+                    Helper.ContinueDisplay();
                 }
 
             }
