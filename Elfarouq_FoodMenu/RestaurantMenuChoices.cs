@@ -120,7 +120,7 @@ public class MenuChoices
             }
             else if (input == 4)
             {
-                AdminDashboardMenuDashboard.DisplayMenuDashboard();
+                FoodMenu.Start();
             }
             else
             {
