@@ -20,11 +20,27 @@ namespace Menu_item_creëren
             var allMenuItems = getMenuItems();
 
             // Create and display tables for food and drinks
-            var foodItems = allMenuItems.Where(item => item.Type == "Food" || item.Type == "Halal" || item.Type == "Vegan" ).ToList();
-            createAndDisplayTable(foodItems, "Food Menu");
+            var GeneralItems = allMenuItems.Where(item => item.Type == "General").ToList();
+            createAndDisplayTable(GeneralItems, "General Menu");
 
             var drinkItems = allMenuItems.Where(item => item.Type == "Drink").ToList();
             createAndDisplayTable(drinkItems, "Drink Menu");
+
+            var alcoholicItems = allMenuItems.Where(item => item.Category == "Alcoholic").ToList();
+            createAndDisplayTable(alcoholicItems, "Alcoholic Menu");
+
+            var halalItems = allMenuItems.Where(item => item.Category == "Halal").ToList();
+            createAndDisplayTable(halalItems, "Halal Menu");
+
+            var vegaItems = allMenuItems.Where(item => item.Category == "vega").ToList();
+            createAndDisplayTable(vegaItems, "Vega Menu");
+
+            var veganItems = allMenuItems.Where(item => item.Category == "vegan").ToList();
+            createAndDisplayTable(veganItems, "Vegan Menu");
+
+            var NonAlcoholicItems = allMenuItems.Where(item => item.Category == "Non-Alcoholic").ToList();
+            createAndDisplayTable(veganItems, "Non-Alcoholic Menu");
+
         }
 
         public static void DisplayFood()
@@ -32,8 +48,62 @@ namespace Menu_item_creëren
             var allMenuItems = getMenuItems();
 
             // Create and display tables for food and drinks
-            var foodItems = allMenuItems.Where(item => item.Type == "Food" || item.Type == "Halal" || item.Type == "Vegan").ToList();
+            var foodItems = allMenuItems.Where(item => item.Type == "Food").ToList();
             createAndDisplayTable(foodItems, "Food Menu");
+        }
+
+        public static void DisplayAlcoholic()
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Alcoholic").ToList();
+            createAndDisplayTable(foodItems, "Alcoholic Menu");
+        }
+
+        public static void DisplayNonAlcoholic()
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Non-Alcoholic").ToList();
+            createAndDisplayTable(foodItems, "Non-Alcoholic Menu");
+        }
+
+        public static void DisplayHalal()
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Halal").ToList();
+            createAndDisplayTable(foodItems, "Halal Menu");
+        }
+
+        public static void DisplayVega()
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Vega").ToList();
+            createAndDisplayTable(foodItems, "Vega Menu");
+        }
+
+        public static void DisplayVegan()
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Vegan").ToList();
+            createAndDisplayTable(foodItems, "Vegan Menu");
+        }
+
+        public static void DisplayGeneral()
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "General").ToList();
+            createAndDisplayTable(foodItems, "General Menu");
         }
 
         public static void DisplayDrink()
