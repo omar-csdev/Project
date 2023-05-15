@@ -7,56 +7,32 @@ using Console = Colorful.Console;
 
 public class ReservationsEditor
 {
-    public static bool AddReservation(Project.Olivier_Reservations.Reservation reservation)
-    {
-        try
-        {
-            if (IsValidReservation(reservation))
-            {
-                // Load existing reservations
-                List<Project.Olivier_Reservations.Reservation> reservations = GetReservations();
-
-                // Add the new reservation
-                reservations.Add(reservation);
-
-                // Save the updated reservations to the JSON file
-                string json = JsonConvert.SerializeObject(reservations, Formatting.Indented);
-                File.WriteAllText("reservations.json", json);
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("An error occurred while adding the reservation: " + ex.Message);
-            return false;
-        }
-    }
-
     public static bool RemoveReservation(string code)
     {
         try
         {
             // Load existing reservations
-            List<Project.Olivier_Reservations.Reservation> reservations = GetReservations();
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string JSONString = File.ReadAllText(filePath);
+            List<Project.Olivier_Reservations.Reservation> reservations = JsonConvert.DeserializeObject<List<Project.Olivier_Reservations.Reservation>>(JSONString) ?? new List<Project.Olivier_Reservations.Reservation>();
+
+
+
 
             // Find the reservation to remove
-            Project.Olivier_Reservations.Reservation reservationToRemove = reservations.Find(r => r.Code == code);
+            Project.Olivier_Reservations.Reservation? reservationToRemove = reservations.FirstOrDefault(r => r.Code == code);
+
 
             if (reservationToRemove != null)
             {
                 // Remove the reservation
                 reservations.Remove(reservationToRemove);
 
-                // Save the updated reservations to the JSON file
-                string json = JsonConvert.SerializeObject(reservations, Formatting.Indented);
-                File.WriteAllText("reservations.json", json);
 
-                Console.WriteLine("Reservation removed successfully.");
+                // Save the updated reservations to the JSON file
+                string updatedJSONString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+                File.WriteAllText(filePath, updatedJSONString);
+
                 return true;
             }
             return false;
@@ -68,17 +44,20 @@ public class ReservationsEditor
         }
     }
 
-    public static bool UpdateReservation(string code, Project.Olivier_Reservations.Reservation reservation)
+    public static bool UpdateReservation( Project.Olivier_Reservations.Reservation reservation)
     {
         try
         {
             if (IsValidReservation(reservation))
             {
                 // Load existing reservations
-                List<Project.Olivier_Reservations.Reservation> reservations = GetReservations();
+                string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+                string JSONString = File.ReadAllText(filePath);
+                List<Project.Olivier_Reservations.Reservation> reservations = JsonConvert.DeserializeObject<List<Project.Olivier_Reservations.Reservation>>(JSONString) ?? new List<Project.Olivier_Reservations.Reservation>();
 
                 // Find the reservation to update
-                Project.Olivier_Reservations.Reservation existingReservation = reservations.Find(r => r.Code == code);
+                Project.Olivier_Reservations.Reservation? existingReservation = reservations.FirstOrDefault(r => r.Code == reservation.Code);
+
 
                 if (existingReservation != null)
                 {
@@ -90,8 +69,8 @@ public class ReservationsEditor
                     existingReservation.TimeSlot = reservation.TimeSlot;
 
                     // Save the updated reservations to the JSON file
-                    string json = JsonConvert.SerializeObject(reservations, Formatting.Indented);
-                    File.WriteAllText("reservations.json", json);
+                    string updatedJSONString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+                    File.WriteAllText(filePath, updatedJSONString);
 
                     return true;
                 }
