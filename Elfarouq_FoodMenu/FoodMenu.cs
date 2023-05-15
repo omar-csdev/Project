@@ -25,7 +25,8 @@ public static class FoodMenu
         string input = Console.ReadLine();
         if (input == "1")
         {
-            MenuItem.Start();
+            Console.Clear();
+            MenuChoices.DisplayMenuOptions();
             Console.WriteLine("\nClick enter to go back");
             Console.ReadLine();
             Console.Clear();
@@ -41,7 +42,13 @@ public static class FoodMenu
             Console.Clear();
             MainMenu.Start();
         }
-        else { Console.WriteLine("Give a valid option"); FoodMenu.Start(); }
+        else 
+        {
+            Console.WriteLine("Error! Please choose a valid option!", Color.Red);
+            Thread.Sleep(3000);
+            Console.Clear();
+            FoodMenu.Start(); 
+        }
     }
 
     public static void Say(string prefix, string message)

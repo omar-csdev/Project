@@ -1,8 +1,23 @@
 [
   {
-    "Name": "Redje",
-    "Type": "Drink",
-    "Price": 1.5,
+    "Name": "Burger",
+    "Type": "Food",
+    "Price": 5.5,
+    "Category": "Halal",
     "Id": 1
+  },
+  {
+    "Name": "Fries",
+    "Type": "Food",
+    "Price": 3.0,
+    "Category": "General",
+    "Id": 2
+  },
+  {
+    "Name": "Red Bull",
+    "Type": "Drink",
+    "Price": 2.0,
+    "Category": "Non-Alcoholic",
+    "Id": 3
   }
 ]
