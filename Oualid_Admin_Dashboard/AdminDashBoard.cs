@@ -20,16 +20,16 @@ public static class AdminDashboard
             WriteToConsole(3, "View Accounts");
             WriteToConsole(4, "Log out");
             int input = Convert.ToInt32(Console.ReadLine());
-            if (input == "1")
+            if (input == 1)
 
             {
                 AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
             }
-            else if (input == "2")
+            else if (input == 2)
             {
                 AdminDashboardMenuDashboard.DisplayMenuDashboard();
             }
-            else if (input == "3")
+            else if (input == 3)
             {
                 AdminManager.Start();
             }
