@@ -38,8 +38,8 @@ public static class OrderFood
                 Console.Clear();
                 Console.WriteLine("Please enter your reservation code: ");
                 string code = Console.ReadLine();
-                List<Reservation> reservations = SaveReservations.LoadAll();
-                foreach (Reservation reservation in reservations)
+                List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
+                foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
                 {
                     if (reservation.Code == code)
                     {
@@ -112,8 +112,8 @@ public static class OrderFood
                 Console.Clear();
                 Console.WriteLine("Please enter your reservation code: ");
                 string code = Console.ReadLine();
-                List<Reservation> reservations = SaveReservations.LoadAll();
-                foreach (Reservation reservation in reservations)
+                List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
+                foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
                 {
                     if (reservation.Code == code)
                     {
