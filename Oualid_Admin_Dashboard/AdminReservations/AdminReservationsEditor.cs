@@ -114,7 +114,7 @@ static class AdminReservationsEditor
                                         {
                                             reservationToUpdate.Name = newName;
                                             reservationToUpdate.LastName = newLastName;
-                                            reservationToUpdate.PartySize = newPartySize == "" ? reservationToUpdate.PartySize : number ;
+                                            reservationToUpdate.groupSize = newPartySize == "" ? reservationToUpdate.groupSize : number ;
                                             bool successfullyUpdated = ReservationsEditor.UpdateReservation(reservationToUpdate);
                                             if (successfullyUpdated)
                                             {
