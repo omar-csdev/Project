@@ -27,6 +27,7 @@ static class AdminReservationsEditor
                     {
                         try
                         {
+                            Console.Write("Not functional yet.");
                             //Project.Olivier_Reservations.AdminReservations.AdminReservationstart();
                         }
                         catch (Exception ex)
