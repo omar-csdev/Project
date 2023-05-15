@@ -1,6 +1,6 @@
 ﻿public class Food : Item
 {
-    public Food(string name, double price, string type) : base(name, price, type)
+    public Food(string name, double price, string type, string category) : base(name, price, type, category)
     {
     }
 }

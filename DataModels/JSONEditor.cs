@@ -18,12 +18,12 @@ public class JSONEditor
         if (item is Food)
         {
             Food food = (Food)item;
-            newItem = new Food(food.Name, food.Price, food.Type);
+            newItem = new Food(food.Name, food.Price, food.Type, food.Category);
         }
         else if (item is Drink)
         {
             Drink drink = (Drink)item;
-            newItem = new Drink(drink.Name, drink.Price, drink.Type);
+            newItem = new Drink(drink.Name, drink.Price, drink.Type, drink.Category);
         }
         else
         {
@@ -46,7 +46,7 @@ public class JSONEditor
 
         List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
 
-        Item ? itemToRemove = menu.FirstOrDefault(i => i.Id == itemId);
+        Item? itemToRemove = menu.FirstOrDefault(i => i.Id == itemId);
         if (itemToRemove != null)
         {
             menu.Remove(itemToRemove);
@@ -55,31 +55,45 @@ public class JSONEditor
 
             File.WriteAllText(filePath, updatedJSONString);
             return true;
-            //Kan het niet beter string return maken en in de view de console.writeline doen?
         }
         else
         {
-            //Kan het niet beter string return maken en in de view de console.writeline doen?
             return false;
         }
     }
 
     //Gets an item as parameter with updated values and updates the item in the JSON file with the same ID
-    public static bool UpdateItem(int ItemID, Item item)
+    public static bool UpdateItem(int itemId, Item updatedItem)
     {
         string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
-        string JSONString = File.ReadAllText(filePath);
+        string jsonString = File.ReadAllText(filePath);
 
-        List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
+        List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(jsonString) ?? new List<Item>();
 
-        Item ? itemToUpdate = menu.FirstOrDefault(i => i.Id == ItemID);
+        Item itemToUpdate = menu.FirstOrDefault(i => i.Id == itemId);
         if (itemToUpdate != null)
         {
-            itemToUpdate.Name = item.Name;
-            itemToUpdate.Price = item.Price;
-            itemToUpdate.Type = item.Type;
-            string updatedJSONString = JsonConvert.SerializeObject(menu, Formatting.Indented);
-            File.WriteAllText(filePath, updatedJSONString);
+            if (updatedItem is Food)
+            {
+                Food food = (Food)updatedItem;
+                ((Food)itemToUpdate).Name = food.Name;
+                ((Food)itemToUpdate).Price = food.Price;
+                ((Food)itemToUpdate).Type = food.Type;
+            }
+            else if (updatedItem is Drink)
+            {
+                Drink drink = (Drink)updatedItem;
+                ((Drink)itemToUpdate).Name = drink.Name;
+                ((Drink)itemToUpdate).Price = drink.Price;
+                ((Drink)itemToUpdate).Type = drink.Type;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid item type.");
+            }
+
+            string updatedJsonString = JsonConvert.SerializeObject(menu, Formatting.Indented);
+            File.WriteAllText(filePath, updatedJsonString);
             return true;
         }
         else
