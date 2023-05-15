@@ -91,7 +91,7 @@ static class AdminReservationsEditor
                             {
                                 Console.WriteLine("Reservation Name: " + reservationToUpdate.Name);
                                 Console.WriteLine("Reservation lastname: " + reservationToUpdate.LastName);
-                                Console.WriteLine("Reservation group size: " + reservationToUpdate.PartySize);
+                                Console.WriteLine("Reservation group size: " + reservationToUpdate.groupSize);
 
                                 while (true)
                                 {
