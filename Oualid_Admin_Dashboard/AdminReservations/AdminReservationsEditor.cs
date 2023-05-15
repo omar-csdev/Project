@@ -27,7 +27,7 @@ static class AdminReservationsEditor
                     {
                         try
                         {
-                            Project.Olivier_Reservations.AdminReservations.AdminReservationstart();
+                            //Project.Olivier_Reservations.AdminReservations.AdminReservationstart();
                         }
                         catch (Exception ex)
                         {
