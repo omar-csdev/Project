@@ -1,6 +1,7 @@
 using System.Drawing;
 using Console = Colorful.Console;
 using Newtonsoft.Json;
+using Project.Olivier_Reservations;
 
 static class AdminReservationsEditor
 {
@@ -26,25 +27,140 @@ static class AdminReservationsEditor
                     {
                         try
                         {
+                            Project.Olivier_Reservations.AdminReservations.AdminReservationstart();
                         }
                         catch (Exception ex)
                         {
-
+                            throw new Exception(ex.Message);
                         }
                     }
 
                 }
                 else if (input == "2")
                 {
-                    Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
-                    Thread.Sleep(1500);
-                    AdminReservationsEditor.Run();
+                    while(true){
+                        Console.WriteLine("Enter the code of the reservation you want to delete: ");
+                        string ? code = Console.ReadLine();
+                        if (code == null)
+                        {
+                            Console.WriteLine("Error! Please enter a valid code!", Color.Red);
+                            Console.WriteLine();
+                            Console.WriteLine("Press any key to return...");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            bool succes = ReservationsEditor.RemoveReservation(code);
+                            if (succes)
+                            {
+                                Console.WriteLine("Reservation removed successfully.");
+                                Console.WriteLine();
+                                Console.WriteLine("Press any key to return...");
+                                Console.ReadKey();
+                                AdminReservationsEditor.Run();
+                            }
+                            else
+                            {
+                                Console.WriteLine($"No reservation found under: {code} !", Color.Red);
+                                Console.WriteLine();
+                                Console.WriteLine("Press any key to return...");
+                                Console.ReadKey();
+                                AdminReservationsEditor.Run();
+                            }
+                        }
+
+                    }
                 }
                 else if (input == "3")
                 {
-                    Console.WriteLine("THIS FEATURE IS NOT YET IMPLEMENTED", Color.Blue);
-                    Thread.Sleep(1500);
-                    AdminReservationsEditor.Run();
+                    while (true)
+                    {
+                        Console.WriteLine("Enter the code of the reservation you want to edit: ");
+                        string? code = Console.ReadLine();
+                        if (code == null)
+                        {
+                            Console.WriteLine("Error! Please enter a valid code!", Color.Red);
+                            Console.WriteLine();
+                            Console.WriteLine("Press any key to return...");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Project.Olivier_Reservations.Reservation reservationToUpdate = reservations.FirstOrDefault(r => r.Code == code);
+                            if(reservations != null)
+                            {
+                                Console.WriteLine("Reservation Name: " + reservationToUpdate.Name);
+                                Console.WriteLine("Reservation lastname: " + reservationToUpdate.LastName);
+                                Console.WriteLine("Reservation group size: " + reservationToUpdate.PartySize);
+
+                                while (true)
+                                {
+
+                                    try
+                                    {
+                                        Console.WriteLine("Enter the new name (press Enter to keep the old name): ");
+                                        string ? newName = Console.ReadLine();
+                                        newName = newName == "" ? reservationToUpdate.Name : newName;
+
+
+                                        Console.WriteLine("Enter the new lastname (press Enter to keep the old lastname): ");
+                                        string? newLastName = Console.ReadLine();
+                                        newLastName = newLastName == "" ? reservationToUpdate.LastName : newLastName;
+
+                                        Console.WriteLine("Enter the new group size (press Enter to keep the old group size): ");
+                                        string ? newPartySize = Console.ReadLine();
+                                        bool success = int.TryParse(newPartySize, out int number);
+                                        if (success || newPartySize == "")
+                                        {
+                                            reservationToUpdate.Name = newName;
+                                            reservationToUpdate.LastName = newLastName;
+                                            reservationToUpdate.PartySize = newPartySize == "" ? reservationToUpdate.PartySize : number ;
+                                            bool successfullyUpdated = ReservationsEditor.UpdateReservation(reservationToUpdate);
+                                            if (successfullyUpdated)
+                                            {
+                                                Console.WriteLine("Reservation updated successfully.");
+                                                Console.WriteLine();
+                                                Console.WriteLine("Press any key to return...");
+                                                Console.ReadKey();
+                                                AdminReservationsEditor.Run();
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Something went wrong updating the reservation!", Color.Red);
+                                                Console.WriteLine();
+                                                Console.WriteLine("Press any key to return...");
+                                                Console.ReadKey();
+                                                AdminReservationsEditor.Run();
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Error! Please enter a valid number!", Color.Red);
+                                            Console.WriteLine();
+                                            Console.WriteLine("Press any key to return...");
+                                            Console.ReadKey();
+
+                                        }
+                                       
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        throw new Exception(ex.Message);
+                                    }   
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"No reservation found under: {code} !", Color.Red);
+                                Console.WriteLine();
+                                Console.WriteLine("Press any key to return...");
+                                Console.ReadKey();
+                                AdminReservationsEditor.Run();
+                            }
+                        }
+
+                    }
                 }
                 else if (input == "4")
                 {
