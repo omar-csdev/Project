@@ -55,7 +55,7 @@ public static class AdminLogin
 
             //geen accounts in de json:
             //vergelijking is 1 vanwege "null"bug in de json
-            if (test.Count == 1)
+            if (test.Count == 0)
             {
                 Console.WriteLine("No Admin accounts found. Would you like to register a new one? (y/n)", Color.Green);
                 string inp = Console.ReadLine().ToLower();
