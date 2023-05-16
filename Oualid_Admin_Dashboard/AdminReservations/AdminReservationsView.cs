@@ -227,7 +227,7 @@ static class AdminReservationsView
     {
         Console.WriteLine();
         Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
-        Console.WriteLine("Party size: " + reservation.PartySize);
+        Console.WriteLine("Group size: " + reservation.groupSize);
         Console.WriteLine("Time slot: " + reservation.TimeSlot);
         Console.WriteLine();
     }

@@ -128,7 +128,7 @@ public static class AdminLogin
             }
 
             //wel accounts in de json: door naar inloggen
-            else if (test.Count > 1)
+            else if (test.Count >= 1)
             {
                 Console.WriteLine("Username:");
                 string username = Console.ReadLine();
