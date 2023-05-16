@@ -280,7 +280,7 @@ public static class AdminLogin
         else if (answer == "4")
         {
             Console.Clear();
-            MainMenu.Start();
+            MainMenu.NewStart();
         }
 
     }

@@ -40,7 +40,7 @@ public static class FoodMenu
         else if (input == "3") 
         {
             Console.Clear();
-            MainMenu.Start();
+            MainMenu.LoggedInUser();
         }
         else 
         {
