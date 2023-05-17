@@ -8,8 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.Globalization;
 using System.Data;
 
-namespace Project.Olivier_Reservations
-{
+namespace Project.Olivier_Reservations {
     internal class Reservations
     {
 
@@ -206,7 +205,7 @@ namespace Project.Olivier_Reservations
                 {
                     totalGuests += reservation.groupSize;
                 }
-                
+
             }
             // If restaurant is fully booked for your timeslot you get notified 
             if (totalGuests == 100)
@@ -252,9 +251,6 @@ namespace Project.Olivier_Reservations
                     Console.ResetColor();
                 }
             }
-
-
-            
 
             bool success = system.MakeReservation(name, lastname, groupSize, timeSlot);
             if (success)
@@ -303,14 +299,20 @@ namespace Project.Olivier_Reservations
             // Return the random code.
             return randomString;
         }
-        public bool MakeReservation(string name, string lastname,int groupSize, DateTime timeSlot)
+      
+        public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot)
         {
             string code = GenerateRandomCode();
             // Add reservation to the list
-            reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code});
+            reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code });
 
             Console.WriteLine($"Reservation made for {groupSize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
-            Console.WriteLine($"Reservation code: {code}. Please keep this code for future use.");
+            Console.Write($"Reservation code: ");
+            //write code in red
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"{code}.");
+            Console.ResetColor();
+            Console.Write("Please keep this code for future use.\n");
             return true;
         }
 
