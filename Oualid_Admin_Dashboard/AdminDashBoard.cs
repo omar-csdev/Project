@@ -16,19 +16,33 @@ public static class AdminDashboard
             WriteLogo();
             WriteToConsole(1, "Reservations");
             WriteToConsole(2, "Menu");
-            WriteToConsole(3, "Log out");
-            string ? input = Console.ReadLine();
-            if (input == "1")
+
+            WriteToConsole(3, "View Accounts");
+            WriteToConsole(4, "Log out");
+            int input = Convert.ToInt32(Console.ReadLine());
+            if (input == 1)
+
             {
                 AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
             }
-            else if (input == "2")
+            else if (input == 2)
             {
                 AdminDashboardMenuDashboard.DisplayMenuDashboard();
             }
-            else if (input == "3")
+            else if (input == 3)
+            {
+                AdminManager.Start();
+            }
+            else if (input == 4)
             {
                 //Log out
+                List<Admin> test = LoginAccess.LoadAll("admindata.json");
+                foreach (Admin admin in test)
+                {
+                    admin.IsLoggedIn = false;
+                }
+                LoginAccess.WriteAll(test);
+                
                 Console.Clear();
                 Console.WriteLine("Logged out succesfully!");
                 Console.WriteLine();

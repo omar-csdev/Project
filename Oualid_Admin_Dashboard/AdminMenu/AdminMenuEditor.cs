@@ -9,7 +9,7 @@ static class AdminMenuEditor
     static public void DisplayMenuEditOptions()
     {
         for (; ; )
-        {   
+        {
             getMenuItems();
             Console.Clear();
             WriteLogo();
@@ -138,15 +138,21 @@ static class AdminMenuEditor
                     Console.WriteLine("Any other value than 1 will lead to the item category being drink.");
                     WriteToConsole(1, "Food");
                     WriteToConsole(2, "Drink");
-                    string category = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Food" : "Drink" : Console.ReadLine();
 
-                    if (category.ToLower() == "food")
+                      string type = Int32.TryParse(Console.ReadLine(), out int typeInput) ? typeInput == 1 ? "Food" : "Drink" : Console.ReadLine();
+
+                    WriteToConsole(1, "Halal");
+                    WriteToConsole(2, "Vegan");
+                    WriteToConsole(3, "Vega");
+                    string categoryFood = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Halal" : categoryInput == 2 ? "Vegan" : categoryInput == 3 ? "Vega" : Console.ReadLine() : Console.ReadLine();
+                    if (type.ToLower() == "food")
                     {
-                        Food food = new Food(name, price, category);
+                        Food food = new Food(name, price, type, categoryFood);
                         bool success = JSONEditor.UpdateItem(itemIndex, food);
                         if (success)
                         {
-                            Console.WriteLine("Item edited successfully!", Color.Red);
+                            Loading("Editing item");
+                            Console.WriteLine("Item edited successfully!", Color.Green);
                         }
                         else
                         {
@@ -158,12 +164,16 @@ static class AdminMenuEditor
                         AdminMenuEditor.DisplayMenuEditOptions();
                         break;
                     }
-                    else if (category.ToLower() == "drink")
+                    else if (type.ToLower() == "drink")
                     {
-                        Drink drink = new Drink(name, price, category);
+                        WriteToConsole(1, "Non-Alcoholic");
+                        WriteToConsole(2, "Alcoholic");
+                        string categoryDrink = Int32.TryParse(Console.ReadLine(), out int categoryDrinkInput) ? categoryDrinkInput == 1 ? "Non-Alcoholic" : "Alcoholic" : Console.ReadLine();
+                        Drink drink = new Drink(name, price, type, categoryDrink);
                         bool success = JSONEditor.UpdateItem(itemIndex, drink);
                         if (success)
                         {
+                            Loading("Editing item");
                             Console.WriteLine("Item edited successfully!", Color.Green);
                         }
                         else
@@ -221,40 +231,85 @@ static class AdminMenuEditor
                 Console.WriteLine("Any value other than 1 will be recorded as Drink. ");
                 WriteToConsole(1, "Food");
                 WriteToConsole(2, "Drink");
-                string category = Int32.TryParse(Console.ReadLine(), out int categoryInput) ? categoryInput == 1 ? "Food" : "Drink" : Console.ReadLine();
-                
-                if(category == null){
-                    Console.WriteLine("Error! Please choose a valid option (Food or Drink)!", Color.Red);
-                }
-                else if(category.ToLower() == "food"){
-                    Food food = new Food(name, price, category);
+                string type = Console.ReadLine();
+                if (type.ToLower() == "1")
+                {
+                    WriteToConsole(1, "General");
+                    WriteToConsole(2, "Halal");
+                    WriteToConsole(3, "Vega");
+                    WriteToConsole(4, "Vegan");
+                    string categoryFood;
+                    if (Int32.TryParse(Console.ReadLine(), out int categoryInput))
+                    {
+                        if (categoryInput == 1)
+                        {
+                            categoryFood = "General";
+                        }
+                        else if (categoryInput == 2)
+                        {
+                            categoryFood = "Halal";
+                        }
+                        else if (categoryInput == 3)
+                        {
+                            categoryFood = "Vega";
+                        }
+                        else if (categoryInput == 4)
+                        {
+                            categoryFood = "Vegan";
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. Please enter 1, 2, or 3.");
+                            categoryFood = Console.ReadLine();
+                        }
+                    }
+                    else
+                    {
+
+                        Console.WriteLine("Invalid input. Please enter a valid integer.");
+                        categoryFood = Console.ReadLine();
+                    }
+                    Food food = new Food(name, price, "Food", categoryFood);
                     JSONEditor.AddItem(food);
-                    Console.WriteLine("Item added successfully!", Color.Red);
-                }else if (category.ToLower() == "drink"){
-                    Drink drink = new Drink(name, price, category);
+                    Loading("Adding item");
+                    Console.WriteLine("Item added successfully!", Color.Green);
+                    Console.WriteLine();
+                    Helper.ContinueDisplay();
+                }
+                else if (type.ToLower() == "2")
+                {
+                    WriteToConsole(1, "Non-Alcoholic");
+                    WriteToConsole(2, "Alcoholic");
+                    string categoryDrink;
+                    if (Int32.TryParse(Console.ReadLine(), out int categoryInput))
+                    {
+                        if (categoryInput == 1)
+                        {
+                            categoryDrink = "Non-Alcoholic";
+                        }
+                        else if (categoryInput == 2)
+                        {
+                            categoryDrink = "Alcoholic";
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. Please enter 1 or 2.");
+                            categoryDrink = Console.ReadLine();
+                        }
+                    }
+                    else
+                    {
+
+                        Console.WriteLine("Invalid input. Please enter a valid integer.");
+                        categoryDrink = Console.ReadLine();
+                    }
+                    Drink drink = new Drink(name, price, "Drink", categoryDrink);
                     JSONEditor.AddItem(drink);
-                    Console.WriteLine("Item added successfully!", Color.Red);
+                    Loading("Adding item");
+                    Console.WriteLine("Item added successfully!", Color.Green);
+                    Console.WriteLine();
+                    Helper.ContinueDisplay();
                 }
-                else{
-                    Console.WriteLine("Error! Please enter a value!", Color.Green);
-                }
-
-                Console.WriteLine("Press any key to return...");
-                Console.ReadKey();
-                Console.Clear();
-                AdminMenuEditor.DisplayMenuEditOptions();
-
-            }
-            else if (input == "4")
-            {
-                AdminDashboardMenuDashboard.DisplayMenuDashboard();
-            }
-            else
-            {
-                Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                Console.WriteLine();
-                Console.WriteLine("Press any key to return...");
-                Console.ReadKey();
             }
         }
     }

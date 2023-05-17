@@ -252,9 +252,6 @@ namespace Project.Olivier_Reservations {
                 }
             }
 
-
-
-
             bool success = system.MakeReservation(name, lastname, groupSize, timeSlot);
             if (success)
             {
@@ -302,6 +299,7 @@ namespace Project.Olivier_Reservations {
             // Return the random code.
             return randomString;
         }
+      
         public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot)
         {
             string code = GenerateRandomCode();
@@ -315,7 +313,6 @@ namespace Project.Olivier_Reservations {
             Console.Write($"{code}.");
             Console.ResetColor();
             Console.Write("Please keep this code for future use.\n");
-
             return true;
         }
 

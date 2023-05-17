@@ -1,44 +1,23 @@
 [
   {
-    "Name": "Red bull",
-    "Type": "Drink",
-    "Price": 1.5,
-    "Id": 1
-  },
-  {
     "Name": "Burger",
     "Type": "Food",
-    "Price": 4.5,
-    "Id": 4
-  },
-  {
-    "Name": "Water",
-    "Type": "Drink",
-    "Price": 1.0,
-    "Id": 2
+    "Price": 5.5,
+    "Category": "Halal",
+    "Id": 1
   },
   {
     "Name": "Fries",
     "Type": "Food",
-    "Price": 2.5,
-    "Id": 8
+    "Price": 3.0,
+    "Category": "General",
+    "Id": 2
   },
   {
-    "Name": "Pasta",
-    "Type": "Food",
-    "Price": 6.5,
-    "Id": 6
-  },
-  {
-    "Name": "Chicken Salad",
-    "Type": "Food",
-    "Price": 3.5,
-    "Id": 7
-  },
-  {
-    "Name": "Spa water",
+    "Name": "Red Bull",
     "Type": "Drink",
-    "Price": 250.0,
-    "Id": 9
+    "Price": 2.0,
+    "Category": "Non-Alcoholic",
+    "Id": 3
   }
 ]

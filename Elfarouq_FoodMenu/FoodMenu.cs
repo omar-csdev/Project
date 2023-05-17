@@ -26,7 +26,7 @@ public static class FoodMenu
         if (input == "1")
         {
             Console.Clear();
-            MenuItem.Start();
+            MenuChoices.DisplayMenuOptions();
             Console.WriteLine("\nClick enter to go back");
             Console.ReadLine();
             Console.Clear();
