@@ -18,9 +18,9 @@ public static class FoodMenu
     public static void Start()
     {
         WriteLogo();
-        Say("1", "Show food-menu");
-        Say("2", "Order food");
-        Say("3", "Go back");
+        Helper.Say("1", "Show food-menu");
+        Helper.Say("2", "Order food");
+        Helper.Say("3", "Go back");
 
         string input = Console.ReadLine();
         if (input == "1")
@@ -49,13 +49,6 @@ public static class FoodMenu
             Console.Clear();
             FoodMenu.Start(); 
         }
-    }
-
-    public static void Say(string prefix, string message)
-    {
-        Console.Write("[");
-        Console.Write(prefix, Color.Green);
-        Console.WriteLine("] " + message);
     }
 
     public static void WriteLogo()

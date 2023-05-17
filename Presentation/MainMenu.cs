@@ -17,11 +17,11 @@ static class MainMenu
         {
             Console.Clear();
             WriteLogo();
-            Say("1", "Customer Login");
-            Say("2", "Continue as Guest");
-            Say("3", "Create Account");
-            Say("4", "Admin");
-            Say("5", "Exit");
+            Helper.Say("1", "Login");
+            Helper.Say("2", "Create Account");
+            Helper.Say("3", "View Menu");
+            Helper.Say("4", "Admin");
+            Helper.Say("5", "Exit");
             choice = int.Parse(Console.ReadLine());
 
             switch (choice)
@@ -36,6 +36,7 @@ static class MainMenu
                     break;
                 case 2:
                     // Handle Option 2
+                    AccountManager.CreateAccount();
                     break;
                 case 3:
                     // Handle Option 3
@@ -63,9 +64,9 @@ static class MainMenu
         {
             Console.Clear();
             WriteLogo();
-            Say("1", "Make a Reservation");
-            Say("2", "View Menu");
-            Say("3", "Sign Out");
+            Helper.Say("1", "Make a Reservation");
+            Helper.Say("2", "View Menu");
+            Helper.Say("3", "Sign Out");
             choice = int.Parse(Console.ReadLine());
             switch (choice)
             {
@@ -90,13 +91,6 @@ static class MainMenu
 
             Console.WriteLine(); // Empty line for spacing
         }
-    }
-
-    public static void Say(string prefix, string message)
-    {
-        Console.Write("[");
-        Console.Write(prefix, Color.Red);
-        Console.WriteLine("] " + message);
     }
 
     public static void WriteLogo()
