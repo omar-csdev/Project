@@ -8,8 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.Globalization;
 using System.Data;
 
-namespace Project.Olivier_Reservations
-{
+namespace Project.Olivier_Reservations {
     internal class Reservations
     {
 
@@ -80,7 +79,9 @@ namespace Project.Olivier_Reservations
                 }
             }
 
-            Console.WriteLine($"Choose a reservation date by entering a date in the following format (dd-mm-yyyy)");
+            DateTime twoWeeksAway = DateTime.Today.AddDays(14);
+
+            Console.WriteLine($"Choose a reservation date by entering a date in the following format (dd-mm-yyyy). The latest date you can book is: {twoWeeksAway:dd-MM-yyyy}");
 
             string inputDate;
             DateTime reservationDate;
@@ -94,10 +95,24 @@ namespace Project.Olivier_Reservations
 
                     reservationDate = DateTime.ParseExact(inputDate, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
 
+                    if (reservationDate == DateTime.Today)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        throw new Exception("Reservations for the current day cannot be made. Please enter a date in the future.");
+                        Console.ResetColor();
+                    }
+
+                    if (reservationDate > twoWeeksAway)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        throw new Exception($"Reservation date must be on or before {twoWeeksAway:dd-MM-yyyy}. Please enter a valid reservation date.");
+                        Console.ResetColor();
+                    }
+
                     if (reservationDate < DateTime.Today)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        throw new Exception("Reservations for dates that have already passed cannot be made. Please enter a date in the future.");
+                        throw new Exception($"Reservation date must be on or before {twoWeeksAway:dd-MM-yyyy}. Please enter a valid reservation date.");
                         Console.ResetColor();
                     }
                     break;
@@ -182,39 +197,39 @@ namespace Project.Olivier_Reservations
             }
 
             // load reservations and get total party size seperated by timeslot and date.
-            List<AdminReservation> reservations = SaveAdminReservations.LoadAll();
+            List<Reservation> reservations = SaveReservations.LoadAll();
             int totalGuests = 0;
-            foreach (AdminReservation reservation in reservations)
+            foreach (Reservation reservation in reservations)
             {
                 if (reservation.TimeSlot.Day == timeSlot.Day && reservation.TimeSlot.TimeOfDay == timeSlot.TimeOfDay)
                 {
-                    totalGuests += reservation.PartySize;
+                    totalGuests += reservation.groupSize;
                 }
-                
+
             }
             // If restaurant is fully booked for your timeslot you get notified 
             if (totalGuests == 100)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("We are fully booked at this time and date, You can try to book a diffrent time and date.");
+                Console.WriteLine("We are fully booked at this time");
                 Console.ResetColor();
-                Console.WriteLine("Press any key to go back to the main menu...");
+                Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
                 Environment.Exit(0);
 
             }
 
             int totalCapacity = 100;
-            int maxGuests = totalCapacity - totalGuests;
+            int maxGuests = totalGuests > 90 ? totalCapacity - totalGuests : 10;
             Console.WriteLine($"Enter the size of your group (1-{maxGuests}): ");
-            int partySize;
+            int groupSize;
             // Input checks
             while (true)
             {
                 try
                 {
-                    partySize = int.Parse(Console.ReadLine());
-                    if (partySize < 1 || partySize > maxGuests)
+                    groupSize = int.Parse(Console.ReadLine());
+                    if (groupSize < 1 || groupSize > maxGuests)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"Enter a number between 1 and {maxGuests} as you're not allowed to make a reservation for a party of this size.");
@@ -238,13 +253,13 @@ namespace Project.Olivier_Reservations
             }
 
 
-            
 
-            bool success = system.MakeReservation(name, lastname, partySize, timeSlot);
+
+            bool success = system.MakeReservation(name, lastname, groupSize, timeSlot);
             if (success)
             {
                 SaveReservations.WriteAll(system.reservations);
-                Console.WriteLine("Press any key to go back to the main menu...");
+                Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
 
             }
@@ -252,20 +267,20 @@ namespace Project.Olivier_Reservations
         }
     }
 
-    public class AdminReservation
+    public class Reservation
     {
-        public string ? Name { get; set; }
-        public string ? LastName { get; set; }
-        public int PartySize { get; set; }
-        public string ? Code { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public int groupSize { get; set; }
+        public string Code { get; set; }
         public DateTime TimeSlot { get; set; }
     }
 
 
-    public class AdminReservationSystem
+    public class ReservationSystem
     {
 
-        public List<AdminReservation> reservations = new List<AdminReservation>();
+        public List<Reservation> reservations = new List<Reservation>();
         public string GenerateRandomCode()
         {
             // Define the sets of letters and digits that can be used to generate the code.
@@ -287,44 +302,46 @@ namespace Project.Olivier_Reservations
             // Return the random code.
             return randomString;
         }
-        public bool MakeReservation(string name, string lastname,int partySize, DateTime timeSlot)
+        public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot)
         {
             string code = GenerateRandomCode();
             // Add reservation to the list
-            reservations.Add(new AdminReservation { Name = name, LastName = lastname, PartySize = partySize, TimeSlot = timeSlot, Code = code});
+            reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code });
 
-            Console.WriteLine($"Reservation made for {partySize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
-            Console.Write("Reservation code: ");
+            Console.WriteLine($"Reservation made for {groupSize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
+            Console.Write($"Reservation code: ");
+            //write code in red
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(code);
+            Console.Write($"{code}.");
             Console.ResetColor();
-            Console.WriteLine(". Please keep this code for future use.");
+            Console.Write("Please keep this code for future use.\n");
+
             return true;
         }
 
     }
 
-    public static class SaveAdminReservations
+    public static class SaveReservations
     {
 
-        public static List<AdminReservation> LoadAll()
+        public static List<Reservation> LoadAll()
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
             string JSONString = File.ReadAllText(filePath);
 
-            List<AdminReservation> Allreservations = JsonConvert.DeserializeObject<List<AdminReservation>>(JSONString) ?? new List<AdminReservation>();
+            List<Reservation> Allreservations = JsonConvert.DeserializeObject<List<Reservation>>(JSONString) ?? new List<Reservation>();
             return Allreservations;
         }
 
 
-        public static void WriteAll(List<AdminReservation> NewReservations)
+        public static void WriteAll(List<Reservation> NewReservations)
         {
 
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
 
             string jsonString = File.ReadAllText(filePath);
 
-            List<AdminReservation> existingReservations = JsonConvert.DeserializeObject<List<AdminReservation>>(jsonString) ?? new List<AdminReservation>();
+            List<Reservation> existingReservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString) ?? new List<Reservation>();
 
             for (int i = existingReservations.Count - 1; i >= 0; i--)
             {

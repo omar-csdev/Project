@@ -64,7 +64,7 @@ public class ReservationsEditor
                     // Update the existing reservation
                     existingReservation.Name = reservation.Name;
                     existingReservation.LastName = reservation.LastName;
-                    existingReservation.PartySize = reservation.PartySize;
+                    existingReservation.groupSize = reservation.groupSize;
                     existingReservation.Code = reservation.Code;
                     existingReservation.TimeSlot = reservation.TimeSlot;
 
@@ -87,7 +87,7 @@ public class ReservationsEditor
     private static bool IsValidReservation(Project.Olivier_Reservations.Reservation reservation)
     {
         if (string.IsNullOrEmpty(reservation.Name) ||
-            reservation.PartySize <= 0 ||
+            reservation.groupSize <= 0 ||
             string.IsNullOrEmpty(reservation.Code) ||
             reservation.TimeSlot == null)
 

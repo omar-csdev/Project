@@ -13,7 +13,7 @@ namespace Project.Olivier_Reservations
     internal class AdminReservations
     {
 
-        public static void AdminReservationstart()
+        public static void Reservationstart()
         {
 
             ReservationSystem system = new ReservationSystem();
@@ -80,7 +80,7 @@ namespace Project.Olivier_Reservations
                 }
             }
 
-            Console.WriteLine($"Choose a reservation date by entering a date in the following format (dd-mm-yyyy).");
+            Console.WriteLine($"Choose a reservation date by entering a date in the following format (dd-mm-yyyy)");
 
             string inputDate;
             DateTime reservationDate;
@@ -182,9 +182,9 @@ namespace Project.Olivier_Reservations
             }
 
             // load reservations and get total party size seperated by timeslot and date.
-            List<Reservation> reservations = SaveReservations.LoadAll();
+            List<AdminReservation> reservations = SaveAdminReservations.LoadAll();
             int totalGuests = 0;
-            foreach (Reservation reservation in reservations)
+            foreach (AdminReservation reservation in reservations)
             {
                 if (reservation.TimeSlot.Day == timeSlot.Day && reservation.TimeSlot.TimeOfDay == timeSlot.TimeOfDay)
                 {
@@ -244,17 +244,16 @@ namespace Project.Olivier_Reservations
             if (success)
             {
                 SaveReservations.WriteAll(system.reservations);
-                Console.WriteLine();
-                Console.WriteLine("Press any key to go back to the admin reservations editor.");
+                Console.WriteLine("Press any key to go back to the main menu...");
                 Console.ReadKey();
-                AdminReservationsEditor.Run();
+                AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
 
             }
 
         }
     }
 
-    public class Reservation
+    public class AdminReservation
     {
         public string? Name { get; set; }
         public string? LastName { get; set; }
@@ -264,10 +263,10 @@ namespace Project.Olivier_Reservations
     }
 
 
-    public class ReservationSystem
+    public class AdminReservationSystem
     {
 
-        public List<Reservation> reservations = new List<Reservation>();
+        public List<AdminReservation> reservations = new List<AdminReservation>();
         public string GenerateRandomCode()
         {
             // Define the sets of letters and digits that can be used to generate the code.
@@ -293,10 +292,9 @@ namespace Project.Olivier_Reservations
         {
             string code = GenerateRandomCode();
             // Add reservation to the list
-            reservations.Add(new Reservation { Name = name, LastName = lastname, PartySize = partySize, TimeSlot = timeSlot, Code = code });
+            reservations.Add(new AdminReservation { Name = name, LastName = lastname, PartySize = partySize, TimeSlot = timeSlot, Code = code });
 
             Console.WriteLine($"Reservation made for {partySize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
-            Console.WriteLine();
             Console.Write("Reservation code: ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(code);
@@ -307,27 +305,27 @@ namespace Project.Olivier_Reservations
 
     }
 
-    public static class SaveReservations
+    public static class SaveAdminReservations
     {
 
-        public static List<Reservation> LoadAll()
+        public static List<AdminReservation> LoadAll()
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
             string JSONString = File.ReadAllText(filePath);
 
-            List<Reservation> Allreservations = JsonConvert.DeserializeObject<List<Reservation>>(JSONString) ?? new List<Reservation>();
+            List<AdminReservation> Allreservations = JsonConvert.DeserializeObject<List<AdminReservation>>(JSONString) ?? new List<AdminReservation>();
             return Allreservations;
         }
 
 
-        public static void WriteAll(List<Reservation> NewReservations)
+        public static void WriteAll(List<AdminReservation> NewReservations)
         {
 
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
 
             string jsonString = File.ReadAllText(filePath);
 
-            List<Reservation> existingReservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString) ?? new List<Reservation>();
+            List<AdminReservation> existingReservations = JsonConvert.DeserializeObject<List<AdminReservation>>(jsonString) ?? new List<AdminReservation>();
 
             for (int i = existingReservations.Count - 1; i >= 0; i--)
             {
