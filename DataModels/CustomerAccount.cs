@@ -29,10 +29,20 @@
     }
 
     public bool IsLoggedIn = false;
-    public CustomerAccount(string u, string p) 
+    public int ID;
+    public CustomerAccount(string u, string p, List<CustomerAccount> list)
     {
         this.UserNameSetter = u;
         this.PasswordSetter = p;
+        if (list?.Count > 0)
+        {
+            this.ID = list[list.Count - 1].ID + 1;
+        }
+
+        else
+        {
+            this.ID = 1;
+        }
     }
 
 }

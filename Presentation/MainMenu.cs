@@ -32,7 +32,7 @@ static class MainMenu
 
                     //SignIn();
                     //invoke LoggedInUser();
-                    LoggedInUser();
+                    AccountManager.LogIn();
                     break;
                 case 2:
                     // Handle Option 2

@@ -49,7 +49,7 @@ public static class AdminLogin
             Console.WriteLine("LOGGING IN:", Color.RebeccaPurple);
 
             //geen accounts in de json:
-            //vergelijking is 1 vanwege "null"bug in de json
+            //vergelijking is 0
             if (test.Count == 0)
             {
                 Console.WriteLine("No Admin accounts found. Would you like to register a new one? (y/n)", Color.Green);

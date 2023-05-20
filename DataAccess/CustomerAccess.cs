@@ -14,7 +14,7 @@ public static class CustomerAccess
     }
 
 
-    public static void WriteAll(List<Admin> accounts)
+    public static void WriteAll(List<CustomerAccount> accounts)
     {
         string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\customerdata.json");
         string updatedJSONString = JsonConvert.SerializeObject(accounts, Formatting.Indented);
