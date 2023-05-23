@@ -1,0 +1,20 @@
+[
+  {
+    "IsLoggedIn": false,
+    "ID": 1,
+    "UserNameSetter": "cho",
+    "PasswordSetter": "cho123!"
+  },
+  {
+    "IsLoggedIn": false,
+    "ID": 2,
+    "UserNameSetter": "am",
+    "PasswordSetter": "12!"
+  },
+  {
+    "IsLoggedIn": true,
+    "ID": 3,
+    "UserNameSetter": "bruh",
+    "PasswordSetter": "!1"
+  }
+]

@@ -1,4 +1,6 @@
-﻿public class Helper
+﻿using System.Drawing;
+
+public class Helper
 {
     public static void ErrorDisplay(string options)
     {
@@ -11,5 +13,11 @@
     {
         Console.WriteLine("Press a key to continue...");
         Console.ReadKey();
+    }
+    public static void Say(string prefix, string message)
+    {
+        Console.Write("[");
+        Console.Write(prefix, Color.Red);
+        Console.WriteLine("] " + message);
     }
 }

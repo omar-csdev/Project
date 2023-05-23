@@ -23,12 +23,7 @@ public static class AdminLogin
         }
         AdminLogin.Start();
     }
-    public static void Say(string prefix, string message)
-    {
-        Console.Write("[");
-        Console.Write(prefix, Color.Red);
-        Console.WriteLine("] " + message);
-    }
+
     public static void Start()
     {
 
@@ -42,10 +37,10 @@ public static class AdminLogin
 
         Console.Clear();
         Console.WriteLine("ADMIN MENU:", Color.RebeccaPurple);
-        Say("1", "Log In");
-        Say("2", "Remove user");
-        Say("3", "Add user");
-        Say("4", "Go back");
+        Helper.Say("1", "Log In");
+        Helper.Say("2", "Remove user");
+        Helper.Say("3", "Add user");
+        Helper.Say("4", "Go back");
         string answer = Console.ReadLine();
 
         if (answer == "1")
@@ -54,7 +49,7 @@ public static class AdminLogin
             Console.WriteLine("LOGGING IN:", Color.RebeccaPurple);
 
             //geen accounts in de json:
-            //vergelijking is 1 vanwege "null"bug in de json
+            //vergelijking is 0
             if (test.Count == 0)
             {
                 Console.WriteLine("No Admin accounts found. Would you like to register a new one? (y/n)", Color.Green);
@@ -83,7 +78,7 @@ public static class AdminLogin
                     while (creatingAccount)
                     {
                         int checking = 0;
-                        Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
+                        Helper.Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
                         string password = Console.ReadLine();
                         foreach (char character in password)
                         {
@@ -104,7 +99,7 @@ public static class AdminLogin
 
                         else
                         {
-                            Say("!", "Password does not meet criteria");
+                            Helper.Say("!", "Password does not meet criteria");
                             Thread.Sleep(2500);
                         }
                     }
@@ -195,7 +190,7 @@ public static class AdminLogin
             {
                 if (admin.UserName != null)
                 {
-                    Say($"{x}", $"{admin.UserName}");
+                    Helper.Say($"{x}", $"{admin.UserName}");
                     x += 1;
                 }
             }
@@ -246,7 +241,7 @@ public static class AdminLogin
             while (creatingAccount)
             {
                 int checking = 0;
-                Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
+                Helper.Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
                 string password = Console.ReadLine();
                 foreach (char character in password)
                 {
@@ -267,7 +262,7 @@ public static class AdminLogin
 
                 else
                 {
-                    Say("!", "Password does not meet criteria");
+                    Helper.Say("!", "Password does not meet criteria");
                     Thread.Sleep(2500);
                 }
             }
@@ -280,7 +275,7 @@ public static class AdminLogin
         else if (answer == "4")
         {
             Console.Clear();
-            MainMenu.Start();
+            MainMenu.NewStart();
         }
 
     }
