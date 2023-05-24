@@ -18,7 +18,6 @@ public static class LoginAccess
     {
         string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\admindata.json");
         string updatedJSONString = JsonConvert.SerializeObject(accounts, Formatting.Indented);
-
         File.WriteAllText(filePath, updatedJSONString);
     }
 }

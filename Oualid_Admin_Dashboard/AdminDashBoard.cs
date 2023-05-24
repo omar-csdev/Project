@@ -16,7 +16,6 @@ public static class AdminDashboard
             WriteLogo();
             WriteToConsole(1, "Reservations");
             WriteToConsole(2, "Menu");
-
             WriteToConsole(3, "View Accounts");
             WriteToConsole(4, "Log out");
             int input = Convert.ToInt32(Console.ReadLine());
@@ -78,4 +77,5 @@ public static class AdminDashboard
 
         Console.WriteLine(logo, Color.Wheat);
     }
+
 }

@@ -126,7 +126,7 @@ public static class AccountManager
                 CustomerAccess.WriteAll(accounts);
                 Console.WriteLine($"User {username} logged in succesfully!");
                 Thread.Sleep(3000);
-                MainMenu.NewStart(); //oualid kan hier de startfunctie van het gebruiker dashboard aanroepen
+                CustomerDashboard.DisplayDashboard();
             }
         }
         Helper.Say("!", "No users found with the matching credentials");
