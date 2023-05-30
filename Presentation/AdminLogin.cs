@@ -156,7 +156,7 @@ public static class AdminLogin
                         admin.IsLoggedIn = true;
                         LoginAccess.WriteAll(test);
                         Console.WriteLine($"User {username} logged in succesfully!");
-                        Thread.Sleep(3000);
+                        Helper.ContinueDisplay();
                         AdminDashboard.DisplayDashboard(); //oualid kan hier de startfunctie van zijn dashboard callen.
                     }
                 }
@@ -209,7 +209,7 @@ public static class AdminLogin
             {
                 Console.Clear();
                 Console.WriteLine("ID not found.", Color.Red);
-                Thread.Sleep(3000);
+                Thread.Sleep(3000);     
                 Start();
             }
         }
