@@ -13,13 +13,14 @@ static class AdminMenuEditor
             getMenuItems();
             Console.Clear();
             WriteLogo();
-            WriteToConsole(1, "Delete Item");
+            WriteToConsole(1, "Add Item");
             WriteToConsole(2, "Edit Item");
-            WriteToConsole(3, "Add Item");
+            WriteToConsole(3, "Delete Item");
             WriteToConsole(4, "Back to Menu Dashboard");
             string? input = Console.ReadLine();
 
-            if (input == "1")
+            // input for "3"
+            if (input == "3")
             {
                 int itemIndexToDelete;
                 bool success = false;
@@ -49,7 +50,7 @@ static class AdminMenuEditor
                             Console.WriteLine("Error! Please enter a valid option!", Color.Red);
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadKey();
-                            continue;
+                            break;
                         }
                     }
                     catch (Exception ex)
@@ -199,7 +200,8 @@ static class AdminMenuEditor
                 Console.Clear();
                 AdminMenuEditor.DisplayMenuEditOptions();
             }
-            else if (input == "3")
+            // input for "1"
+            else if (input == "1")
             {
                 Console.Clear();
                 WriteLogo();
@@ -228,7 +230,6 @@ static class AdminMenuEditor
                     }catch(Exception ex) { Console.WriteLine(ex.Message); }
                 }
 
-                Console.WriteLine("Any value other than 1 will be recorded as Drink. ");
                 WriteToConsole(1, "Food");
                 WriteToConsole(2, "Drink");
                 string type = Console.ReadLine();
