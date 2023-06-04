@@ -1,65 +1,9 @@
 [
   {
-    "Name": "Omar",
-    "LastName": "TestNew",
-    "groupSize": 0,
-    "Code": "DR9915",
-    "TimeSlot": "2023-05-22T17:30:00"
-  },
-  {
-    "Name": "Testing",
-    "LastName": "Hi",
-    "groupSize": 0,
-    "Code": "HE8833",
-    "TimeSlot": "2023-05-22T17:30:00"
-  },
-  {
-    "Name": "Testing",
-    "LastName": "asda",
-    "groupSize": 0,
-    "Code": "VO4837",
-    "TimeSlot": "2023-05-22T17:30:00"
-  },
-  {
-    "Name": "asd UPDATED",
-    "LastName": "das UPDATE WORKED",
-    "groupSize": 0,
-    "Code": "GT0622",
-    "TimeSlot": "2023-05-22T15:00:00"
-  },
-  {
-    "Name": "Jan",
-    "LastName": "Piet",
-    "groupSize": 0,
-    "Code": "FR4108",
-    "TimeSlot": "2023-05-18T17:30:00"
-  },
-  {
     "Name": "Oualid",
     "LastName": "Test",
     "groupSize": 5,
     "Code": "CN8579",
     "TimeSlot": "2023-06-18T15:00:00"
-  },
-  {
-    "Name": "Jan",
-    "LastName": "Piet",
-    "groupSize": 2,
-    "Code": "PX3373",
-    "TimeSlot": "2023-05-19T17:30:00"
-  },
-  {
-    "Name": "a",
-    "LastName": "f",
-    "groupSize": 5,
-    "Code": "RT7807",
-    "TimeSlot": "2023-05-30T17:30:00"
-  },
-  {
-    "Name": "olivier",
-    "LastName": "schutte",
-    "groupSize": 2,
-    "Code": "QP3293",
-    "TimeSlot": "2023-05-29T15:00:00"
   }
 ]

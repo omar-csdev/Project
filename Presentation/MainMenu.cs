@@ -15,6 +15,7 @@ static class MainMenu
 
         while (true)
         {
+            SaveOldReservations.WriteOldReservationsToJSON();
             Console.Clear();
             WriteLogo();
             Helper.Say("1", "Login");
