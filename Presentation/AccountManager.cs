@@ -32,7 +32,7 @@ public static class AccountManager
             else
             {
                 Helper.Say("!", "Username unavailable");
-                Thread.Sleep(2500);
+                Helper.ContinueDisplay();
             }
         }
 
@@ -67,7 +67,7 @@ public static class AccountManager
             else
             {
                 Helper.Say("!", "Password does not meet criteria");
-                Thread.Sleep(2500);
+                Helper.ContinueDisplay();
             }
         }
 
@@ -103,7 +103,7 @@ public static class AccountManager
             if (check == 0)
             {
                 Console.WriteLine("Username doesn't exist!", Color.Red);
-                Thread.Sleep(2500);
+                Helper.ContinueDisplay();
 
             }
 
@@ -125,11 +125,11 @@ public static class AccountManager
                 customer.IsLoggedIn = true;
                 CustomerAccess.WriteAll(accounts);
                 Console.WriteLine($"User {username} logged in succesfully!");
-                Thread.Sleep(3000);
+                Helper.ContinueDisplay();
                 CustomerDashboard.DisplayDashboard();
             }
         }
         Helper.Say("!", "No users found with the matching credentials");
-        Thread.Sleep(3000);
+        Helper.ContinueDisplay();
     }
 }

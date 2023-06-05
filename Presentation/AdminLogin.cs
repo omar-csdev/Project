@@ -2,27 +2,6 @@
 using Console = Colorful.Console;
 public static class AdminLogin
 {
-    //loading functie toegevoegd
-    //gebruiker geruststellen dat het programma doorgaat
-    //dit gebruiken ipv alleen Thread.sleep()
-    public static void Loading()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            if (i == 0)
-            {
-                Console.Write("Loading");
-                Thread.Sleep(1000);
-            }
-
-            else
-            {
-                Console.Write(".");
-                Thread.Sleep(1000);
-            }
-        }
-        AdminLogin.Start();
-    }
 
     public static void Start()
     {
@@ -100,11 +79,13 @@ public static class AdminLogin
                         else
                         {
                             Helper.Say("!", "Password does not meet criteria");
-                            Thread.Sleep(2500);
+                            Helper.ContinueDisplay();
+                            Start();
+
                         }
                     }
                     Console.WriteLine("Added account succesfully! You can login now.");
-                    Loading();
+                    Helper.ContinueDisplay();
                     Start();
                 }
 
@@ -182,7 +163,7 @@ public static class AdminLogin
             if (updatedList.Count == 1)
             {
                 Console.WriteLine("No users to remove!", Color.Red);
-                Loading();
+                Helper.ContinueDisplay();
             }
 
             int x = 1;
@@ -203,7 +184,7 @@ public static class AdminLogin
                 Console.WriteLine($"Succesfully removed user {updatedList[ID].UserName}!");
                 updatedList.Remove(updatedList[ID]);
                 LoginAccess.WriteAll(updatedList);
-                Loading();
+                Helper.ContinueDisplay();
             }
             else
             {
@@ -267,7 +248,7 @@ public static class AdminLogin
                 }
             }
             Console.WriteLine("Added account succesfully! You can login now.");
-            Loading();
+            Helper.ContinueDisplay();
             Start();
         }
 
