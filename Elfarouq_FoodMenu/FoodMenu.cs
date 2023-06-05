@@ -39,7 +39,6 @@ public static class FoodMenu
         }
         else if (input == "3") 
         {
-            Console.Clear();
             MainMenu.LoggedInUser();
         }
         else 
