@@ -35,7 +35,7 @@ public static class AdminDashboard
             else if (input == 4)
             {
                 //Log out
-                List<Admin> test = LoginAccess.LoadAll("admindata.json");
+                List<Admin> test = LoginAccess.LoadAll();
                 foreach (Admin admin in test)
                 {
                     admin.IsLoggedIn = false;

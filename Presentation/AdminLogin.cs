@@ -6,7 +6,7 @@ public static class AdminLogin
     public static void Start()
     {
 
-        List<Admin> test = LoginAccess.LoadAll("admindata.json");
+        List<Admin> test = LoginAccess.LoadAll();
         foreach (Admin accounts in test) 
         {
             accounts.IsLoggedIn = false;
@@ -157,7 +157,7 @@ public static class AdminLogin
             //bij de functies verwijderen en toevoegen van een gebruiker altijd nieuwe list van de json
             //als we de oude "test" list gebruiken en er zijn hiervoor gebruiker toegevoegd worden deze
             //niet aangetoond bij het verwijderen
-            List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
+            List<Admin> updatedList = LoginAccess.LoadAll();
 
 
             if (updatedList.Count == 1)
@@ -201,7 +201,7 @@ public static class AdminLogin
         {
             Console.Clear();
             Console.WriteLine("ADDING AN USER:", Color.RebeccaPurple);
-            List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
+            List<Admin> updatedList = LoginAccess.LoadAll();
             Console.WriteLine("Username:");
             string username = Console.ReadLine();
             foreach (Admin admin in updatedList)

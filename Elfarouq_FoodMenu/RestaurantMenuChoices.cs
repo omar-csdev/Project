@@ -122,7 +122,7 @@ public class MenuChoices
             }
             else if (input == 4)
             {
-                FoodMenu.Start();
+                MainMenu.NewStart();
             }
             else
             {

@@ -35,7 +35,7 @@ public static class AdminManager
 
     public static DataTable TableCreator()
     {
-        List<Admin> AllAccounts = LoginAccess.LoadAll("admindata.json");
+        List<Admin> AllAccounts = LoginAccess.LoadAll();
         var table = new DataTable();
         table.Columns.Add("Username", typeof(string));
         table.Columns.Add("Password", typeof(string));
