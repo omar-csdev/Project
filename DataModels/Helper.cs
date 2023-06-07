@@ -21,17 +21,17 @@ public class Helper
         Console.WriteLine("] " + message);
     }
 
-    public static void WriteLogo(string logo)
+    public static void Error(string message)
     {
-        Console.WriteLine(logo, Color.Wheat);
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message+ " Press any button to continue.");
+        Console.ResetColor();
+        Console.ReadLine();
     }
-    public static void DisplayReservation(Project.Olivier_Reservations.Reservation reservation)
+    public static void Succes(string message) 
     {
-        Console.WriteLine();
-        Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
-        Console.WriteLine("Group size: " + reservation.groupSize);
-        Console.WriteLine("Time slot: " + reservation.TimeSlot);
-        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(message);
+        Console.ResetColor();
     }
-
 }
