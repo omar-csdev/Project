@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "Name": "Burger",
+    "Type": "Food",
+    "Price": 5.0,
+    "Category": "General",
+    "Id": 1
+  }
+]

@@ -5,5 +5,12 @@
     "groupSize": 5,
     "Code": "CN8579",
     "TimeSlot": "2023-06-18T15:00:00"
+  },
+  {
+    "Name": "OmarRes",
+    "LastName": "Res",
+    "groupSize": 3,
+    "Code": "AF3476",
+    "TimeSlot": "2023-06-19T17:30:00"
   }
 ]
