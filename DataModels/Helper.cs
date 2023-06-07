@@ -20,4 +20,18 @@ public class Helper
         Console.Write(prefix, Color.Red);
         Console.WriteLine("] " + message);
     }
+
+    public static void WriteLogo(string logo)
+    {
+        Console.WriteLine(logo, Color.Wheat);
+    }
+    public static void DisplayReservation(Project.Olivier_Reservations.Reservation reservation)
+    {
+        Console.WriteLine();
+        Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
+        Console.WriteLine("Group size: " + reservation.groupSize);
+        Console.WriteLine("Time slot: " + reservation.TimeSlot);
+        Console.WriteLine();
+    }
+
 }
