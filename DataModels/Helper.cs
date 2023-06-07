@@ -20,4 +20,17 @@ public class Helper
         Console.Write(prefix, Color.Red);
         Console.WriteLine("] " + message);
     }
+    public static void Error(string message)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message+ " Press any button to continue.");
+        Console.ResetColor();
+        Console.ReadLine();
+    }
+    public static void Succes(string message) 
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(message);
+        Console.ResetColor();
+    }
 }
