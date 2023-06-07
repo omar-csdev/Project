@@ -189,7 +189,7 @@ namespace Project.Olivier_Reservations
             {
                 if (reservation.TimeSlot.Day == timeSlot.Day && reservation.TimeSlot.TimeOfDay == timeSlot.TimeOfDay)
                 {
-                    totalGuests += reservation.PartySize;
+                    totalGuests += reservation.groupSize;
                 }
 
             }
@@ -245,6 +245,7 @@ namespace Project.Olivier_Reservations
             if (success)
             {
                 SaveReservations.WriteAll(system.reservations);
+                Console.WriteLine();
                 Console.WriteLine("Press any key to go back to the main menu...");
                 Console.ReadKey();
                 AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
@@ -254,14 +255,7 @@ namespace Project.Olivier_Reservations
         }
     }
 
-    public class AdminReservation
-    {
-        public string? Name { get; set; }
-        public string? LastName { get; set; }
-        public int PartySize { get; set; }
-        public string? Code { get; set; }
-        public DateTime TimeSlot { get; set; }
-    }
+    public class AdminReservation : Reservation { }
 
 
     public class AdminReservationSystem
@@ -293,14 +287,13 @@ namespace Project.Olivier_Reservations
         {
             string code = GenerateRandomCode();
             // Add reservation to the list
-            reservations.Add(new AdminReservation { Name = name, LastName = lastname, PartySize = partySize, TimeSlot = timeSlot, Code = code });
+            reservations.Add(new AdminReservation { Name = name, LastName = lastname, groupSize = partySize, TimeSlot = timeSlot, Code = code });
 
             Console.WriteLine($"Reservation made for {partySize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
             Console.Write("Reservation code: ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(code);
             Console.ResetColor();
-            Console.WriteLine(". Please keep this code for future use.");
             return true;
         }
 

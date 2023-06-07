@@ -7,54 +7,50 @@ public static class CustomerDashboard
 
     
     private static CustomerAccount customer { get; set; }    
+    private static List<Project.Olivier_Reservations.Reservation> upcomingReservations { get; set; }
     public static void DisplayDashboard()
     {
-        for (; ; )
+        GetLoggedInCustomer();
+        while(customer != null)
+        {
+            Console.Clear();
+            WriteLogo();
+            GetReservationsForCustomer();
+            WriteToConsole(1, "Make new reservation");
+            WriteToConsole(2, "View upcoming reservations");
+            WriteToConsole(3, "View all reservations");
+            WriteToConsole(4, "Edit account");
+            WriteToConsole(5, "Log out");
+            string ? input = Console.ReadLine();
+            switch (input)
             {
-                Console.Clear();
-                WriteLogo();
-                GetLoggedInCustomer();
-                WriteToConsole(1, "View upcoming reservations");
-                WriteToConsole(2, "View all reservations");
-                WriteToConsole(3, "Edit account");
-                WriteToConsole(4, "Log out");
-                string? input = Console.ReadLine();
-                if (input == "1")
-                {
+                case "1":
+                    Project.Olivier_Reservations.Reservations.Reservationstart();
+                    break;
+                case "2":
+                    DisplayReservations(upcomingReservations);
+                    break;
+                case "3":
                     ClearScreen();
                     Console.WriteLine("This feature is not implemented yet!", Color.Green);
                     Helper.ContinueDisplay();
                     CustomerDashboard.DisplayDashboard();
-
-                }
-                else if (input == "2")
-                {
-                    ClearScreen();
-                    Console.WriteLine("This feature is not implemented yet!", Color.Green);
-                    Helper.ContinueDisplay();
-                    CustomerDashboard.DisplayDashboard();
-                }
-                else if (input == "3")
-                {
-                    ClearScreen();
-                    Console.WriteLine("This feature is not implemented yet!", Color.Green);
-                    Helper.ContinueDisplay();
-                    CustomerDashboard.DisplayDashboard();
-                }
-                else if (input == "4")
-                {
-                    //Log out
+                    break;
+                case "4":
+                    CustomerProfileEditor.DisplayDashboard();
+                    break;
+                case "5":
                     LogUserOut();
-                }
-                else
-                {
+                    break;
+                default:
                     Console.WriteLine("Error! Please choose a valid option!", Color.Green);
                     Console.WriteLine();
                     Console.WriteLine("Press any key to return...");
                     Console.ReadKey();
-                }
+                    break;
             }
         }
+    }
 
         public static void WriteToConsole(int prefix, string message)
         {
@@ -62,43 +58,64 @@ public static class CustomerDashboard
             Console.Write(prefix, Color.Red);
             Console.WriteLine("] " + message);
         }
-
         public static void WriteLogo()
         {
             string logo = @"
-  ____            _     _                         _ 
- |  _ \  __ _ ___| |__ | |__   ___   __ _ _ __ __| |
- | | | |/ _` / __| '_ \| '_ \ / _ \ / _` | '__/ _` |
- | |_| | (_| \__ \ | | | |_) | (_) | (_| | | | (_| |
- |____/ \__,_|___/_| |_|_.__/ \___/ \__,_|_|  \__,_|                                   
+  ____             __ _ _      
+ |  _ \ _ __ ___  / _(_) | ___ 
+ | |_) | '__/ _ \| |_| | |/ _ \
+ |  __/| | | (_) |  _| | |  __/
+ |_|   |_|  \___/|_| |_|_|\___|                                                                
 ";
 
             Console.WriteLine(logo, Color.Wheat);
         }
-
         public static void ClearScreen()
         {
             Console.Clear();
             WriteLogo();
         }
-
         public static void GetLoggedInCustomer()
         {
             List<CustomerAccount> accounts = CustomerAccess.LoadAll();
             CustomerAccount loggedInCustomer = accounts.FirstOrDefault(x => x.IsLoggedIn == true);
-        if (loggedInCustomer != null)
+            if (loggedInCustomer != null)
+            {
+                customer = loggedInCustomer;
+                Console.WriteLine("Logged in as: " + customer.UserNameSetter, Color.Green);
+            }
+
+            else {
+                Console.WriteLine("Something went wrong! You will be redirected back to the log in page.");
+                Console.ReadKey();
+                AccountManager.LogIn();
+            }
+        }
+        public static void GetReservationsForCustomer()
         {
-            customer = loggedInCustomer;
-            Console.WriteLine("Logged in as: " + customer.UserNameSetter, Color.Green);
+            List<Project.Olivier_Reservations.Reservation> allreservations = Project.Olivier_Reservations.SaveReservations.LoadAll();
+            upcomingReservations = allreservations.Where(r => r.Name == customer.UserNameSetter).ToList();
         }
+        public static void DisplayReservations(List<Project.Olivier_Reservations.Reservation> reservations)
+        {
+            if(reservations.Count == 0) {
+                ClearScreen();
+                Console.WriteLine("No upcoming reservations!");
+                Helper.ContinueDisplay();
+                CustomerDashboard.DisplayDashboard();
+            }
+            else
+            {
+                ClearScreen();
+                foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+                {
+                    Helper.DisplayReservation(reservation);
+                }
+                Console.WriteLine();
+                Helper.ContinueDisplay();
+        }   
 
-        else {
-            Console.WriteLine("Something went wrong! You will be redirected back to the log in page.");
-            Console.ReadKey();
-            AccountManager.LogIn();
         }
-        }
-
         public static void LogUserOut()
         {
             List<CustomerAccount> accounts = CustomerAccess.LoadAll();

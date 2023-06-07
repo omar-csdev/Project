@@ -20,6 +20,7 @@ public class Helper
         Console.Write(prefix, Color.Red);
         Console.WriteLine("] " + message);
     }
+
     public static void Error(string message)
     {
         Console.ForegroundColor = ConsoleColor.Red;
