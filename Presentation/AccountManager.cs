@@ -22,6 +22,7 @@ public static class AccountManager
         {
             Console.Clear();
             Console.WriteLine("Creating Account");
+            Helper.Say("!", "Type '/back' to go back to the main menu");
             Console.WriteLine("Enter a username:");
             username = Console.ReadLine();
             if (username != null && usernames.Contains(username) == false)
