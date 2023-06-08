@@ -16,5 +16,11 @@
     "ID": 3,
     "UserNameSetter": "bruh",
     "PasswordSetter": "!1"
+  },
+  {
+    "IsLoggedIn": false,
+    "ID": 4,
+    "UserNameSetter": "a",
+    "PasswordSetter": "a!1"
   }
 ]

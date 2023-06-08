@@ -109,7 +109,7 @@ public static class CustomerDashboard
                 ClearScreen();
                 foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
                 {
-                    Helper.DisplayReservation(reservation);
+                    AdminReservationsView.DisplayReservation(reservation);
                 }
                 Console.WriteLine();
                 Helper.ContinueDisplay();
