@@ -124,77 +124,7 @@ public static class OrderFood
             }
             else
             {
-                Console.WriteLine("No item found with the specified ID.");
-            }
-            Console.WriteLine("Click enter to go back.");
-            Console.ReadLine();
-        }
-        else if (firstinput == 2)
-        {
-            bool found = false;
-            Console.Clear();
-            Console.WriteLine("Please enter your reservation code: ");
-            string code = Console.ReadLine();
-            List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
-            foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
-            {
-                if (reservation.Code == code)
-                {
-                    found = true;
-                }
-            }
-            if (!found)
-            {
-                Console.WriteLine("Reservation code invalid\nPress enter to go back...");
-                Console.ReadKey();
-                Console.Clear();
-                Start();
-            }
-            string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
-
-            // Deserialize the existing JSON data
-            List<Dictionary<string, List<Dictionary<string, int>>>> jsonData;
-            string jsonString = File.ReadAllText(filePath);
-            jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<Dictionary<string, int>>>>>(jsonString);
-
-            Console.Clear();
-            Console.Clear();
-            Console.WriteLine("Your cart:");
-            Console.WriteLine("--------------");
-            double totalprice = 0;
-
-            foreach (Dictionary<string, List<Dictionary<string, int>>> dict in jsonData)
-            {
-                // Check if the current dictionary contains the specified code
-                if (dict.ContainsKey(code))
-                {
-                    // Get the list of item dictionaries from the current dictionary
-                    List<Dictionary<string, int>> itemList = dict[code];
-
-                    // Iterate over each item dictionary in the list
-                    foreach (Dictionary<string, int> itemDict in itemList)
-                    {
-                        // Get the itemId and quantity values from the current item dictionary
-                        int itemId = itemDict["itemId"];
-                        int quantity = itemDict["quantity"];
-                        Item item = menu.FirstOrDefault(i => i.Id == itemId);
-                        if (item != null)
-                        {
-                            double itemprice = item.Price * quantity;
-                            totalprice += itemprice;
-                            Console.WriteLine($"{quantity}x {item.Name} = {itemprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US")).Replace("?", "€")}");
-
-                        }
-                    }
-
-                    // Exit the loop after finding the specified code
-
-                    Console.WriteLine("--------------");
-                    Console.WriteLine($"Total Price: €{totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
-                    Console.WriteLine("Click enter to go back.");
-                    Console.ReadLine();
-                    break;
-                }
+                TotalPrice();
             }
         }
         else if (firstinput == 3)
@@ -261,7 +191,74 @@ public static class OrderFood
         File.WriteAllText(filePath, updatedJsonString);
     }
 
+    public static void TotalPrice()
+    {
+        bool found = false;
+        Console.Clear();
+        Console.WriteLine("Please enter your reservation code: ");
+        string code = Console.ReadLine();
+        List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
+        foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+        {
+            if (reservation.Code == code)
+            {
+                found = true;
+            }
+        }
+        if (!found)
+        {
+            Console.WriteLine("Reservation code invalid\nPress enter to go back...");
+            Console.ReadKey();
+            Console.Clear();
+            Start();
+        }
+        string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
 
+        // Deserialize the existing JSON data
+        List<Dictionary<string, List<Dictionary<string, int>>>> jsonData;
+        string jsonString = File.ReadAllText(filePath);
+        jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<Dictionary<string, int>>>>>(jsonString);
+
+        Console.Clear();
+        Console.Clear();
+        Console.WriteLine("Your cart:");
+        Console.WriteLine("--------------");
+        double totalprice = 0;
+
+        foreach (Dictionary<string, List<Dictionary<string, int>>> dict in jsonData)
+        {
+            // Check if the current dictionary contains the specified code
+            if (dict.ContainsKey(code))
+            {
+                // Get the list of item dictionaries from the current dictionary
+                List<Dictionary<string, int>> itemList = dict[code];
+
+                // Iterate over each item dictionary in the list
+                foreach (Dictionary<string, int> itemDict in itemList)
+                {
+                    // Get the itemId and quantity values from the current item dictionary
+                    int itemId = itemDict["itemId"];
+                    int quantity = itemDict["quantity"];
+                    Item item = menu.FirstOrDefault(i => i.Id == itemId);
+                    if (item != null)
+                    {
+                        double itemprice = item.Price * quantity;
+                        totalprice += itemprice;
+                        Console.WriteLine($"{quantity}x {item.Name} = {itemprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US")).Replace("?", "€")}");
+
+                    }
+                }
+
+                // Exit the loop after finding the specified code
+
+                Console.WriteLine("--------------");
+                Console.WriteLine($"Total Price: €{totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
+                Console.WriteLine("Click enter to go back.");
+                Console.ReadLine();
+                break;
+            }
+        }
+    }
 
 
     public static void Say(string prefix, string message)
