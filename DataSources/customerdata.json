@@ -16,11 +16,5 @@
     "ID": 3,
     "UserNameSetter": "bruh",
     "PasswordSetter": "!1"
-  },
-  {
-    "IsLoggedIn": true,
-    "ID": 4,
-    "UserNameSetter": "OualidNew",
-    "PasswordSetter": "!1"
   }
 ]

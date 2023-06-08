@@ -16,8 +16,9 @@ static class AdminDashboardReservationsDashboard
             Console.Clear();
             WriteLogo();
             WriteToConsole(1, "View Reservations");
-            WriteToConsole(2, "Edit Reservations");
-            WriteToConsole(3, "Back to Dashboard");
+            WriteToConsole(2, "View Old Reservations");
+            WriteToConsole(3, "Edit Reservations");
+            WriteToConsole(4, "Back to Dashboard");
             string? input = Console.ReadLine();
             if (input == "1")
             {
@@ -25,9 +26,13 @@ static class AdminDashboardReservationsDashboard
             }
             else if (input == "2")
             {
-                AdminReservationsEditor.Run();
+                AdminOldReservationsView.ViewOldReservations();
             }
             else if (input == "3")
+            {
+                AdminReservationsEditor.Run();
+            }
+            else if (input == "4")
             {
                 AdminDashboard.DisplayDashboard();
             }
