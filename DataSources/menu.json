@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "Name": "Burger",
+    "Type": "Food",
+    "Price": 5.5,
+    "Category": "Halal",
+    "Id": 1
+  },
+  {
+    "Name": "Appel",
+    "Type": "Food",
+    "Price": 1.0,
+    "Category": "General",
+    "Id": 4
+  },
+  {
+    "Name": "Fries",
+    "Type": "Food",
+    "Price": 3.0,
+    "Category": "General",
+    "Id": 2
+  },
+  {
+    "Name": "Red Bull",
+    "Type": "Drink",
+    "Price": 2.0,
+    "Category": "Non-Alcoholic",
+    "Id": 3
+  }
+]

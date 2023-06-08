@@ -39,7 +39,8 @@ public class MenuChoices
                 {
                     if (type.ToLower() == "food")
                     {
-                        MenuItem.DisplayFood();
+                        int SortType = AskSort();
+                        MenuItem.DisplayFood(SortType);
                         Console.WriteLine("\nClick enter to go back");
                         Console.ReadLine();
                         break;
@@ -55,7 +56,7 @@ public class MenuChoices
                     else
                     {
                         Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                        Thread.Sleep(1500);
+                        Helper.ContinueDisplay();
                     }
                 }
             }
@@ -116,7 +117,7 @@ public class MenuChoices
                     else
                     {
                         Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                        Thread.Sleep(1500);
+                        Helper.ContinueDisplay();
                     }
                 }
             }
@@ -127,16 +128,55 @@ public class MenuChoices
             else
             {
                 Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                Thread.Sleep(1500);
+                Helper.ContinueDisplay();
             }
         }
     }
 
-    public static void Say(string prefix, string message)
+    public static int AskSort()
     {
-        Console.Write("[");
-        Console.Write(prefix, Color.Red);
-        Console.WriteLine("] " + message);
+        while (true)
+        {
+            Console.WriteLine("How would you like to sort the menu?");
+            Helper.Say("1", "Sort by price (ascending).");
+            Helper.Say("2", "Sort by price (descending).");
+            Helper.Say("3", "Sort by alphabetic order (a-z).");
+            Helper.Say("4", "Sort by alphabetic order (z-a).");
+            string choice1 = Console.ReadLine();
+            if (choice1 == null)
+            {
+                Console.WriteLine("Invalid option! Please choose from 1-4");
+                Helper.ContinueDisplay();
+                continue;
+            }
+            int choice = Convert.ToInt32(choice1);
+            if (choice > 4 || choice < 1)
+            {
+                Console.WriteLine("Invalid option! Please choose from 1-4");
+                Helper.ContinueDisplay();
+            }
+
+            else if (choice == 1)
+            {
+                return 1;
+            }
+
+            else if (choice == 2)
+            {
+                return 2;
+            }
+
+            else if (choice == 3)
+            {
+                return 3;
+            }
+
+            else if (choice == 4)
+            {
+                return 4;
+            }
+        }
+        
     }
     public static void WriteLogo()
     {

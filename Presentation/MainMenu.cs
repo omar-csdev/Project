@@ -49,6 +49,7 @@ static class MainMenu
                     break;
                 case 5:
                     Console.WriteLine("Exiting...");
+                    Environment.Exit(0);
                     return; // Breaks out of the method, terminating the program
                 default:
                     Helper.ErrorDisplay("1, 2, 3, 4 or 5");
