@@ -271,6 +271,7 @@ namespace Project.Olivier_Reservations {
         public int groupSize { get; set; }
         public string Code { get; set; }
         public DateTime TimeSlot { get; set; }
+        public int CustomerId { get; set; }
     }
 
 
@@ -299,12 +300,31 @@ namespace Project.Olivier_Reservations {
             // Return the random code.
             return randomString;
         }
+
+        public int GetCustomerId()
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\customerdata.json");
+            string jsonString = File.ReadAllText(filePath);
+            List<CustomerAccount> AllCustomers = JsonConvert.DeserializeObject<List<CustomerAccount>>(jsonString) ?? new List<CustomerAccount>();
+            foreach (CustomerAccount customer in AllCustomers)
+            {
+                if (customer.IsLoggedIn == true)
+                {
+                    int CustomerId = customer.ID;
+                    return CustomerId;
+                }
+            }
+            int GuestId = 0;
+            return  GuestId;
+            
+        }
       
         public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot)
         {
             string code = GenerateRandomCode();
+            int customerId = GetCustomerId();
             // Add reservation to the list
-            reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code });
+            reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code , CustomerId = customerId});
 
             Console.WriteLine($"Reservation made for {groupSize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
             Console.Write($"Reservation code: ");
