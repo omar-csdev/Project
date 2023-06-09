@@ -273,6 +273,7 @@ namespace Project.Olivier_Reservations {
         public DateTime TimeSlot { get; set; }
         public int CustomerId { get; set; }
         public bool Paid = false;
+        public bool HasOrderdAnything = false;
     }
 
 
@@ -302,13 +303,87 @@ namespace Project.Olivier_Reservations {
             return randomString;
         }
 
-        public bool SetStatusToPaid(string reservationCode)
+        public static bool IsReservationPaid(string reservationCode)
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
             string jsonString = File.ReadAllText(filePath);
-            return true;
 
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                return reservation.Paid;
+            }
+            Console.WriteLine("Code not found");
+
+            return false; // Reservation code not found
         }
+
+        public static void SetReservationStatusToPaid(string reservationCode)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                reservation.Paid = true;
+
+                // Serialize the updated reservations list back to JSON
+                string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+
+                // Write the updated JSON back to the file
+                File.WriteAllText(filePath, updatedJsonString);
+            }
+        }
+
+
+        public static bool IsAnythingOrderd(string reservationCode)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                return reservation.HasOrderdAnything;
+            }
+            Console.WriteLine("Code not found");
+
+            return false; // Reservation code not found
+        }
+
+
+        public static void SetHasOrderdAnything(string reservationCode)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                reservation.HasOrderdAnything = true;
+
+                // Serialize the updated reservations list back to JSON
+                string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+
+                // Write the updated JSON back to the file
+                File.WriteAllText(filePath, updatedJsonString);
+            }
+        }
+
+
 
         public int GetCustomerId()
         {
@@ -328,7 +403,7 @@ namespace Project.Olivier_Reservations {
             
         }
 
-        public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot, bool paid = false)
+        public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot)
         {
             string code = GenerateRandomCode();
             int customerId = GetCustomerId();

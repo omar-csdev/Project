@@ -1,20 +1,22 @@
 [
   {
     "Paid": false,
-    "Name": "Omar",
-    "LastName": "Testing",
+    "HasOrderdAnything": false,
+    "Name": "Testing",
+    "LastName": "ok",
     "groupSize": 3,
-    "Code": "WK4255",
-    "TimeSlot": "2023-06-22T17:30:00",
+    "Code": "QK2876",
+    "TimeSlot": "2023-06-21T12:30:00",
     "CustomerId": 3
   },
   {
-    "Paid": false,
-    "Name": "ok",
-    "LastName": "hi",
+    "Paid": true,
+    "HasOrderdAnything": true,
+    "Name": "testingres",
+    "LastName": "as",
     "groupSize": 3,
-    "Code": "TG9439",
-    "TimeSlot": "2023-06-22T17:30:00",
+    "Code": "VT6005",
+    "TimeSlot": "2023-06-19T12:30:00",
     "CustomerId": 3
   }
 ]

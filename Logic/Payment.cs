@@ -1,6 +1,8 @@
-﻿public class Payment
+﻿using Project.Olivier_Reservations;
+
+public class Payment
 {
-    public static void AskPay(double amount)
+    public static void AskPay(double amount, string reservationCode)
     {
         try
         {
@@ -16,6 +18,7 @@
                 string cardInput = Console.ReadLine();
                 if (IsValidCard(cardInput))
                 {
+                    ReservationSystem.SetReservationStatusToPaid(reservationCode);
                     Console.WriteLine($"You have successfully paid €{amount}");
                     Helper.ContinueDisplay();
                     Console.Clear();
@@ -26,11 +29,12 @@
                     Console.WriteLine("Card invalid please try again...");
                     Console.ReadLine();
                     Console.Clear();
-                    AskPay(amount);
+                    AskPay(amount, reservationCode);
                 }
             }
             else if (input == "2")
             {
+                ReservationSystem.SetReservationStatusToPaid(reservationCode);
                 Console.WriteLine($"You have successfully paid €{amount}");
                 Helper.ContinueDisplay();
                 Console.Clear();
@@ -53,7 +57,7 @@
             Console.WriteLine(ex.Message);
             Console.ResetColor();
             Helper.ContinueDisplay();
-            AskPay(amount);
+            AskPay(amount, reservationCode);
         }
     }
 

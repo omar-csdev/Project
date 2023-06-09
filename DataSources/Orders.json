@@ -6,5 +6,37 @@
         "quantity": 13
       }
     ]
+  },
+  {
+    "TG9439": [
+      {
+        "itemId": 1,
+        "quantity": 5
+      }
+    ]
+  },
+  {
+    "WZ6176": [
+      {
+        "itemId": 1,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "OA8426": [
+      {
+        "itemId": 1,
+        "quantity": 7
+      }
+    ]
+  },
+  {
+    "VT6005": [
+      {
+        "itemId": 1,
+        "quantity": 5
+      }
+    ]
   }
 ]

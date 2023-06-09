@@ -121,7 +121,8 @@ public static class OrderFood
                 {
                     orders[item.Name] = quantity;
                 }
-                Console.WriteLine($"Succesfully added {quantity}x {item.Name} to your cart.");
+                ReservationSystem.SetHasOrderdAnything(code) ;
+                Console.WriteLine($"Successfully added {quantity}x {item.Name} to your cart.");
                 AddOrderJSON(code, item.Id, quantity);
                 Helper.ContinueDisplay();
             }
@@ -138,24 +139,48 @@ public static class OrderFood
             Console.Clear();
             MenuItem.Start();
             Helper.ContinueDisplay();
+            Start();
         }
         else if (firstinput == 3)
         {
             // show order basket
             Console.Clear();
-            TotalPrice();
+            Console.WriteLine("Please enter your reservation code: ");
+            string code = Console.ReadLine();
+            TotalPrice(code);
             Helper.ContinueDisplay();
-            OrderFood.Start();
+            Start();
 
         }
         else if (firstinput == 4)
         {
             // pay 
-            TotalPrice();
+            Console.WriteLine("Please enter your reservation code: ");
+            string code = Console.ReadLine();
+            // checking if the bill is open or not
+            if (!ReservationSystem.IsReservationPaid(code)) 
+            {
+                if (ReservationSystem.IsAnythingOrderd(code))
+                {
+                    TotalPrice(code);
+                }
+                else
+                {
+                    Console.WriteLine("\nYou have not orderd anything yet.");
+                    Helper.ContinueDisplay();
+                    Start();
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nYour reservation has already been paid for.");
+                Helper.ContinueDisplay();
+                Start();
+            }
             Console.WriteLine("\nPress a key to continue to the payment...");
             Console.ReadLine();
             Console.Clear();
-            Payment.AskPay(AmountToPay);
+            Payment.AskPay(AmountToPay, code);
         }
         else if (firstinput == 5)
         {
@@ -219,12 +244,11 @@ public static class OrderFood
         File.WriteAllText(filePath, updatedJsonString);
     }
 
-    public static void TotalPrice()
+    public static void TotalPrice(string code)
     {
         bool found = false;
         Console.Clear();
-        Console.WriteLine("Please enter your reservation code: ");
-        string code = Console.ReadLine();
+
         List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
         foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
         {
