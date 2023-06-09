@@ -316,7 +316,6 @@ namespace Project.Olivier_Reservations {
             {
                 return reservation.Paid;
             }
-            Console.WriteLine("Code not found");
 
             return false; // Reservation code not found
         }

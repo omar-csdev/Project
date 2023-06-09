@@ -125,13 +125,15 @@ public static class OrderFood
                 Console.WriteLine($"Successfully added {quantity}x {item.Name} to your cart.");
                 AddOrderJSON(code, item.Id, quantity);
                 Helper.ContinueDisplay();
+                Console.Clear();
+                Start();
             }
             else
             {
                 Console.WriteLine("Invalid Item ID...");
                 Helper.ContinueDisplay();
                 Console.Clear();
-                MenuItem.Start();
+                Start();
             }
         }
         else if (firstinput == 2)

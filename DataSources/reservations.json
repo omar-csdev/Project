@@ -1,7 +1,7 @@
 [
   {
-    "Paid": false,
-    "HasOrderdAnything": false,
+    "Paid": true,
+    "HasOrderdAnything": true,
     "Name": "Testing",
     "LastName": "ok",
     "groupSize": 3,
@@ -18,5 +18,45 @@
     "Code": "VT6005",
     "TimeSlot": "2023-06-19T12:30:00",
     "CustomerId": 3
+  },
+  {
+    "Paid": true,
+    "HasOrderdAnything": true,
+    "Name": "asd",
+    "LastName": "dsa",
+    "groupSize": 4,
+    "Code": "CC3212",
+    "TimeSlot": "2023-06-22T12:30:00",
+    "CustomerId": 3
+  },
+  {
+    "Paid": true,
+    "HasOrderdAnything": true,
+    "Name": "as",
+    "LastName": "da",
+    "groupSize": 5,
+    "Code": "ME3379",
+    "TimeSlot": "2023-06-22T12:30:00",
+    "CustomerId": 3
+  },
+  {
+    "Paid": true,
+    "HasOrderdAnything": true,
+    "Name": "IDTwo",
+    "LastName": "Testing",
+    "groupSize": 5,
+    "Code": "TJ5111",
+    "TimeSlot": "2023-06-22T17:30:00",
+    "CustomerId": 2
+  },
+  {
+    "Paid": true,
+    "HasOrderdAnything": true,
+    "Name": "Omar",
+    "LastName": "TEstingIDFOUR",
+    "groupSize": 3,
+    "Code": "GN8992",
+    "TimeSlot": "2023-06-22T12:30:00",
+    "CustomerId": 4
   }
 ]

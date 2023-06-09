@@ -1,4 +1,5 @@
-﻿using Project.Olivier_Reservations;
+﻿using Newtonsoft.Json;
+using Project.Olivier_Reservations;
 
 public class Payment
 {
@@ -19,6 +20,7 @@ public class Payment
                 if (IsValidCard(cardInput))
                 {
                     ReservationSystem.SetReservationStatusToPaid(reservationCode);
+                    WriteData(GetCustomerIdFromReservation(reservationCode), reservationCode, amount);
                     Console.WriteLine($"You have successfully paid €{amount}");
                     Helper.ContinueDisplay();
                     Console.Clear();
@@ -35,6 +37,7 @@ public class Payment
             else if (input == "2")
             {
                 ReservationSystem.SetReservationStatusToPaid(reservationCode);
+                WriteData(GetCustomerIdFromReservation(reservationCode), reservationCode, amount);
                 Console.WriteLine($"You have successfully paid €{amount}");
                 Helper.ContinueDisplay();
                 Console.Clear();
@@ -59,6 +62,20 @@ public class Payment
             Helper.ContinueDisplay();
             AskPay(amount, reservationCode);
         }
+    }
+
+    public static int GetCustomerIdFromReservation(string reservationCode)
+    {
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+        string jsonString = File.ReadAllText(filePath);
+
+        var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+        var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+
+        return reservation.Id;
+
     }
 
     public static bool IsValidCard(string number)
@@ -95,6 +112,54 @@ public class Payment
 
         return sum % 10 == 0;
     }
+
+    public static void WriteData(int customerID, string reservationCode, double totalPrice)
+    {
+        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\PaidOrders.json");
+
+        List<PaidOrder> paidOrders;
+
+        // Check if the file exists
+        if (File.Exists(filePath))
+        {
+            string jsonString = File.ReadAllText(filePath);
+            paidOrders = JsonConvert.DeserializeObject<List<PaidOrder>>(jsonString);
+        }
+        else
+        {
+            paidOrders = new List<PaidOrder>(); // Create a new list if the file doesn't exist
+        }
+
+        var paidOrder = paidOrders.FirstOrDefault(o => o.ReservationCode == reservationCode);
+
+        if (paidOrder != null)
+        {
+            paidOrder.CustomerId = customerID;
+            paidOrder.PaidTime = DateTime.Now;
+            paidOrder.TotalPrice = totalPrice;
+        }
+        else
+        {
+            // Create a new PaidOrder object and add it to the list
+            var newPaidOrder = new PaidOrder
+            {
+                ReservationCode = reservationCode,
+                CustomerId = customerID,
+                PaidTime = DateTime.Now,
+                TotalPrice = totalPrice
+            };
+            paidOrders.Add(newPaidOrder);
+        }
+
+        // Serialize the updated paid orders list back to JSON
+        string updatedJsonString = JsonConvert.SerializeObject(paidOrders, Formatting.Indented);
+
+        // Write the updated JSON back to the file
+        File.WriteAllText(filePath, updatedJsonString);
+    }
+
+
+
 
 
 }

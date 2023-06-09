@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "ReservationCode": "ME3379",
+    "CustomerId": 3,
+    "PaidTime": "2023-06-09T21:29:42.4718207+02:00",
+    "TotalPrice": 25.0
+  },
+  {
+    "ReservationCode": "TJ5111",
+    "CustomerId": 0,
+    "PaidTime": "2023-06-09T21:39:13.3210308+02:00",
+    "TotalPrice": 25.0
+  },
+  {
+    "ReservationCode": "GN8992",
+    "CustomerId": 0,
+    "PaidTime": "2023-06-09T21:42:56.8590038+02:00",
+    "TotalPrice": 25.0
+  }
+]
