@@ -1,2 +1,20 @@
 [
+  {
+    "Paid": false,
+    "Name": "Omar",
+    "LastName": "Testing",
+    "groupSize": 3,
+    "Code": "WK4255",
+    "TimeSlot": "2023-06-22T17:30:00",
+    "CustomerId": 3
+  },
+  {
+    "Paid": false,
+    "Name": "ok",
+    "LastName": "hi",
+    "groupSize": 3,
+    "Code": "TG9439",
+    "TimeSlot": "2023-06-22T17:30:00",
+    "CustomerId": 3
+  }
 ]

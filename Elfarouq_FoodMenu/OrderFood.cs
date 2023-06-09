@@ -19,14 +19,16 @@ public static class OrderFood
     static string JSONString = File.ReadAllText(filePath);
     public static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
     public static Dictionary<string, int> orders = new Dictionary<string, int>();
+    public static double AmountToPay;
     public static void Start()
     {
         Console.Clear();
         WriteLogo();
         Say("1", "Make order");
-        Say("2", "Check order-basket");
-        Say("3", "Show menu");
-        Say("4", "Go back to the main menu");
+        Say("2", "Show menu");
+        Say("3", "Check order-basket");
+        Say("4", "Check-out");
+        Say("5", "Go back to the main menu");
 
         int firstinput;
         while (true)
@@ -34,9 +36,9 @@ public static class OrderFood
             try
             {
                 firstinput = int.Parse(Console.ReadLine());
-                if (firstinput < 1 || firstinput > 4)
+                if (firstinput < 1 || firstinput > 5)
                 {
-                    string message = ("Please enter a valid number between 1 and 4.");
+                    string message = ("Please enter a valid number between 1 and 5.");
                     Helper.Error(message);
                     Start();
                 }
@@ -44,7 +46,7 @@ public static class OrderFood
             }
             catch (FormatException)
             {
-                string message = ("Please enter a valid number between 1 and 4.");
+                string message = ("Please enter a valid number between 1 and 5.");
                 Helper.Error(message);
                 Start();
             }
@@ -121,20 +123,41 @@ public static class OrderFood
                 }
                 Console.WriteLine($"Succesfully added {quantity}x {item.Name} to your cart.");
                 AddOrderJSON(code, item.Id, quantity);
+                Helper.ContinueDisplay();
             }
             else
             {
-                TotalPrice();
+                Console.WriteLine("Invalid Item ID...");
+                Helper.ContinueDisplay();
+                Console.Clear();
+                MenuItem.Start();
             }
         }
-        else if (firstinput == 3)
+        else if (firstinput == 2)
         {
             Console.Clear();
             MenuItem.Start();
-            Console.WriteLine("Click enter to go back.");
-            Console.ReadLine();
+            Helper.ContinueDisplay();
+        }
+        else if (firstinput == 3)
+        {
+            // show order basket
+            Console.Clear();
+            TotalPrice();
+            Helper.ContinueDisplay();
+            OrderFood.Start();
+
         }
         else if (firstinput == 4)
+        {
+            // pay 
+            TotalPrice();
+            Console.WriteLine("\nPress a key to continue to the payment...");
+            Console.ReadLine();
+            Console.Clear();
+            Payment.AskPay(AmountToPay);
+        }
+        else if (firstinput == 5)
         {
             Console.Clear();
             FoodMenu.Start();
@@ -142,6 +165,7 @@ public static class OrderFood
         else
         {
             Console.WriteLine("Invalid input. Try again please");
+            Helper.ContinueDisplay();
         }
 
     }
@@ -166,8 +190,10 @@ public static class OrderFood
         Dictionary<string, List<Dictionary<string, int>>> orderData = jsonData.FirstOrDefault(d => d.ContainsKey(orderCode));
         if (orderData == null)
         {
-            orderData = new Dictionary<string, List<Dictionary<string, int>>>();
-            orderData.Add(orderCode, new List<Dictionary<string, int>>());
+            orderData = new Dictionary<string, List<Dictionary<string, int>>>
+            {
+                { orderCode, new List<Dictionary<string, int>>() }
+            };
             jsonData.Add(orderData);
         }
 
@@ -180,9 +206,11 @@ public static class OrderFood
         else
         {
             // Add the new item to the order data
-            Dictionary<string, int> itemData = new Dictionary<string, int>();
-            itemData.Add("itemId", itemId);
-            itemData.Add("quantity", quantity);
+            Dictionary<string, int> itemData = new Dictionary<string, int>
+            {
+                { "itemId", itemId },
+                { "quantity", quantity }
+            };
             orderData[orderCode].Add(itemData);
         }
 
@@ -253,8 +281,7 @@ public static class OrderFood
 
                 Console.WriteLine("--------------");
                 Console.WriteLine($"Total Price: €{totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
-                Console.WriteLine("Click enter to go back.");
-                Console.ReadLine();
+                AmountToPay = totalprice;
                 break;
             }
         }

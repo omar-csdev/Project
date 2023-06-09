@@ -272,6 +272,7 @@ namespace Project.Olivier_Reservations {
         public string Code { get; set; }
         public DateTime TimeSlot { get; set; }
         public int CustomerId { get; set; }
+        public bool Paid = false;
     }
 
 
@@ -301,6 +302,14 @@ namespace Project.Olivier_Reservations {
             return randomString;
         }
 
+        public bool SetStatusToPaid(string reservationCode)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+            return true;
+
+        }
+
         public int GetCustomerId()
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\customerdata.json");
@@ -318,8 +327,8 @@ namespace Project.Olivier_Reservations {
             return  GuestId;
             
         }
-      
-        public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot)
+
+        public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot, bool paid = false)
         {
             string code = GenerateRandomCode();
             int customerId = GetCustomerId();
