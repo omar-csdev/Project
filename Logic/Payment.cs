@@ -13,6 +13,7 @@ public class Payment
             OrderFood.Say("3", "Go back");
             string input = Console.ReadLine();
             Console.Clear();
+            int customerID = ReservationSystem.GetCustomerIdFromReservation(reservationCode);
             if (input == "1")
             {
                 Console.WriteLine("Please enter your card number:");
@@ -20,7 +21,7 @@ public class Payment
                 if (IsValidCard(cardInput))
                 {
                     ReservationSystem.SetReservationStatusToPaid(reservationCode);
-                    WriteData(GetCustomerIdFromReservation(reservationCode), reservationCode, amount);
+                    WriteData(customerID, reservationCode, amount);
                     Console.WriteLine($"You have successfully paid €{amount}");
                     Helper.ContinueDisplay();
                     Console.Clear();
@@ -37,7 +38,7 @@ public class Payment
             else if (input == "2")
             {
                 ReservationSystem.SetReservationStatusToPaid(reservationCode);
-                WriteData(GetCustomerIdFromReservation(reservationCode), reservationCode, amount);
+                WriteData(customerID, reservationCode, amount);
                 Console.WriteLine($"You have successfully paid €{amount}");
                 Helper.ContinueDisplay();
                 Console.Clear();
@@ -64,19 +65,7 @@ public class Payment
         }
     }
 
-    public static int GetCustomerIdFromReservation(string reservationCode)
-    {
-        string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
-        string jsonString = File.ReadAllText(filePath);
 
-        var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
-
-        var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
-
-
-        return reservation.Id;
-
-    }
 
     public static bool IsValidCard(string number)
     {

@@ -272,8 +272,8 @@ namespace Project.Olivier_Reservations {
         public string Code { get; set; }
         public DateTime TimeSlot { get; set; }
         public int CustomerId { get; set; }
-        public bool Paid = false;
-        public bool HasOrderdAnything = false;
+        public bool Paid { get; set; } = false;
+        public bool HasOrderdAnything { get; set; } = false;
     }
 
 
@@ -286,7 +286,7 @@ namespace Project.Olivier_Reservations {
             // Define the sets of letters and digits that can be used to generate the code.
             const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string digits = "0123456789";
-
+            
             // Create a new random number generator.
             Random random = new Random();
 
@@ -383,8 +383,28 @@ namespace Project.Olivier_Reservations {
         }
 
 
+        public static int GetCustomerIdFromReservation(string reservationCode)
+        {
 
-        public int GetCustomerId()
+            // return the customer's ID for the specific reservation using the reservationCode
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                return reservation.CustomerId;
+            }
+
+            // Return a default or error value when reservation is not found
+            return -1;
+        }
+
+
+        public static int GetCustomerId()
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\customerdata.json");
             string jsonString = File.ReadAllText(filePath);

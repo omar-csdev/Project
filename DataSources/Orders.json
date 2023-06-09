@@ -86,5 +86,45 @@
         "quantity": 5
       }
     ]
+  },
+  {
+    "CR8399": [
+      {
+        "itemId": 1,
+        "quantity": 5
+      }
+    ]
+  },
+  {
+    "XA7812": [
+      {
+        "itemId": 1,
+        "quantity": 5
+      }
+    ]
+  },
+  {
+    "GA6397": [
+      {
+        "itemId": 1,
+        "quantity": 5
+      }
+    ]
+  },
+  {
+    "GC8213": [
+      {
+        "itemId": 1,
+        "quantity": 5
+      }
+    ]
+  },
+  {
+    "MD3206": [
+      {
+        "itemId": 1,
+        "quantity": 5
+      }
+    ]
   }
 ]
