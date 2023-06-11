@@ -31,7 +31,7 @@ public class Helper
     public static void Succes(string message) 
     {
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine(message);
+        Console.WriteLine(message); 
         Console.ResetColor();
     }
 
@@ -44,7 +44,8 @@ public class Helper
  |_| \_\___|\__, |\__,_|_|  \____|_|  |_|_|_|
             |___/                                                                            
 ";
-
-        Console.WriteLine(logo, Color.Wheat);
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine(logo);
+        Console.ResetColor ();
     }
 }
