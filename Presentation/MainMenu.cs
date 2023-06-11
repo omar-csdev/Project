@@ -17,7 +17,7 @@ static class MainMenu
         {
             SaveOldReservations.WriteOldReservationsToJSON();
             Console.Clear();
-            WriteLogo();
+            Helper.DisplayRestaurantLogo();
             Helper.Say("1", "Login");
             Helper.Say("2", "Create Account");
             Helper.Say("3", "View Menu");
@@ -41,7 +41,7 @@ static class MainMenu
                     break;
                 case 3:
                     // Handle Option 3
-                    MenuChoices.DisplayMenuOptions();
+                    FoodMenu.Start();
                     break;
                 case 4:
                     // Handle Option 4
@@ -65,7 +65,7 @@ static class MainMenu
         while (true)
         {
             Console.Clear();
-            WriteLogo();
+            Helper.DisplayRestaurantLogo();
             Helper.Say("1", "Make a Reservation");
             Helper.Say("2", "View Menu");
             Helper.Say("3", "Sign Out");
@@ -95,16 +95,5 @@ static class MainMenu
         }
     }
 
-    public static void WriteLogo()
-    {
-        string logo = @"  ____           _                              _   
- |  _ \ ___  ___| |_ __ _ _   _ _ __ __ _ _ __ | |_ 
- | |_) / _ \/ __| __/ _` | | | | '__/ _` | '_ \| __|
- |  _ <  __/\__ \ || (_| | |_| | | | (_| | | | | |_ 
- |_| \_\___||___/\__\__,_|\__,_|_|  \__,_|_| |_|\__|
-                                                    
-";
 
-        Console.WriteLine(logo, Color.Wheat);
-    }
 }

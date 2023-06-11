@@ -20,4 +20,32 @@ public class Helper
         Console.Write(prefix, Color.Red);
         Console.WriteLine("] " + message);
     }
+
+    public static void Error(string message)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message+ " Press any button to continue.");
+        Console.ResetColor();
+        Console.ReadLine();
+    }
+    public static void Succes(string message) 
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(message); 
+        Console.ResetColor();
+    }
+
+    public static void DisplayRestaurantLogo()
+    {
+        string logo = @"  ____                  _    ____      _ _ _ 
+ |  _ \ ___  __ _  __ _| |  / ___|_ __(_) | |
+ | |_) / _ \/ _` |/ _` | | | |  _| '__| | | |
+ |  _ <  __/ (_| | (_| | | | |_| | |  | | | |
+ |_| \_\___|\__, |\__,_|_|  \____|_|  |_|_|_|
+            |___/                                                                            
+";
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine(logo);
+        Console.ResetColor ();
+    }
 }

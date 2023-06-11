@@ -271,6 +271,9 @@ namespace Project.Olivier_Reservations {
         public int groupSize { get; set; }
         public string Code { get; set; }
         public DateTime TimeSlot { get; set; }
+        public int CustomerId { get; set; }
+        public bool Paid { get; set; } = false;
+        public bool HasOrderdAnything { get; set; } = false;
     }
 
 
@@ -283,7 +286,7 @@ namespace Project.Olivier_Reservations {
             // Define the sets of letters and digits that can be used to generate the code.
             const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string digits = "0123456789";
-
+            
             // Create a new random number generator.
             Random random = new Random();
 
@@ -299,12 +302,132 @@ namespace Project.Olivier_Reservations {
             // Return the random code.
             return randomString;
         }
-      
+
+        public static bool IsReservationPaid(string reservationCode)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                return reservation.Paid;
+            }
+
+            return false; // Reservation code not found
+        }
+
+        public static void SetReservationStatusToPaid(string reservationCode)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                reservation.Paid = true;
+
+                // Serialize the updated reservations list back to JSON
+                string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+
+                // Write the updated JSON back to the file
+                File.WriteAllText(filePath, updatedJsonString);
+            }
+        }
+
+
+        public static bool IsAnythingOrderd(string reservationCode)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                return reservation.HasOrderdAnything;
+            }
+            Console.WriteLine("Code not found");
+
+            return false; // Reservation code not found
+        }
+
+
+        public static void SetHasOrderdAnything(string reservationCode)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                reservation.HasOrderdAnything = true;
+
+                // Serialize the updated reservations list back to JSON
+                string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+
+                // Write the updated JSON back to the file
+                File.WriteAllText(filePath, updatedJsonString);
+            }
+        }
+
+
+        public static int GetCustomerIdFromReservation(string reservationCode)
+        {
+
+            // return the customer's ID for the specific reservation using the reservationCode
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
+            string jsonString = File.ReadAllText(filePath);
+
+            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString);
+
+            var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
+
+            if (reservation != null)
+            {
+                return reservation.CustomerId;
+            }
+
+            // Return a default or error value when reservation is not found
+            return -1;
+        }
+
+
+        public static int GetCustomerId()
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\customerdata.json");
+            string jsonString = File.ReadAllText(filePath);
+            List<CustomerAccount> AllCustomers = JsonConvert.DeserializeObject<List<CustomerAccount>>(jsonString) ?? new List<CustomerAccount>();
+            foreach (CustomerAccount customer in AllCustomers)
+            {
+                if (customer.IsLoggedIn == true)
+                {
+                    int CustomerId = customer.ID;
+                    return CustomerId;
+                }
+            }
+            int GuestId = 0;
+            return  GuestId;
+            
+        }
+
         public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot)
         {
             string code = GenerateRandomCode();
+            int customerId = GetCustomerId();
             // Add reservation to the list
-            reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code });
+            reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code , CustomerId = customerId});
 
             Console.WriteLine($"Reservation made for {groupSize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
             Console.Write($"Reservation code: ");
