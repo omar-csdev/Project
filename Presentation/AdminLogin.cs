@@ -2,32 +2,11 @@
 using Console = Colorful.Console;
 public static class AdminLogin
 {
-    //loading functie toegevoegd
-    //gebruiker geruststellen dat het programma doorgaat
-    //dit gebruiken ipv alleen Thread.sleep()
-    public static void Loading()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            if (i == 0)
-            {
-                Console.Write("Loading");
-                Thread.Sleep(1000);
-            }
-
-            else
-            {
-                Console.Write(".");
-                Thread.Sleep(1000);
-            }
-        }
-        AdminLogin.Start();
-    }
 
     public static void Start()
     {
 
-        List<Admin> test = LoginAccess.LoadAll("admindata.json");
+        List<Admin> test = LoginAccess.LoadAll();
         foreach (Admin accounts in test) 
         {
             accounts.IsLoggedIn = false;
@@ -100,11 +79,13 @@ public static class AdminLogin
                         else
                         {
                             Helper.Say("!", "Password does not meet criteria");
-                            Thread.Sleep(2500);
+                            Helper.ContinueDisplay();
+                            Start();
+
                         }
                     }
                     Console.WriteLine("Added account succesfully! You can login now.");
-                    Loading();
+                    Helper.ContinueDisplay();
                     Start();
                 }
 
@@ -176,13 +157,13 @@ public static class AdminLogin
             //bij de functies verwijderen en toevoegen van een gebruiker altijd nieuwe list van de json
             //als we de oude "test" list gebruiken en er zijn hiervoor gebruiker toegevoegd worden deze
             //niet aangetoond bij het verwijderen
-            List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
+            List<Admin> updatedList = LoginAccess.LoadAll();
 
 
             if (updatedList.Count == 1)
             {
                 Console.WriteLine("No users to remove!", Color.Red);
-                Loading();
+                Helper.ContinueDisplay();
             }
 
             int x = 1;
@@ -203,7 +184,7 @@ public static class AdminLogin
                 Console.WriteLine($"Succesfully removed user {updatedList[ID].UserName}!");
                 updatedList.Remove(updatedList[ID]);
                 LoginAccess.WriteAll(updatedList);
-                Loading();
+                Helper.ContinueDisplay();
             }
             else
             {
@@ -220,7 +201,7 @@ public static class AdminLogin
         {
             Console.Clear();
             Console.WriteLine("ADDING AN USER:", Color.RebeccaPurple);
-            List<Admin> updatedList = LoginAccess.LoadAll("admindata.json");
+            List<Admin> updatedList = LoginAccess.LoadAll();
             Console.WriteLine("Username:");
             string username = Console.ReadLine();
             foreach (Admin admin in updatedList)
@@ -267,7 +248,7 @@ public static class AdminLogin
                 }
             }
             Console.WriteLine("Added account succesfully! You can login now.");
-            Loading();
+            Helper.ContinueDisplay();
             Start();
         }
 

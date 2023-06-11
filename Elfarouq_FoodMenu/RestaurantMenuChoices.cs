@@ -142,6 +142,7 @@ public class MenuChoices
                     DisplayMenuOptions();
                 }
             }
+
             switch (type)
             {
                 case 1:
