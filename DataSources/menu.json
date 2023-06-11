@@ -1,9 +1,205 @@
 [
   {
-    "Name": "Burger",
+    "Name": "Classic Burger",
     "Type": "Food",
-    "Price": 5.0,
+    "Price": 8.0,
     "Category": "General",
     "Id": 1
+  },
+  {
+    "Name": "Chicken Shawarma",
+    "Type": "Food",
+    "Price": 10.0,
+    "Category": "Halal",
+    "Id": 2
+  },
+  {
+    "Name": "Vegan Pizza",
+    "Type": "Food",
+    "Price": 12.0,
+    "Category": "Vegan",
+    "Id": 3
+  },
+  {
+    "Name": "Grilled Steak",
+    "Type": "Food",
+    "Price": 15.0,
+    "Category": "General",
+    "Id": 4
+  },
+  {
+    "Name": "Mediterranean Salad",
+    "Type": "Food",
+    "Price": 9.0,
+    "Category": "Halal",
+    "Id": 5
+  },
+  {
+    "Name": "Fish and Chips",
+    "Type": "Food",
+    "Price": 12.0,
+    "Category": "General",
+    "Id": 6
+  },
+  {
+    "Name": "Fries",
+    "Type": "Food",
+    "Price": 4.0,
+    "Category": "General",
+    "Id": 7
+  },
+  {
+    "Name": "Onion Rings",
+    "Type": "Food",
+    "Price": 4.0,
+    "Category": "General",
+    "Id": 8
+  },
+  {
+    "Name": "Soda",
+    "Type": "Non-Alcoholic",
+    "Price": 2.0,
+    "Category": "General",
+    "Id": 9
+  },
+  {
+    "Name": "Iced Tea",
+    "Type": "Non-Alcoholic",
+    "Price": 2.5,
+    "Category": "General",
+    "Id": 10
+  },
+  {
+    "Name": "Strawberry Smoothie",
+    "Type": "Non-Alcoholic",
+    "Price": 4.0,
+    "Category": "Vega",
+    "Id": 11
+  },
+  {
+    "Name": "Falafel Wrap",
+    "Type": "Food",
+    "Price": 7.0,
+    "Category": "Vegan",
+    "Id": 12
+  },
+  {
+    "Name": "Chicken Caesar Wrap",
+    "Type": "Food",
+    "Price": 9.0,
+    "Category": "Halal",
+    "Id": 13
+  },
+  {
+    "Name": "Mushroom Risotto",
+    "Type": "Food",
+    "Price": 11.0,
+    "Category": "Vegan",
+    "Id": 14
+  },
+  {
+    "Name": "Grilled Salmon",
+    "Type": "Food",
+    "Price": 14.0,
+    "Category": "Halal",
+    "Id": 15
+  },
+  {
+    "Name": "Cheesecake",
+    "Type": "Food",
+    "Price": 6.0,
+    "Category": "General",
+    "Id": 16
+  },
+  {
+    "Name": "BBQ Ribs",
+    "Type": "Food",
+    "Price": 18.0,
+    "Category": "General",
+    "Id": 17
+  },
+  {
+    "Name": "Chicken Parmesan",
+    "Type": "Food",
+    "Price": 13.0,
+    "Category": "Halal",
+    "Id": 18
+  },
+  {
+    "Name": "Margarita",
+    "Type": "Alcoholic",
+    "Price": 8.0,
+    "Category": "Alcoholic",
+    "Id": 19
+  },
+  {
+    "Name": "Mojito",
+    "Type": "Alcoholic",
+    "Price": 9.0,
+    "Category": "Alcoholic",
+    "Id": 20
+  },
+  {
+    "Name": "Piña Colada",
+    "Type": "Alcoholic",
+    "Price": 10.0,
+    "Category": "Alcoholic",
+    "Id": 21
+  },
+  {
+    "Name": "T-bone Steak",
+    "Type": "Food",
+    "Price": 25.0,
+    "Category": "Halal",
+    "Id": 22
+  },
+  {
+    "Name": "Lamb Chops",
+    "Type": "Food",
+    "Price": 20.0,
+    "Category": "General",
+    "Id": 23
+  },
+  {
+    "Name": "Pork Ribs",
+    "Type": "Food",
+    "Price": 18.0,
+    "Category": "General",
+    "Id": 24
+  },
+  {
+    "Name": "Chicken Kebab",
+    "Type": "Food",
+    "Price": 14.0,
+    "Category": "Halal",
+    "Id": 25
+  },
+  {
+    "Name": "BBQ Burger",
+    "Type": "Food",
+    "Price": 10.0,
+    "Category": "General",
+    "Id": 26
+  },
+  {
+    "Name": "Grilled Shrimp",
+    "Type": "Food",
+    "Price": 16.0,
+    "Category": "General",
+    "Id": 27
+  },
+  {
+    "Name": "Smoked Brisket",
+    "Type": "Food",
+    "Price": 22.0,
+    "Category": "General",
+    "Id": 28
+  },
+  {
+    "Name": "Portobello Mushroom Burger",
+    "Type": "Food",
+    "Price": 12.0,
+    "Category": "Vega",
+    "Id": 29
   }
 ]
