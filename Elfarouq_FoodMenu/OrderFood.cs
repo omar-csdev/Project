@@ -61,9 +61,14 @@ public static class OrderFood
         {
             bool found = false;
             Console.Clear();
+            Helper.Say("B", "Go back");
             Console.WriteLine("Please enter your reservation code: ");
             string code = Console.ReadLine();
             List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
+            if (code.ToUpper() == "B") 
+            {
+                Start();
+            }
             foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
             {
                 if (reservation.Code == code)
@@ -79,8 +84,14 @@ public static class OrderFood
                 Start();
             }
             MenuItem.Start();
+            Helper.Say("B", "Go back");
             Console.WriteLine("What would you like to order? Select the number.");
+            
             string inputstr = Console.ReadLine();
+            if (inputstr.ToUpper() == "B")
+            {
+                Start();
+            }
             bool check = int.TryParse(inputstr, out int input);
             if (!check)
             {
