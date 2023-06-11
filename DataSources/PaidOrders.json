@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "ReservationCode": "VG4996",
+    "CustomerId": 1,
+    "PaidTime": "2023-06-11T23:22:09.1642938+02:00",
+    "TotalPrice": 120.0
+  }
+]

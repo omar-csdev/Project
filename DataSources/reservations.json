@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "Elfarouq\\",
+    "LastName": "Test",
+    "groupSize": 4,
+    "Code": "VG4996",
+    "TimeSlot": "2023-06-25T15:00:00",
+    "CustomerId": 1,
+    "Paid": true,
+    "HasOrderdAnything": true
+  }
+]
