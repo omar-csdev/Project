@@ -35,16 +35,20 @@ public static class AdminLogin
                 string inp = Console.ReadLine().ToLower();
                 if (inp == "y")
                 {
+                    Helper.Say("!", "Type '/back' to go back to the main menu");
                     Console.WriteLine("Username:");
                     string username = Console.ReadLine();
-
+                    if (username == "/back")
+                    {
+                        MainMenu.NewStart();
+                    }
                     //checken of gebruikersnaam al ingenomen is
                     foreach (Admin admin in test)
                     {
                         if (admin.UserName == username)
                         {
                             Console.WriteLine("Username already taken!", Color.Red);
-                            Thread.Sleep(2000);
+                            Helper.ContinueDisplay();
                             Start();
                         }
                     }
@@ -97,7 +101,7 @@ public static class AdminLogin
                 else
                 {
                     Console.WriteLine("Invalid input! Please enter 'y' or 'n'.", Color.Red);
-                    Thread.Sleep(4000);
+                    Helper.ContinueDisplay();
                     Console.Clear();
                     Start();
                 }
@@ -106,9 +110,14 @@ public static class AdminLogin
             //wel accounts in de json: door naar inloggen
             else if (test.Count >= 1)
             {
+                Helper.Say("!", "Type '/back' to go back to the main menu");
                 Console.WriteLine("Username:");
                 string username = Console.ReadLine();
                 int check = 0;
+                if (username == "/back")
+                {
+                    MainMenu.NewStart();
+                }
                 foreach (Admin i in test) 
                 {
                     if (i.UserName == username)
@@ -121,7 +130,7 @@ public static class AdminLogin
                 if (check == 0)
                 {
                     Console.WriteLine("Username doesn't exist!", Color.Red);
-                    Thread.Sleep(2500);
+                    Helper.ContinueDisplay();
                     Start();
                 }
 
@@ -142,7 +151,7 @@ public static class AdminLogin
                     }
                 }
                 Console.WriteLine("No users found with the matching credentials!", Color.Red);
-                Thread.Sleep(3000);
+                Helper.ContinueDisplay();
                 Start();
             }
         }
@@ -190,7 +199,7 @@ public static class AdminLogin
             {
                 Console.Clear();
                 Console.WriteLine("ID not found.", Color.Red);
-                Thread.Sleep(3000);     
+                Helper.ContinueDisplay();   
                 Start();
             }
         }
@@ -202,14 +211,19 @@ public static class AdminLogin
             Console.Clear();
             Console.WriteLine("ADDING AN USER:", Color.RebeccaPurple);
             List<Admin> updatedList = LoginAccess.LoadAll();
+            Helper.Say("!", "Type '/back' to go back to the main menu");
             Console.WriteLine("Username:");
             string username = Console.ReadLine();
+            if (username == "/back")
+            {
+                MainMenu.NewStart();
+            }
             foreach (Admin admin in updatedList)
             {
                 if (admin.UserName == username)
                 {
                     Console.WriteLine("Username already taken!", Color.Red);
-                    Thread.Sleep(2000);
+                    Helper.ContinueDisplay();
                     Start();
                 }
             }
@@ -244,7 +258,7 @@ public static class AdminLogin
                 else
                 {
                     Helper.Say("!", "Password does not meet criteria");
-                    Thread.Sleep(2500);
+                    Helper.ContinueDisplay();
                 }
             }
             Console.WriteLine("Added account succesfully! You can login now.");

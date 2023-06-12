@@ -25,6 +25,11 @@ public static class AccountManager
             Helper.Say("!", "Type '/back' to go back to the main menu");
             Console.WriteLine("Enter a username:");
             username = Console.ReadLine();
+            if (username == "/back")
+            {
+                MainMenu.NewStart();
+            }
+
             if (username != null && usernames.Contains(username) == false)
             {
                 askingName = false;
@@ -50,7 +55,14 @@ public static class AccountManager
             int checking = 0;
             Console.WriteLine("Enter a password:");
             Helper.Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
+            Helper.Say("!", "Type '/back' to go back to the main menu");
             password = Console.ReadLine();
+
+            if (password == "/back")
+            {
+                MainMenu.NewStart();
+            }
+
             foreach (char character in password)
             {
                 if (symbols.Contains(character))
@@ -84,6 +96,7 @@ public static class AccountManager
     {
         Console.Clear();
         Console.WriteLine("Logging in");
+        Helper.Say("!", "Type '/back' to go back to the main menu");
         List<CustomerAccount> accounts = CustomerAccess.LoadAll();
         string username = null;
         bool askingUsername = true;
@@ -91,6 +104,10 @@ public static class AccountManager
         {
             Console.WriteLine("Username:");
             username = Console.ReadLine();
+            if (username == "/back")
+            {
+                MainMenu.NewStart();
+            }
             int check = 0;
             foreach (CustomerAccount i in accounts)
             {
@@ -132,5 +149,6 @@ public static class AccountManager
         }
         Helper.Say("!", "No users found with the matching credentials");
         Helper.ContinueDisplay();
+        MainMenu.NewStart();
     }
 }

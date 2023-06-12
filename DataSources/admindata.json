@@ -3,5 +3,10 @@
     "UserName": "Admin",
     "Password": "123",
     "IsLoggedIn": false
+  },
+  {
+    "UserName": "chiox",
+    "Password": "1!",
+    "IsLoggedIn": false
   }
 ]
