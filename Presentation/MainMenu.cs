@@ -50,6 +50,7 @@ static class MainMenu
                 case 5:
                     Console.WriteLine("Exiting...");
                     return; // Breaks out of the method, terminating the program
+                    // does not work, goes back to admin for example if you log in as admin and then logout and return to main window instead of quiting.
                 default:
                     Helper.ErrorDisplay("1, 2, 3, 4 or 5");
                     break;

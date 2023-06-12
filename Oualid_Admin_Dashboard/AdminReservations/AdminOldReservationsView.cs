@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Project.Olivier_Reservations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,6 @@ using System.Linq;
 
 static class AdminOldReservationsView
 {
-    public static List<Project.Olivier_Reservations.Reservation> reservations = Project.Olivier_Reservations.SaveReservations.LoadAll();
     private static Dictionary<int, string> filePaths = new Dictionary<int, string>()
     {
         { 2, @"..\..\..\DataSources\Oldreservations\oldReservationsWithin1YearAgo.json" },
@@ -101,8 +101,8 @@ static class AdminOldReservationsView
     {
         Console.WriteLine("");
         Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
-        Console.WriteLine("Group size: " + reservation.GroupSize);
-        Console.WriteLine("Reservation date and time: *NOT WORKING?*");
+        Console.WriteLine("Group size: " + reservation.groupSize);
+        Console.WriteLine("Reservation date and time: " + reservation.TimeSlot);
         Console.WriteLine("Reservation Code: " + reservation.Code);
         Console.WriteLine("");
     }
