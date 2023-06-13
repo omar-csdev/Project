@@ -461,8 +461,9 @@ namespace Project.Olivier_Reservations {
             Console.Write($"Reservation code: ");
             //write code in red
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"{code}.");
+            Console.Write($"{code}");
             Console.ResetColor();
+            Console.Write(". ");
             Console.Write("Please keep this code for future use.\n");
             return true;
         }

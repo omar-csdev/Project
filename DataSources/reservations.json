@@ -18,5 +18,15 @@
     "CustomerId": 3,
     "Paid": false,
     "HasOrderdAnything": false
+  },
+  {
+    "Name": "g",
+    "LastName": "f",
+    "groupSize": 2,
+    "Code": "HJ4103",
+    "TimeSlot": "2023-06-20T17:30:00",
+    "CustomerId": 3,
+    "Paid": false,
+    "HasOrderdAnything": false
   }
 ]
