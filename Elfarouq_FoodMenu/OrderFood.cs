@@ -65,7 +65,7 @@ public static class OrderFood
             Console.WriteLine("Please enter your reservation code: ");
             string code = Console.ReadLine();
             List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
-            if (code.ToUpper() == "B") 
+            if (code.ToUpper() == "B")
             {
                 Start();
             }
@@ -83,69 +83,7 @@ public static class OrderFood
                 Console.Clear();
                 Start();
             }
-            MenuItem.Start();
-            Helper.Say("B", "Go back");
-            Console.WriteLine("What would you like to order? Select the number.");
-            
-            string inputstr = Console.ReadLine();
-            if (inputstr.ToUpper() == "B")
-            {
-                Start();
-            }
-            bool check = int.TryParse(inputstr, out int input);
-            if (!check)
-            {
-                Console.WriteLine("Input format incorrect.");
-                Console.WriteLine("Click enter to go back.");
-                Console.ReadLine();
-                Console.Clear();
-                Start();
-
-            }
-            Item item = menu.FirstOrDefault(i => i.Id == input);
-            if (item != null)
-            {
-                Console.WriteLine($"You have selected {item.Name}. How many would you like to order?");
-                string quantitystr = Console.ReadLine();
-                check = int.TryParse(quantitystr, out int quantity);
-                if (!check)
-                {
-                    Console.WriteLine("Input format incorrect.");
-                    Console.WriteLine("Click enter to go back.");
-                    Console.ReadLine();
-                    Console.Clear();
-                    Start();
-                }
-                if (quantity <= 0)
-                {
-                    Console.WriteLine("Invalid quantity.");
-                    Console.WriteLine("Click enter to go back.");
-                    Console.ReadLine();
-                    Console.Clear();
-                    Start();
-                }
-                if (orders.ContainsKey(item.Name))
-                {
-                    orders[item.Name] += quantity;
-                }
-                else
-                {
-                    orders[item.Name] = quantity;
-                }
-                ReservationSystem.SetHasOrderdAnything(code) ;
-                Console.WriteLine($"Successfully added {quantity}x {item.Name} to your cart.");
-                AddOrderJSON(code, item.Id, quantity);
-                Helper.ContinueDisplay();
-                Console.Clear();
-                Start();
-            }
-            else
-            {
-                Console.WriteLine("Invalid Item ID...");
-                Helper.ContinueDisplay();
-                Console.Clear();
-                Start();
-            }
+            OptionOne(code);
         }
         else if (firstinput == 2)
         {
@@ -324,7 +262,96 @@ public static class OrderFood
         }
     }
 
+    public static void OptionOne(string code)
+    {
+        
+        MenuItem.Start();
+        Helper.Say("B", "Go back");
+        Console.WriteLine("What would you like to order? Select the number.");
 
+        string inputstr = Console.ReadLine();
+        if (inputstr.ToUpper() == "B")
+        {
+            Start();
+        }
+        bool check = int.TryParse(inputstr, out int input);
+        if (!check)
+        {
+            Console.WriteLine("Input format incorrect.");
+            Console.WriteLine("Click enter to go back.");
+            Console.ReadLine();
+            Console.Clear();
+            Start();
+
+        }
+        Item item = menu.FirstOrDefault(i => i.Id == input);
+        if (item != null)
+        {
+            Console.WriteLine($"You have selected {item.Name}. How many would you like to order?");
+            string quantitystr = Console.ReadLine();
+            check = int.TryParse(quantitystr, out int quantity);
+            if (!check)
+            {
+                Console.WriteLine("Input format incorrect.");
+                Console.WriteLine("Click enter to go back.");
+                Console.ReadLine();
+                Console.Clear();
+                Start();
+            }
+            if (quantity <= 0)
+            {
+                Console.WriteLine("Invalid quantity.");
+                Console.WriteLine("Click enter to go back.");
+                Console.ReadLine();
+                Console.Clear();
+                Start();
+            }
+            if (orders.ContainsKey(item.Name))
+            {
+                orders[item.Name] += quantity;
+            }
+            else
+            {
+                orders[item.Name] = quantity;
+            }
+            ReservationSystem.SetHasOrderdAnything(code);
+            Console.WriteLine($"Successfully added {quantity}x {item.Name} to your cart.");
+            AddOrderJSON(code, item.Id, quantity);
+            Console.WriteLine("Would you like to continue ordering? Y/N");
+            string choice;
+            bool checkloop = true;
+            try
+            {
+                choice = Console.ReadLine();
+                if (choice.ToUpper() != "Y" && choice.ToUpper() != "N")
+                {
+                    string message = ("Please enter a valid answer: Y or N.");
+                    Helper.Error(message);
+                    Start();
+                    
+                }
+            }
+            catch (FormatException)
+            {
+                string message = ("Please enter a valid answer: Y or N.");
+                Helper.Error(message);
+                Start();
+                
+            }
+            Helper.ContinueDisplay();
+            Console.Clear();
+            OptionOne(code);
+
+            
+        }
+        else
+        {
+            Console.WriteLine("Invalid Item ID...");
+            Helper.ContinueDisplay();
+            Console.Clear();
+            OptionOne(code);
+        }
+    }
     public static void Say(string prefix, string message)
     {
         Console.Write("[");
