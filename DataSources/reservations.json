@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "Omar",
+    "LastName": "Alm",
+    "groupSize": 3,
+    "Code": "SO2046",
+    "TimeSlot": "2023-06-27T15:00:00",
+    "CustomerId": 4,
+    "Paid": true,
+    "HasOrderdAnything": false
+  },
+  {
+    "Name": "Testing",
+    "LastName": "Ok",
+    "groupSize": 3,
+    "Code": "VU2435",
+    "TimeSlot": "2023-06-26T17:30:00",
+    "CustomerId": 4,
+    "Paid": true,
+    "HasOrderdAnything": true
+  },
+  {
+    "Name": "cho",
+    "LastName": "ko",
+    "groupSize": 4,
+    "Code": "JG7705",
+    "TimeSlot": "2023-06-26T17:30:00",
+    "CustomerId": 4,
+    "Paid": true,
+    "HasOrderdAnything": true
+  }
+]

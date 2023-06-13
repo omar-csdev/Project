@@ -20,7 +20,7 @@ public class Payment
                 string cardInput = Console.ReadLine();
                 if (IsValidCard(cardInput))
                 {
-                    ReservationSystem.SetReservationStatusToPaid(reservationCode);
+                    ReservationSystem.SetReservationStatusToPaid(reservationCode, true);
                     WriteData(customerID, reservationCode, amount);
                     Console.WriteLine($"You have successfully paid €{amount}");
                     Helper.ContinueDisplay();
@@ -37,7 +37,7 @@ public class Payment
             }
             else if (input == "2")
             {
-                ReservationSystem.SetReservationStatusToPaid(reservationCode);
+                ReservationSystem.SetReservationStatusToPaid(reservationCode, true);
                 WriteData(customerID, reservationCode, amount);
                 Console.WriteLine($"You have successfully paid €{amount}");
                 Helper.ContinueDisplay();

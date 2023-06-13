@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "ReservationCode": "SO2046",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-13T15:02:36.9370305+02:00",
+    "TotalPrice": 18.0
+  },
+  {
+    "ReservationCode": "VU2435",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-13T15:06:40.5167588+02:00",
+    "TotalPrice": 72.0
+  },
+  {
+    "ReservationCode": "JG7705",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-13T15:17:17.6367548+02:00",
+    "TotalPrice": 200.0
+  }
+]

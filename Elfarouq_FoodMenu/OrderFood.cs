@@ -132,6 +132,7 @@ public static class OrderFood
                 {
                     orders[item.Name] = quantity;
                 }
+                ReservationSystem.SetReservationStatusToPaid(code, false);
                 ReservationSystem.SetHasOrderdAnything(code) ;
                 Console.WriteLine($"Successfully added {quantity}x {item.Name} to your cart.");
                 AddOrderJSON(code, item.Id, quantity);

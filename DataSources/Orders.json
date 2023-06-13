@@ -126,5 +126,45 @@
         "quantity": 5
       }
     ]
+  },
+  {
+    "SO2046": [
+      {
+        "itemId": 20,
+        "quantity": 2
+      },
+      {
+        "itemId": 29,
+        "quantity": 5
+      }
+    ]
+  },
+  {
+    "VU2435": [
+      {
+        "itemId": 24,
+        "quantity": 4
+      },
+      {
+        "itemId": 28,
+        "quantity": 3
+      }
+    ]
+  },
+  {
+    "JG7705": [
+      {
+        "itemId": 23,
+        "quantity": 5
+      },
+      {
+        "itemId": 19,
+        "quantity": 5
+      },
+      {
+        "itemId": 4,
+        "quantity": 4
+      }
+    ]
   }
 ]
