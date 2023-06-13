@@ -418,14 +418,42 @@ namespace Project.Olivier_Reservations {
                 }
             }
             int GuestId = 0;
-            return  GuestId;
-            
+            return GuestId;
+
         }
+
+        public bool IsReservationIdentical(DateTime timeSlot, int customerId)
+        {
+            List<Reservation> reservations = SaveReservations.LoadAll();
+
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservation.TimeSlot == timeSlot && reservation.CustomerId == customerId)
+                {
+                    return true; // Identical reservation found
+                }
+            }
+
+            return false; // No identical reservation found
+        }
+
 
         public bool MakeReservation(string name, string lastname, int groupSize, DateTime timeSlot)
         {
             string code = GenerateRandomCode();
             int customerId = GetCustomerId();
+
+            // Check if the new reservation is identical to any existing reservations
+            if (IsReservationIdentical(timeSlot, customerId))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("You already have an reservation on this day and time.");
+                Console.ResetColor();
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+                CustomerDashboard.DisplayDashboard();
+            }
+
             // Add reservation to the list
             reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code , CustomerId = customerId});
 
