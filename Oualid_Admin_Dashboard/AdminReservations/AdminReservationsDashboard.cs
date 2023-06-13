@@ -16,7 +16,7 @@ static class AdminDashboardReservationsDashboard
         {
             Console.Clear();
             WriteLogo();
-            WriteToConsole(1, "View Available Seats On Date");
+            WriteToConsole(1, "View Available Seats On Specified Date");
             WriteToConsole(2, "View Reservations");
             WriteToConsole(3, "View Old Reservations");
             WriteToConsole(4, "Edit Reservations");
