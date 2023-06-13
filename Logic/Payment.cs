@@ -66,7 +66,9 @@ public class Payment
     }
 
 
-
+    // Luhn Algorithm
+    // valid credit card: 378282246310005
+    // invalid credit card: 4111111111111112
     public static bool IsValidCard(string number)
     {
         if (string.IsNullOrEmpty(number))
