@@ -61,6 +61,12 @@ static class AdminOldReservationsView
         {
             // View all old reservations
             var allReservations = GetAllOldReservations();
+
+            if (allReservations.Count == 0)
+            {
+                Console.WriteLine("There are no old reservations currently");
+            }
+
             foreach (var reservation in allReservations)
             {
                 PrintReservation(reservation);
@@ -71,6 +77,11 @@ static class AdminOldReservationsView
             string filePath = Path.Combine(Environment.CurrentDirectory, filePaths[choice]);
             string jsonString = File.ReadAllText(filePath);
             List<Reservation> existingReservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString) ?? new List<Reservation>();
+
+            if (existingReservations.Count == 0)
+            {
+                Console.WriteLine("There are no old reservations currently");
+            }
 
             foreach (var reservation in existingReservations)
             {
