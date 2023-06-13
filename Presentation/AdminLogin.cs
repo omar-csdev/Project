@@ -35,7 +35,7 @@ public static class AdminLogin
                 string inp = Console.ReadLine().ToLower();
                 if (inp == "y")
                 {
-                    Helper.Say("!", "Type '/back' to go back to the main menu");
+                    Helper.Say("!", "Type '/back' to go back to the admin menu");
                     Console.WriteLine("Username:");
                     string username = Console.ReadLine();
                     if (username == "/back")
@@ -88,7 +88,7 @@ public static class AdminLogin
 
                         }
                     }
-                    Console.WriteLine("Added account succesfully! You can login now.");
+                    Console.WriteLine("Added admin succesfully! You can login now.");
                     Helper.ContinueDisplay();
                     Start();
                 }
@@ -110,7 +110,7 @@ public static class AdminLogin
             //wel accounts in de json: door naar inloggen
             else if (test.Count >= 1)
             {
-                Helper.Say("!", "Type '/back' to go back to the main menu");
+                Helper.Say("!", "Type '/back' to go back to the admin menu");
                 Console.WriteLine("Username:");
                 string username = Console.ReadLine();
                 int check = 0;
@@ -129,7 +129,7 @@ public static class AdminLogin
                 //check of gebruikersnaam bestaat
                 if (check == 0)
                 {
-                    Console.WriteLine("Username doesn't exist!", Color.Red);
+                    Console.WriteLine("Admin doesn't exist!", Color.Red);
                     Helper.ContinueDisplay();
                     Start();
                 }
@@ -145,7 +145,7 @@ public static class AdminLogin
                     {
                         admin.IsLoggedIn = true;
                         LoginAccess.WriteAll(test);
-                        Console.WriteLine($"User {username} logged in succesfully!");
+                        Console.WriteLine($"Admin {username} logged in succesfully!");
                         Helper.ContinueDisplay();
                         AdminDashboard.DisplayDashboard(); //oualid kan hier de startfunctie van zijn dashboard callen.
                     }
@@ -169,7 +169,7 @@ public static class AdminLogin
             List<Admin> updatedList = LoginAccess.LoadAll();
 
 
-            if (updatedList.Count == 1)
+            if (updatedList.Count == 0)
             {
                 Console.WriteLine("No users to remove!", Color.Red);
                 Helper.ContinueDisplay();
@@ -184,9 +184,13 @@ public static class AdminLogin
                     x += 1;
                 }
             }
-
+            Helper.Say("!", "Type '/back' to go back to the admin menu");
             Console.WriteLine("Enter the ID of the username you'd like to remove:");
             string id = Console.ReadLine();
+            if (id == "/back")
+            {
+                AdminDashboard.DisplayDashboard();
+            }
             int ID = Convert.ToInt32(id);
             if (ID < updatedList.Count && ID > 0)
             {
@@ -205,11 +209,11 @@ public static class AdminLogin
         }
 
 
-        //toevoegen van een gebruiker
+        //toevoegen van een admin
         else if (answer == "3")
         {
             Console.Clear();
-            Console.WriteLine("ADDING AN USER:", Color.RebeccaPurple);
+            Console.WriteLine("ADDING AN ADMIN:", Color.RebeccaPurple);
             List<Admin> updatedList = LoginAccess.LoadAll();
             Helper.Say("!", "Type '/back' to go back to the main menu");
             Console.WriteLine("Username:");
