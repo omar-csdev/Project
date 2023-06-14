@@ -83,6 +83,12 @@ public static class OrderFood
                 Console.Clear();
                 Start();
             }
+            if (Payment.IsReservationCodeEmpty(code))
+            {
+                ReservationSystem.SetHasOrderdAnything(code, false);
+                ReservationSystem.SetReservationStatusToPaid(code, false);
+            }
+
             MenuItem.Start();
             Helper.Say("B", "Go back");
             Console.WriteLine("What would you like to order? Select the number.");
@@ -132,7 +138,8 @@ public static class OrderFood
                 {
                     orders[item.Name] = quantity;
                 }
-                ReservationSystem.SetHasOrderdAnything(code) ;
+
+                ReservationSystem.SetHasOrderdAnything(code, true) ;
                 Console.WriteLine($"Successfully added {quantity}x {item.Name} to your cart.");
                 AddOrderJSON(code, item.Id, quantity);
                 Helper.ContinueDisplay();

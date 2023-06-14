@@ -20,9 +20,11 @@ public class Payment
                 string cardInput = Console.ReadLine();
                 if (IsValidCard(cardInput))
                 {
-                    ReservationSystem.SetReservationStatusToPaid(reservationCode);
+                    ReservationSystem.SetHasOrderdAnything(reservationCode, false);
+                    ReservationSystem.SetReservationStatusToPaid(reservationCode, true);
                     WriteData(customerID, reservationCode, amount);
                     Console.WriteLine($"You have successfully paid €{amount}");
+                    ClearCart(reservationCode);
                     Helper.ContinueDisplay();
                     Console.Clear();
                     OrderFood.Start();
@@ -37,9 +39,11 @@ public class Payment
             }
             else if (input == "2")
             {
-                ReservationSystem.SetReservationStatusToPaid(reservationCode);
+                ReservationSystem.SetHasOrderdAnything(reservationCode, false);
+                ReservationSystem.SetReservationStatusToPaid(reservationCode, true);
                 WriteData(customerID, reservationCode, amount);
                 Console.WriteLine($"You have successfully paid €{amount}");
+                ClearCart(reservationCode);
                 Helper.ContinueDisplay();
                 Console.Clear();
                 OrderFood.Start();
@@ -103,6 +107,57 @@ public class Payment
 
         return sum % 10 == 0;
     }
+
+    public static bool IsReservationCodeEmpty(string reservationCode)
+    {
+        string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
+
+        // Deserialize the existing JSON data
+        List<Dictionary<string, List<Dictionary<string, int>>>> jsonData;
+        string jsonString = File.ReadAllText(filePath);
+        jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<Dictionary<string, int>>>>>(jsonString);
+
+        foreach (Dictionary<string, List<Dictionary<string, int>>> dict in jsonData)
+        {
+            if (dict.ContainsKey(reservationCode))
+            {
+                // Check if the list of dictionaries associated with the reservation code is empty
+                return dict[reservationCode].Count == 0;
+            }
+        }
+
+        // Reservation code not found, assuming it has no values
+        return true;
+    }
+
+
+
+    public static void ClearCart(string reservationCode)
+    {
+        string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
+
+        // Deserialize the existing JSON data
+        List<Dictionary<string, List<Dictionary<string, int>>>> jsonData;
+        string jsonString = File.ReadAllText(filePath);
+        jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<Dictionary<string, int>>>>>(jsonString);
+
+        foreach (Dictionary<string, List<Dictionary<string, int>>> dict in jsonData)
+        {
+            if (dict.ContainsKey(reservationCode))
+            {
+                // Clear the values associated with the reservation code
+                dict[reservationCode].Clear();
+                break; // Exit the loop after clearing the values
+            }
+        }
+
+        // Update
+        string updatedJsonString = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
+        File.WriteAllText(filePath, updatedJsonString);
+
+    }
+
+
 
     public static void WriteData(int customerID, string reservationCode, double totalPrice)
     {

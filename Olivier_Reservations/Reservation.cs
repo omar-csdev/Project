@@ -320,7 +320,7 @@ namespace Project.Olivier_Reservations {
             return false; // Reservation code not found
         }
 
-        public static void SetReservationStatusToPaid(string reservationCode)
+        public static void SetReservationStatusToPaid(string reservationCode, bool option)
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
             string jsonString = File.ReadAllText(filePath);
@@ -330,8 +330,8 @@ namespace Project.Olivier_Reservations {
             var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
 
             if (reservation != null)
-            {
-                reservation.Paid = true;
+            { 
+                reservation.Paid = option;
 
                 // Serialize the updated reservations list back to JSON
                 string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
@@ -361,7 +361,7 @@ namespace Project.Olivier_Reservations {
         }
 
 
-        public static void SetHasOrderdAnything(string reservationCode)
+        public static void SetHasOrderdAnything(string reservationCode, bool option)
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
             string jsonString = File.ReadAllText(filePath);
@@ -372,7 +372,7 @@ namespace Project.Olivier_Reservations {
 
             if (reservation != null)
             {
-                reservation.HasOrderdAnything = true;
+                reservation.HasOrderdAnything = option;
 
                 // Serialize the updated reservations list back to JSON
                 string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
