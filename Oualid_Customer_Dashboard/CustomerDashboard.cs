@@ -29,10 +29,11 @@ public static class CustomerDashboard
             WriteLogo();
             GetReservationsForCustomer();
             WriteToConsole(1, "Make new reservation");
-            WriteToConsole(2, "View upcoming reservations");
-            WriteToConsole(3, "View all reservations");
-            WriteToConsole(4, "Edit account");
-            WriteToConsole(5, "Log out");
+            WriteToConsole(2, "Cancel a reservation");
+            WriteToConsole(3, "View upcoming reservations");
+            WriteToConsole(4, "View all reservations");
+            WriteToConsole(5, "Edit account");
+            WriteToConsole(6, "Log out");
             string ? input = Console.ReadLine();
             switch (input)
             {
@@ -40,6 +41,9 @@ public static class CustomerDashboard
                     Project.Olivier_Reservations.Reservations.Reservationstart();
                     break;
                 case "2":
+                    Project.Olivier_Reservations.CancelReservation.CancelNow();
+                    break;
+                case "3":
                     Console.Clear();
                     WriteLogo(@"
   _   _                           _                                                  _   _                 
@@ -52,7 +56,7 @@ public static class CustomerDashboard
                     DisplayReservations(upcomingReservations);
                     Helper.ContinueDisplay();
                     break;
-                case "3":
+                case "4":
                     List<Project.Olivier_Reservations.Reservation> oldReservations = GetAllOldReservations();
                     Console.Clear();
                     WriteLogo(@"
@@ -68,10 +72,10 @@ public static class CustomerDashboard
                     DisplayReservations(upcomingReservations);
                     Helper.ContinueDisplay();
                     break;
-                case "4":
+                case "5":
                     CustomerProfileEditor.DisplayDashboard();
                     break;
-                case "5":
+                case "6":
                     LogUserOut();
                     break;
                 default:

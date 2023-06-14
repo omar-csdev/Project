@@ -1,6 +1,7 @@
 using System.Drawing;
 using Console = Colorful.Console;
 using Newtonsoft.Json;
+using Project.Oualid_Admin_Dashboard.AdminReservations;
 
 static class AdminDashboardReservationsDashboard
 {
@@ -15,24 +16,29 @@ static class AdminDashboardReservationsDashboard
         {
             Console.Clear();
             WriteLogo();
-            WriteToConsole(1, "View Reservations");
-            WriteToConsole(2, "View Old Reservations");
-            WriteToConsole(3, "Edit Reservations");
-            WriteToConsole(4, "Back to Dashboard");
+            WriteToConsole(1, "View Available Seats On Specified Date");
+            WriteToConsole(2, "View Reservations");
+            WriteToConsole(3, "View Old Reservations");
+            WriteToConsole(4, "Edit Reservations");
+            WriteToConsole(5, "Back to Dashboard");
             string? input = Console.ReadLine();
             if (input == "1")
             {
-                AdminReservationsView.Run();
+                AdminAvailableSeatsOnDate.CheckSeats();
             }
-            else if (input == "2")
+            if (input == "2")
             {
-                AdminOldReservationsView.ViewOldReservations();
+                AdminReservationsView.Run();
             }
             else if (input == "3")
             {
-                AdminReservationsEditor.Run();
+                AdminOldReservationsView.ViewOldReservations();
             }
             else if (input == "4")
+            {
+                AdminReservationsEditor.Run();
+            }
+            else if (input == "5")
             {
                 AdminDashboard.DisplayDashboard();
             }

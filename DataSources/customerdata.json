@@ -12,7 +12,7 @@
     "PasswordSetter": "12!"
   },
   {
-    "IsLoggedIn": false,
+    "IsLoggedIn": true,
     "ID": 3,
     "UserNameSetter": "bruh",
     "PasswordSetter": "!1"
