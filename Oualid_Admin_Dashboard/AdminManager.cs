@@ -91,17 +91,26 @@ public static class AdminManager
         {
             Start();
         }
-        int ID = Convert.ToInt32(id);
-        if (ID < updatedList.Count && ID > 0)
+
+        if (Convert.ToInt32(id) <= 0 || id == null)
         {
-            Console.WriteLine($"Succesfully removed admin {updatedList[ID].UserName}!");
-            updatedList.Remove(updatedList[ID]);
+            Console.WriteLine("Invalid input!", Color.Red);
+            Helper.ContinueDisplay();
+            Start();
+        }
+        int ID = Convert.ToInt32(id);
+        if (ID <= updatedList.Count && ID > 0)
+        {
+            Console.WriteLine($"Succesfully removed admin {updatedList[ID - 1].UserName}!");
+            updatedList.Remove(updatedList[ID - 1]);
             LoginAccess.WriteAll(updatedList);
         }
         else
         {
             Console.Clear();
             Console.WriteLine("ID not found.", Color.Red);
+            Helper.ContinueDisplay();
+            Start();
         }
     }
 
