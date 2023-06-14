@@ -258,7 +258,7 @@ public static class OrderFood
                 // Exit the loop after finding the specified code
 
                 Console.WriteLine("--------------");
-                Console.WriteLine($"Total Price: €{totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
+                Console.WriteLine($"Total Price: ${totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
                 AmountToPay = totalprice;
                 break;
             }

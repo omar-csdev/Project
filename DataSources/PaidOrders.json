@@ -166,5 +166,11 @@
     "CustomerId": 26,
     "PaidTime": "2023-02-03T06:50:24.7192198+02:00",
     "TotalPrice": 155.0
+  },
+  {
+    "ReservationCode": "VE1345",
+    "CustomerId": 27,
+    "PaidTime": "2020-02-03T06:50:24.7192198+02:00",
+    "TotalPrice": 1111111.0
   }
 ]

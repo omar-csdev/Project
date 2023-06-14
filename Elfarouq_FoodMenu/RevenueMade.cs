@@ -12,7 +12,7 @@ using ScottPlot;
 
 public class RevenueMade
 {
-    public static void GenerateRevenue()
+    public static void GenerateRevenuePerMonth()
     {
         string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\PaidOrders.json");
 
@@ -25,19 +25,25 @@ public class RevenueMade
         foreach (PaidOrder revenueData in existingData)
         {
             DateTime paidTime = revenueData.PaidTime;
-            DateTime monthStart = new DateTime(paidTime.Year, paidTime.Month, 1);
 
-            if (!revenueByMonth.ContainsKey(monthStart))
+            // Check if the order is from the current year
+            if (paidTime.Year == DateTime.Now.Year)
             {
-                revenueByMonth[monthStart] = revenueData.TotalPrice;
-            }
-            else
-            {
-                revenueByMonth[monthStart] += revenueData.TotalPrice;
-            }
+                DateTime monthStart = new DateTime(DateTime.Now.Year, paidTime.Month, 1);
 
+                if (!revenueByMonth.ContainsKey(monthStart))
+                {
+                    revenueByMonth[monthStart] = revenueData.TotalPrice;
+                }
+                else
+                {
+                    revenueByMonth[monthStart] += revenueData.TotalPrice;
+                }
+            }
         }
+
         ConsoleTable table = new ConsoleTable("Month", "Revenue");
+
         // Populate the table with data from revenueByMonth dictionary
         foreach (var kvp in revenueByMonth)
         {
@@ -46,10 +52,13 @@ public class RevenueMade
         }
 
         // Printing the Table with the revenues
+        table.Configure(o => o.EnableCount = false);
         table.Write();
+
         RevenuePerYear();
         Console.ReadLine();
     }
+
     public static void RevenuePerYear()
     {
         //voeg misschien nog amount of visitors toe.
@@ -118,6 +127,7 @@ public class RevenueMade
         table.AddRow(date4.Year, fourYearAgo);
         table.AddRow(date5.Year, fiveYearAgo);
         table.AddRow(date5plus.Year, aboveFiveYearAgo);
+        table.Configure(o => o.EnableCount = false);
         table.Write();
     }
 
