@@ -12,7 +12,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-
 public static class OrderFood
 {
     static string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
@@ -61,11 +60,11 @@ public static class OrderFood
         {
             bool found = false;
             Console.Clear();
-            Helper.Say("B", "Go back");
+            Helper.Say("!", "Type '/back' to go back");
             Console.WriteLine("Please enter your reservation code: ");
             string code = Console.ReadLine();
             List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
-            if (code.ToUpper() == "B")
+            if (code.ToUpper() == "/back")
             {
                 Start();
             }
@@ -105,9 +104,13 @@ public static class OrderFood
         }
         else if (firstinput == 4)
         {
-            // pay 
+            Helper.Say("!", "Type '/back' to go back");
             Console.WriteLine("Please enter your reservation code: ");
             string code = Console.ReadLine();
+            if (code.ToUpper() == "/back")
+            {
+                Start();
+            }
             // checking if the bill is open or not
             if (!ReservationSystem.IsReservationPaid(code)) 
             {
@@ -266,7 +269,7 @@ public static class OrderFood
     {
         
         MenuItem.Start();
-        Helper.Say("B", "Go back");
+        Helper.Say("!", "type '/back' to go back");
         Console.WriteLine("What would you like to order? Select the number.");
 
         string inputstr = Console.ReadLine();

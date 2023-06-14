@@ -88,15 +88,11 @@ public class MenuChoices
             if (type == 1)
             {
                 MenuItem.DisplayFood();
-                Console.WriteLine("\nClick enter to go back");
-                Console.ReadLine();
 
             }
             else if (type == 2)
             {
                 MenuItem.DisplayDrink();
-                Console.WriteLine("\nClick enter to go back");
-                Console.ReadLine();
 
 
             }
