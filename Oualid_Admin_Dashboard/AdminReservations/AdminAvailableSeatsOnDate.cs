@@ -117,7 +117,7 @@ namespace Project.Oualid_Admin_Dashboard.AdminReservations
                     timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime3.Hours, timeSlotTime3.Minutes, timeSlotTime3.Seconds);
                     break;
                 case 4:
-                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime3.Hours, timeSlotTime3.Minutes, timeSlotTime3.Seconds);
+                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime4.Hours, timeSlotTime4.Minutes, timeSlotTime4.Seconds);
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");
@@ -138,6 +138,8 @@ namespace Project.Oualid_Admin_Dashboard.AdminReservations
             int RemainingSeats = 100 - totalGuests;
 
             Console.WriteLine($"The amount of remaining seats for this date is: {RemainingSeats}.");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
         }
     }
 }

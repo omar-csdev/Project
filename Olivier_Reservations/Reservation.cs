@@ -189,7 +189,7 @@ namespace Project.Olivier_Reservations {
                     timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime3.Hours, timeSlotTime3.Minutes, timeSlotTime3.Seconds);
                     break;
                 case 4:
-                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime3.Hours, timeSlotTime3.Minutes, timeSlotTime3.Seconds);
+                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime4.Hours, timeSlotTime4.Minutes, timeSlotTime4.Seconds);
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");
