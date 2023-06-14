@@ -16,5 +16,65 @@
     "CustomerId": 4,
     "PaidTime": "2023-06-13T15:17:17.6367548+02:00",
     "TotalPrice": 200.0
+  },
+  {
+    "ReservationCode": "OH5045",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T13:59:09.0105378+02:00",
+    "TotalPrice": 66.0
+  },
+  {
+    "ReservationCode": "XW3269",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T14:01:40.3785787+02:00",
+    "TotalPrice": 36.0
+  },
+  {
+    "ReservationCode": "WU3910",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T14:06:09.7687984+02:00",
+    "TotalPrice": 40.0
+  },
+  {
+    "ReservationCode": "GQ1409",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T14:10:02.9508931+02:00",
+    "TotalPrice": 110.0
+  },
+  {
+    "ReservationCode": "MP8867",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T14:26:13.8484261+02:00",
+    "TotalPrice": 40.0
+  },
+  {
+    "ReservationCode": "DR0003",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T14:30:14.2465937+02:00",
+    "TotalPrice": 9.0
+  },
+  {
+    "ReservationCode": "EZ6520",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T14:36:13.2284063+02:00",
+    "TotalPrice": 24.0
+  },
+  {
+    "ReservationCode": "LI7997",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T14:51:01.7198247+02:00",
+    "TotalPrice": 81.0
+  },
+  {
+    "ReservationCode": "HI0404",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T14:53:48.0746335+02:00",
+    "TotalPrice": 34.0
+  },
+  {
+    "ReservationCode": "NM7235",
+    "CustomerId": 4,
+    "PaidTime": "2023-06-14T15:07:24.8534307+02:00",
+    "TotalPrice": 20.0
   }
 ]
