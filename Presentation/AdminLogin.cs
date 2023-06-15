@@ -15,11 +15,9 @@ public static class AdminLogin
 
 
         Console.Clear();
-        Console.WriteLine("ADMIN MENU:", Color.RebeccaPurple);
+        Console.WriteLine("ADMIN:", Color.RebeccaPurple);
         Helper.Say("1", "Log In");
-        Helper.Say("2", "Remove user");
-        Helper.Say("3", "Add user");
-        Helper.Say("4", "Go back");
+        Helper.Say("2", "Go back");
         string answer = Console.ReadLine();
 
         if (answer == "1")
@@ -158,7 +156,7 @@ public static class AdminLogin
        
 
         //terug naar startscherm
-        else if (answer == "4")
+        else if (answer == "2")
         {
             Console.Clear();
             MainMenu.NewStart();
