@@ -47,15 +47,13 @@ static class AdminMenuEditor
                         }
                         else
                         {
-                            Console.WriteLine("Error! Please enter a valid option!", Color.Red);
-                            Console.WriteLine("Press any key to continue...");
-                            Console.ReadKey();
-                            break;
+                            throw new Exception("Error! Please enter a valid option!");
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                       Console.WriteLine(ex.Message);
+                        Helper.ContinueDisplay();
                     }
                     if (success)
                     {
@@ -68,8 +66,7 @@ static class AdminMenuEditor
                     else
                     {
                         Console.WriteLine("Something went wrong try again", Color.Green);
-                        Console.WriteLine("Press any key to return...");
-                        Console.ReadKey();
+                        Helper.ContinueDisplay();
                         Console.Clear();
                         AdminMenuEditor.DisplayMenuEditOptions();
                     }
