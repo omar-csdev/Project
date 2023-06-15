@@ -12,7 +12,6 @@ static class MainMenu
     public static void NewStart(bool isGuest)
     {
         int choice;
-        RevenueMade.GenerateRevenuePerMonth();
         while (true)
         {
             SaveOldReservations.WriteOldReservationsToJSON();
@@ -20,7 +19,7 @@ static class MainMenu
             Helper.DisplayRestaurantLogo();
             Helper.Say("1", "Login");
             Helper.Say("2", "Create Account");
-            Helper.Say("3", "View Menu");
+            Helper.Say("3", "Continue as guest");
             Helper.Say("4", "Admin");
             Helper.Say("5", "Exit");
             choice = int.Parse(Console.ReadLine());

@@ -25,16 +25,21 @@ public class StatisticsMenu
             {
                 case 1:
                     RevenueMade.GenerateRevenuePerMonth();
+                    Helper.ContinueDisplay();
                     break;
                 case 2:
                     RevenueMade.RevenuePerYear();
-
+                    Helper.ContinueDisplay();
                     // Handle Option 2
                     break;
                 case 3:
+                    CustomerStatistics.GenerateVisitsPerMonth();
+                    Helper.ContinueDisplay();
                     // Handle Option 3
                     break;
                 case 4:
+                    CustomerStatistics.GenerateCustomerVisits();
+                    Helper.ContinueDisplay();
                     // Handle Option 4
                     break;
                 case 5:

@@ -22,6 +22,13 @@ public class RevenueMade
 
         Dictionary<DateTime, double> revenueByMonth = new Dictionary<DateTime, double>();
 
+        // Initialize revenueByMonth dictionary with all months of the current year
+        for (int month = 1; month <= 12; month++)
+        {
+            DateTime monthStart = new DateTime(DateTime.Now.Year, month, 1);
+            revenueByMonth[monthStart] = 0;
+        }
+
         foreach (PaidOrder revenueData in existingData)
         {
             DateTime paidTime = revenueData.PaidTime;
@@ -30,15 +37,7 @@ public class RevenueMade
             if (paidTime.Year == DateTime.Now.Year)
             {
                 DateTime monthStart = new DateTime(DateTime.Now.Year, paidTime.Month, 1);
-
-                if (!revenueByMonth.ContainsKey(monthStart))
-                {
-                    revenueByMonth[monthStart] = revenueData.TotalPrice;
-                }
-                else
-                {
-                    revenueByMonth[monthStart] += revenueData.TotalPrice;
-                }
+                revenueByMonth[monthStart] += revenueData.TotalPrice;
             }
         }
 
@@ -54,9 +53,6 @@ public class RevenueMade
         // Printing the Table with the revenues
         table.Configure(o => o.EnableCount = false);
         table.Write();
-
-        RevenuePerYear();
-        Console.ReadLine();
     }
 
     public static void RevenuePerYear()
@@ -130,5 +126,8 @@ public class RevenueMade
         table.Configure(o => o.EnableCount = false);
         table.Write();
     }
+
+
+
 
 }
