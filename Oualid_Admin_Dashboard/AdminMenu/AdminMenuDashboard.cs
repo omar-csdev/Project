@@ -5,15 +5,13 @@ using Newtonsoft.Json;
 static class AdminDashboardMenuDashboard
 {
     public static Item[] menu = new Item[0];
-    public static Admin admin = LoginAccess.LoadAll().FirstOrDefault(r => r.IsLoggedIn);
 
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
     static public void DisplayMenuDashboard()
     {
-        
-        while(admin != null) 
+        for (; ; )
         {
             Console.Clear();
             WriteLogo();

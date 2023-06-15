@@ -16,29 +16,25 @@ public static class CustomerProfileEditor
             WriteToConsole(1, "Edit Name");
             WriteToConsole(2, "Edit Password");
             WriteToConsole(3, "Go Back");
-            try
-            {
-                string ? input = Console.ReadLine();
-                switch (input)
-                {
-                    case "1":
-                        EditName();
-                        break;
-                    case "2":
-                        EditPassword();
-                        break;
-                    case "3":
-                        CustomerDashboard.DisplayDashboard();
-                        break;
-                    default:
-                        throw new Exception("Invalid input");
-                }
-            }catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message, Color.Red);
-                    Helper.ContinueDisplay();
-                }
-    }
+            string? input = Console.ReadLine();
+            switch (input) {
+                case "1":
+                    EditName();
+                    break;
+                case "2":
+                    EditPassword();
+                    break;
+                case "3":
+                    CustomerDashboard.DisplayDashboard();
+                    break;
+                default:
+                    Console.WriteLine("Error! Please choose a valid option!", Color.Green);
+                    Console.WriteLine();
+                    Console.WriteLine("Press any key to return...");
+                    Console.ReadKey();
+                    break;
+            }
+        }
     }
 
     public static void WriteToConsole(int prefix, string message)
