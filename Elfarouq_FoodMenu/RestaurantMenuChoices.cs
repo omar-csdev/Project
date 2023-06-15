@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,7 +53,8 @@ public class MenuChoices
 
         if (choice == 1)
         {
-            MenuItem.DisplayFullMenu();  // Calling the method to display the full menu
+            int sorttype = MenuItem.AskSort();
+            MenuItem.DisplayFullMenu(sorttype);  // Calling the method to display the full menu
             Helper.ContinueDisplay();  // Prompting the user to continue
             DisplayMenuOptions(isGuest);  // Calling the DisplayMenuOptions method recursively to prompt for input again
         }
@@ -91,13 +93,15 @@ public class MenuChoices
 
             if (type == 1)
             {
-                MenuItem.DisplayFood();  // Calling the method to display food items
+                int sorttype = MenuItem.AskSort();
+                MenuItem.DisplayFood(sorttype);  // Calling the method to display food items
                 Helper.ContinueDisplay();  // Prompting the user to continue
                 DisplayMenuOptions(isGuest);  // Calling the DisplayMenuOptions method recursively to prompt for input again
             }
             else if (type == 2)
             {
-                MenuItem.DisplayDrink();  // Calling the method to display drink items
+                int sorttype = MenuItem.AskSort();
+                MenuItem.DisplayDrink(sorttype);  // Calling the method to display drink items
                 Helper.ContinueDisplay();  // Prompting the user to continue
                 DisplayMenuOptions(isGuest);  // Calling the DisplayMenuOptions method recursively to prompt for input again
             }
@@ -143,36 +147,36 @@ public class MenuChoices
                     DisplayMenuOptions(isGuest);  // Calling the DisplayMenuOptions method recursively to prompt for input again
                 }
             }
-
+            int sorttype = MenuItem.AskSort();
             switch (type)
             {
                 case 1:
-                    MenuItem.DisplayGeneral();  // Calling the method to display general category items
+                    MenuItem.DisplayGeneral(sorttype);  // Calling the method to display general category items
                     Helper.ContinueDisplay();  // Prompting the user to continue
                     DisplayMenuOptions(isGuest);  // Calling the DisplayMenuOptions method recursively to prompt for input again
                     break;
                 case 2:
-                    MenuItem.DisplayAlcoholic();  // Calling the method to display alcoholic category items
+                    MenuItem.DisplayAlcoholic(sorttype);  // Calling the method to display alcoholic category items
                     Helper.ContinueDisplay();  
                     DisplayMenuOptions(isGuest);  
                     break;
                 case 3:
-                    MenuItem.DisplayNonAlcoholic();  // Calling the method to display non-alcoholic category items
+                    MenuItem.DisplayNonAlcoholic(sorttype);  // Calling the method to display non-alcoholic category items
                     Helper.ContinueDisplay();  
                     DisplayMenuOptions(isGuest);  
                     break;
                 case 4:
-                    MenuItem.DisplayHalal();  // Calling the method to display halal category items
+                    MenuItem.DisplayHalal(sorttype);  // Calling the method to display halal category items
                     Helper.ContinueDisplay();  
                     DisplayMenuOptions(isGuest);  
                     break;
                 case 5:
-                    MenuItem.DisplayVega();  // Calling the method to display vega category items
+                    MenuItem.DisplayVega(sorttype);  // Calling the method to display vega category items
                     Helper.ContinueDisplay();  
                     DisplayMenuOptions(isGuest);  
                     break;
                 case 6:
-                    MenuItem.DisplayVegan();  // Calling the method to display vegan category items
+                    MenuItem.DisplayVegan(sorttype);  // Calling the method to display vegan category items
                     Helper.ContinueDisplay();  
                     DisplayMenuOptions(isGuest);  
                     break;
