@@ -4,7 +4,7 @@
 public static class LoginAccess
 {
 
-    public static List<Admin> LoadAll(string fileName="")
+    public static List<Admin> LoadAll()
     {
         string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\admindata.json");
         string JSONString = File.ReadAllText(filePath);

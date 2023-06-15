@@ -20,9 +20,6 @@
   {
     "IsLoggedIn": false,
     "ID": 4,
-
-    "UserNameSetter": "abc",
-    "PasswordSetter": "a!1"
     "UserNameSetter": "Omar",
     "PasswordSetter": "123!"
   },
