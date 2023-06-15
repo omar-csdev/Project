@@ -126,5 +126,29 @@
         "quantity": 5
       }
     ]
+  },
+  {
+    "VG4996": [
+      {
+        "itemId": 3,
+        "quantity": 15
+      },
+      {
+        "itemId": 5,
+        "quantity": 12
+      },
+      {
+        "itemId": 12,
+        "quantity": 9
+      },
+      {
+        "itemId": 1,
+        "quantity": 9
+      },
+      {
+        "itemId": 2,
+        "quantity": 7
+      }
+    ]
   }
 ]

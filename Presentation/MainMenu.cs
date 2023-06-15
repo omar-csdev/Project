@@ -12,7 +12,7 @@ static class MainMenu
     public static void NewStart(bool isGuest)
     {
         int choice;
-
+        RevenueMade.GenerateRevenuePerMonth();
         while (true)
         {
             SaveOldReservations.WriteOldReservationsToJSON();
