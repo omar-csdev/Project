@@ -38,6 +38,12 @@ namespace Project.Olivier_Reservations {
                         throw new Exception("Name cannot contain numbers, please enter a valid name.");
                         Console.ResetColor();
                     }
+                    else if (name.Any(c => !char.IsLetterOrDigit(c)))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        throw new Exception("Name cannot contain special characters, please enter a valid name.");
+                        Console.ResetColor();
+                    }
                     break;
                 }
                 catch (Exception ex)
@@ -67,6 +73,12 @@ namespace Project.Olivier_Reservations {
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         throw new Exception("Last name cannot contain numbers, please enter a valid last name.");
+                        Console.ResetColor();
+                    }
+                    else if (name.Any(c => !char.IsLetterOrDigit(c)))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        throw new Exception("Last name cannot contain special characters, please enter a valid name.");
                         Console.ResetColor();
                     }
                     break;
