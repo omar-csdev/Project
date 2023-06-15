@@ -38,7 +38,7 @@ public static class AdminLogin
                     string username = Console.ReadLine();
                     if (username == "/back")
                     {
-                        MainMenu.NewStart();
+                        MainMenu.NewStart(false);
                     }
                     //checken of gebruikersnaam al ingenomen is
                     foreach (Admin admin in test)
@@ -114,7 +114,7 @@ public static class AdminLogin
                 int check = 0;
                 if (username == "/back")
                 {
-                    MainMenu.NewStart();
+                    MainMenu.NewStart(true);
                 }
                 foreach (Admin i in test) 
                 {

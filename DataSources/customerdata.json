@@ -30,7 +30,7 @@
     "PasswordSetter": "123!"
   },
   {
-    "IsLoggedIn": true,
+    "IsLoggedIn": false,
     "ID": 6,
     "UserNameSetter": "chox",
     "PasswordSetter": "1!"

@@ -27,7 +27,7 @@ public static class AccountManager
             username = Console.ReadLine();
             if (username == "/back")
             {
-                MainMenu.NewStart();
+                MainMenu.NewStart(true);
             }
 
             if (username != null && usernames.Contains(username) == false)
@@ -60,7 +60,7 @@ public static class AccountManager
 
             if (password == "/back")
             {
-                MainMenu.NewStart();
+                MainMenu.NewStart(true);
             }
 
             foreach (char character in password)
@@ -111,7 +111,7 @@ public static class AccountManager
             username = Console.ReadLine();
             if (username == "/back")
             {
-                MainMenu.NewStart();
+                MainMenu.NewStart(true);
             }
             int check = 0;
             foreach (CustomerAccount i in accounts)
@@ -154,6 +154,6 @@ public static class AccountManager
         }
         Helper.Say("!", "No users found with the matching credentials");
         Helper.ContinueDisplay();
-        MainMenu.NewStart();
+        MainMenu.NewStart(false);
     }
 }
