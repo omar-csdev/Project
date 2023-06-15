@@ -440,6 +440,10 @@ namespace Project.Olivier_Reservations {
 
             foreach (Reservation reservation in reservations)
             {
+                if (reservation.CustomerId == 0)
+                {
+                    return false; // Guest reservation
+                }
                 if (reservation.TimeSlot == timeSlot && reservation.CustomerId == customerId)
                 {
                     return true; // Identical reservation found
