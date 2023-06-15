@@ -57,23 +57,23 @@
   },
   {
     "Name": "Soda",
-    "Type": "Non-Alcoholic",
+    "Type": "Drink",
     "Price": 2.0,
-    "Category": "General",
+    "Category": "Non-Alcoholic",
     "Id": 9
   },
   {
     "Name": "Iced Tea",
-    "Type": "Non-Alcoholic",
+    "Type": "Drink",
     "Price": 2.5,
-    "Category": "General",
+    "Category": "Non-Alcoholic",
     "Id": 10
   },
   {
     "Name": "Strawberry Smoothie",
-    "Type": "Non-Alcoholic",
+    "Type": "Drink",
     "Price": 4.0,
-    "Category": "Vega",
+    "Category": "Non-Alcoholic",
     "Id": 11
   },
   {
@@ -127,21 +127,21 @@
   },
   {
     "Name": "Margarita",
-    "Type": "Alcoholic",
+    "Type": "Drink",
     "Price": 8.0,
     "Category": "Alcoholic",
     "Id": 19
   },
   {
     "Name": "Mojito",
-    "Type": "Alcoholic",
+    "Type": "Drink",
     "Price": 9.0,
     "Category": "Alcoholic",
     "Id": 20
   },
   {
     "Name": "Piña Colada",
-    "Type": "Alcoholic",
+    "Type": "Drink",
     "Price": 10.0,
     "Category": "Alcoholic",
     "Id": 21

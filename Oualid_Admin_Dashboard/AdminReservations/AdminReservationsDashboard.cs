@@ -1,6 +1,7 @@
 using System.Drawing;
 using Console = Colorful.Console;
 using Newtonsoft.Json;
+using Project.Oualid_Admin_Dashboard.AdminReservations;
 
 static class AdminDashboardReservationsDashboard
 {
@@ -15,36 +16,52 @@ static class AdminDashboardReservationsDashboard
         {
             Console.Clear();
             WriteLogo();
-            WriteToConsole(1, "View Reservations");
-            WriteToConsole(2, "View Old Reservations");
-            WriteToConsole(3, "Edit Reservations");
-            WriteToConsole(4, "Back to Dashboard");
+            WriteToConsole(1, "View Available Seats On Specified Date");
+            WriteToConsole(2, "View Reservations");
+            WriteToConsole(3, "View Old Reservations");
+            WriteToConsole(4, "Edit Reservations");
+            WriteToConsole(5, "Back to Dashboard");
             string? input = Console.ReadLine();
-            if (input == "1")
+
+            try
             {
-                AdminReservationsView.Run();
+                int option = int.Parse(input);
+                if (option < 1 || option > 5)
+                {
+                    throw new Exception("Invalid option!");
+                }
+
+                if (option == 1)
+                {
+                    AdminAvailableSeatsOnDate.CheckSeats();
+                }
+                else if (option == 2)
+                {
+                    AdminReservationsView.Run();
+                }
+                else if (option == 3)
+                {
+                    AdminOldReservationsView.ViewOldReservations();
+                }
+                else if (option == 4)
+                {
+                    AdminReservationsEditor.Run();
+                }
+                else if (option == 5)
+                {
+                    AdminDashboard.DisplayDashboard();
+                }
             }
-            else if (input == "2")
+            catch (Exception ex)
             {
-                AdminOldReservationsView.ViewOldReservations();
-            }
-            else if (input == "3")
-            {
-                AdminReservationsEditor.Run();
-            }
-            else if (input == "4")
-            {
-                AdminDashboard.DisplayDashboard();
-            }
-            else
-            {
-                Console.WriteLine("Error! Please choose a valid option!", Color.Red);
+                Console.WriteLine("Error: " + ex.Message, Color.Red);
                 Console.WriteLine();
                 Console.WriteLine("Press any key to return...");
                 Console.ReadKey();
             }
         }
     }
+
 
     public static void WriteToConsole(int prefix, string message)
     {
