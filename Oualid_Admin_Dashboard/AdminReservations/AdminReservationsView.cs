@@ -50,7 +50,7 @@ static class AdminReservationsView
                     else
                     {
                         Console.WriteLine("Wrong format or is before 01-01-2023. Try again");
-                        Thread.Sleep(2000);
+                        Helper.ContinueDisplay();
                         continue;
                     }
                 }

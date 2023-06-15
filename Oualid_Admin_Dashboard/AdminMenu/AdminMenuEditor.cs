@@ -20,7 +20,11 @@ static class AdminMenuEditor
             string? input = Console.ReadLine();
 
             // input for "3"
-            if (input == "3")
+            if (input == "4")
+            {
+                AdminDashboardMenuDashboard.DisplayMenuDashboard();
+            }
+            else if (input == "3")
             {
                 int itemIndexToDelete;
                 bool success = false;

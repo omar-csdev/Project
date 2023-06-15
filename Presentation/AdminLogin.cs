@@ -15,11 +15,9 @@ public static class AdminLogin
 
 
         Console.Clear();
-        Console.WriteLine("ADMIN MENU:", Color.RebeccaPurple);
+        Console.WriteLine("ADMIN:", Color.RebeccaPurple);
         Helper.Say("1", "Log In");
-        Helper.Say("2", "Remove user");
-        Helper.Say("3", "Add user");
-        Helper.Say("4", "Go back");
+        Helper.Say("2", "Go back");
         string answer = Console.ReadLine();
 
         if (answer == "1")
@@ -35,16 +33,20 @@ public static class AdminLogin
                 string inp = Console.ReadLine().ToLower();
                 if (inp == "y")
                 {
+                    Helper.Say("!", "Type '/back' to go back to the admin menu");
                     Console.WriteLine("Username:");
                     string username = Console.ReadLine();
-
+                    if (username == "/back")
+                    {
+                        MainMenu.NewStart();
+                    }
                     //checken of gebruikersnaam al ingenomen is
                     foreach (Admin admin in test)
                     {
                         if (admin.UserName == username)
                         {
                             Console.WriteLine("Username already taken!", Color.Red);
-                            Thread.Sleep(2000);
+                            Helper.ContinueDisplay();
                             Start();
                         }
                     }
@@ -84,7 +86,7 @@ public static class AdminLogin
 
                         }
                     }
-                    Console.WriteLine("Added account succesfully! You can login now.");
+                    Console.WriteLine("Added admin succesfully! You can login now.");
                     Helper.ContinueDisplay();
                     Start();
                 }
@@ -97,7 +99,7 @@ public static class AdminLogin
                 else
                 {
                     Console.WriteLine("Invalid input! Please enter 'y' or 'n'.", Color.Red);
-                    Thread.Sleep(4000);
+                    Helper.ContinueDisplay();
                     Console.Clear();
                     Start();
                 }
@@ -106,9 +108,14 @@ public static class AdminLogin
             //wel accounts in de json: door naar inloggen
             else if (test.Count >= 1)
             {
+                Helper.Say("!", "Type '/back' to go back to the admin menu");
                 Console.WriteLine("Username:");
                 string username = Console.ReadLine();
                 int check = 0;
+                if (username == "/back")
+                {
+                    MainMenu.NewStart();
+                }
                 foreach (Admin i in test) 
                 {
                     if (i.UserName == username)
@@ -120,8 +127,8 @@ public static class AdminLogin
                 //check of gebruikersnaam bestaat
                 if (check == 0)
                 {
-                    Console.WriteLine("Username doesn't exist!", Color.Red);
-                    Thread.Sleep(2500);
+                    Console.WriteLine("Admin doesn't exist!", Color.Red);
+                    Helper.ContinueDisplay();
                     Start();
                 }
 
@@ -136,124 +143,20 @@ public static class AdminLogin
                     {
                         admin.IsLoggedIn = true;
                         LoginAccess.WriteAll(test);
-                        Console.WriteLine($"User {username} logged in succesfully!");
+                        Console.WriteLine($"Admin {username} logged in succesfully!");
                         Helper.ContinueDisplay();
                         AdminDashboard.DisplayDashboard(); //oualid kan hier de startfunctie van zijn dashboard callen.
                     }
                 }
                 Console.WriteLine("No users found with the matching credentials!", Color.Red);
-                Thread.Sleep(3000);
+                Helper.ContinueDisplay();
                 Start();
             }
         }
-
-        //verwijderen van een gebruiker
-        else if (answer == "2")
-        {
-            Console.Clear();
-            Console.WriteLine("REMOVING AN USER:", Color.RebeccaPurple);
-
-
-            //bij de functies verwijderen en toevoegen van een gebruiker altijd nieuwe list van de json
-            //als we de oude "test" list gebruiken en er zijn hiervoor gebruiker toegevoegd worden deze
-            //niet aangetoond bij het verwijderen
-            List<Admin> updatedList = LoginAccess.LoadAll();
-
-
-            if (updatedList.Count == 1)
-            {
-                Console.WriteLine("No users to remove!", Color.Red);
-                Helper.ContinueDisplay();
-            }
-
-            int x = 1;
-            foreach (Admin admin in updatedList)
-            {
-                if (admin.UserName != null)
-                {
-                    Helper.Say($"{x}", $"{admin.UserName}");
-                    x += 1;
-                }
-            }
-
-            Console.WriteLine("Enter the ID of the username you'd like to remove:");
-            string id = Console.ReadLine();
-            int ID = Convert.ToInt32(id);
-            if (ID < updatedList.Count && ID > 0)
-            {
-                Console.WriteLine($"Succesfully removed user {updatedList[ID].UserName}!");
-                updatedList.Remove(updatedList[ID]);
-                LoginAccess.WriteAll(updatedList);
-                Helper.ContinueDisplay();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("ID not found.", Color.Red);
-                Thread.Sleep(3000);     
-                Start();
-            }
-        }
-
-
-        //toevoegen van een gebruiker
-        else if (answer == "3")
-        {
-            Console.Clear();
-            Console.WriteLine("ADDING AN USER:", Color.RebeccaPurple);
-            List<Admin> updatedList = LoginAccess.LoadAll();
-            Console.WriteLine("Username:");
-            string username = Console.ReadLine();
-            foreach (Admin admin in updatedList)
-            {
-                if (admin.UserName == username)
-                {
-                    Console.WriteLine("Username already taken!", Color.Red);
-                    Thread.Sleep(2000);
-                    Start();
-                }
-            }
-
-            //checks op het wachtwoord dat aangemaakt wordt
-            Console.WriteLine("Password:");
-            List<char> symbols = new List<char>() { '!', '@', '?', '#', '&' };
-
-            bool creatingAccount = true;
-            while (creatingAccount)
-            {
-                int checking = 0;
-                Helper.Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
-                string password = Console.ReadLine();
-                foreach (char character in password)
-                {
-                    if (symbols.Contains(character))
-                    {
-                        checking += 1;
-                    }
-                }
-                bool containsInt = password.Any(char.IsDigit);
-
-                if (containsInt && checking > 0)
-                {
-                    Admin newAdmin = new(username, password);
-                    updatedList.Add(newAdmin);
-                    LoginAccess.WriteAll(updatedList);
-                    creatingAccount = false;
-                }
-
-                else
-                {
-                    Helper.Say("!", "Password does not meet criteria");
-                    Thread.Sleep(2500);
-                }
-            }
-            Console.WriteLine("Added account succesfully! You can login now.");
-            Helper.ContinueDisplay();
-            Start();
-        }
+       
 
         //terug naar startscherm
-        else if (answer == "4")
+        else if (answer == "2")
         {
             Console.Clear();
             MainMenu.NewStart();
