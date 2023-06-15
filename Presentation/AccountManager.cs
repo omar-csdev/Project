@@ -98,6 +98,11 @@ public static class AccountManager
         Console.WriteLine("Logging in");
         Helper.Say("!", "Type '/back' to go back to the main menu");
         List<CustomerAccount> accounts = CustomerAccess.LoadAll();
+        foreach (CustomerAccount account in accounts)
+        {
+            account.IsLoggedIn = false;
+        }
+        CustomerAccess.WriteAll(accounts);
         string username = null;
         bool askingUsername = true;
         while (askingUsername)
