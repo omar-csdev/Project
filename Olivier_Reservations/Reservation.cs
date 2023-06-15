@@ -38,6 +38,12 @@ namespace Project.Olivier_Reservations {
                         throw new Exception("Name cannot contain numbers, please enter a valid name.");
                         Console.ResetColor();
                     }
+                    else if (name.Any(c => !char.IsLetterOrDigit(c)))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        throw new Exception("Name cannot contain special characters, please enter a valid name.");
+                        Console.ResetColor();
+                    }
                     break;
                 }
                 catch (Exception ex)
@@ -67,6 +73,12 @@ namespace Project.Olivier_Reservations {
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         throw new Exception("Last name cannot contain numbers, please enter a valid last name.");
+                        Console.ResetColor();
+                    }
+                    else if (name.Any(c => !char.IsLetterOrDigit(c)))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        throw new Exception("Last name cannot contain special characters, please enter a valid name.");
                         Console.ResetColor();
                     }
                     break;
@@ -189,7 +201,7 @@ namespace Project.Olivier_Reservations {
                     timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime3.Hours, timeSlotTime3.Minutes, timeSlotTime3.Seconds);
                     break;
                 case 4:
-                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime3.Hours, timeSlotTime3.Minutes, timeSlotTime3.Seconds);
+                    timeSlot = new DateTime(reservationDate.Year, reservationDate.Month, reservationDate.Day, timeSlotTime4.Hours, timeSlotTime4.Minutes, timeSlotTime4.Seconds);
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");
@@ -320,7 +332,7 @@ namespace Project.Olivier_Reservations {
             return false; // Reservation code not found
         }
 
-        public static void SetReservationStatusToPaid(string reservationCode)
+        public static void SetReservationStatusToPaid(string reservationCode, bool option)
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
             string jsonString = File.ReadAllText(filePath);
@@ -330,8 +342,8 @@ namespace Project.Olivier_Reservations {
             var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
 
             if (reservation != null)
-            {
-                reservation.Paid = true;
+            { 
+                reservation.Paid = option;
 
                 // Serialize the updated reservations list back to JSON
                 string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
@@ -361,7 +373,7 @@ namespace Project.Olivier_Reservations {
         }
 
 
-        public static void SetHasOrderdAnything(string reservationCode)
+        public static void SetHasOrderdAnything(string reservationCode, bool option)
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
             string jsonString = File.ReadAllText(filePath);
@@ -372,7 +384,7 @@ namespace Project.Olivier_Reservations {
 
             if (reservation != null)
             {
-                reservation.HasOrderdAnything = true;
+                reservation.HasOrderdAnything = option;
 
                 // Serialize the updated reservations list back to JSON
                 string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
@@ -428,6 +440,10 @@ namespace Project.Olivier_Reservations {
 
             foreach (Reservation reservation in reservations)
             {
+                if (reservation.CustomerId == 0)
+                {
+                    return false; // Guest reservation
+                }
                 if (reservation.TimeSlot == timeSlot && reservation.CustomerId == customerId)
                 {
                     return true; // Identical reservation found

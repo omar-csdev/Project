@@ -16,8 +16,8 @@ public static class AdminDashboard
             WriteLogo();
             WriteToConsole(1, "Reservations");
             WriteToConsole(2, "Menu");
-            WriteToConsole(3, "View Accounts");
-            WriteToConsole(4, "View statistics");
+            WriteToConsole(3, "Manage Menu Accounts");
+            WriteToConsole(4, "Manage statistics");
             WriteToConsole(5, "Log out");
             int input = Convert.ToInt32(Console.ReadLine());
             if (input == 1)

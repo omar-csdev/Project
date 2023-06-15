@@ -28,5 +28,11 @@
     "ID": 5,
     "UserNameSetter": "TESTINGnow",
     "PasswordSetter": "123!"
+  },
+  {
+    "IsLoggedIn": true,
+    "ID": 6,
+    "UserNameSetter": "chox",
+    "PasswordSetter": "1!"
   }
 ]

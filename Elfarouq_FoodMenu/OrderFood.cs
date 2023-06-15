@@ -86,7 +86,6 @@ public static class OrderFood
                 Console.WriteLine("Reservation code invalid\nPress enter to go back...");
                 Console.ReadKey();
                 Console.Clear();
-                Start(isGuest);
             }
             OptionOne(code, isGuest);
         }

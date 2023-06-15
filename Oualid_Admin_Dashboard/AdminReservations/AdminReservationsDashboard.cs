@@ -22,35 +22,46 @@ static class AdminDashboardReservationsDashboard
             WriteToConsole(4, "Edit Reservations");
             WriteToConsole(5, "Back to Dashboard");
             string? input = Console.ReadLine();
-            if (input == "1")
+
+            try
             {
-                AdminAvailableSeatsOnDate.CheckSeats();
+                int option = int.Parse(input);
+                if (option < 1 || option > 5)
+                {
+                    throw new Exception("Invalid option!");
+                }
+
+                if (option == 1)
+                {
+                    AdminAvailableSeatsOnDate.CheckSeats();
+                }
+                else if (option == 2)
+                {
+                    AdminReservationsView.Run();
+                }
+                else if (option == 3)
+                {
+                    AdminOldReservationsView.ViewOldReservations();
+                }
+                else if (option == 4)
+                {
+                    AdminReservationsEditor.Run();
+                }
+                else if (option == 5)
+                {
+                    AdminDashboard.DisplayDashboard();
+                }
             }
-            if (input == "2")
+            catch (Exception ex)
             {
-                AdminReservationsView.Run();
-            }
-            else if (input == "3")
-            {
-                AdminOldReservationsView.ViewOldReservations();
-            }
-            else if (input == "4")
-            {
-                AdminReservationsEditor.Run();
-            }
-            else if (input == "5")
-            {
-                AdminDashboard.DisplayDashboard();
-            }
-            else
-            {
-                Console.WriteLine("Error! Please choose a valid option!", Color.Red);
+                Console.WriteLine("Error: " + ex.Message, Color.Red);
                 Console.WriteLine();
                 Console.WriteLine("Press any key to return...");
                 Console.ReadKey();
             }
         }
     }
+
 
     public static void WriteToConsole(int prefix, string message)
     {
