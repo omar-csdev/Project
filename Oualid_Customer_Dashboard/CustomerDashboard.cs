@@ -32,8 +32,9 @@ public static class CustomerDashboard
             WriteToConsole(2, "Cancel a reservation");
             WriteToConsole(3, "View upcoming reservations");
             WriteToConsole(4, "View all reservations");
-            WriteToConsole(5, "Edit account");
-            WriteToConsole(6, "Log out");
+            WriteToConsole(5, "Make order");
+            WriteToConsole(6, "Edit account");
+            WriteToConsole(7, "Log out");
             string ? input = Console.ReadLine();
             switch (input)
             {
@@ -73,9 +74,12 @@ public static class CustomerDashboard
                     Helper.ContinueDisplay();
                     break;
                 case "5":
-                    CustomerProfileEditor.DisplayDashboard();
+                    FoodMenu.Start(false);
                     break;
                 case "6":
+                    CustomerProfileEditor.DisplayDashboard();
+                    break;
+                case "7":
                     LogUserOut();
                     break;
                 default:
@@ -155,7 +159,7 @@ public static class CustomerDashboard
             {
                 loggedInCustomer.IsLoggedIn = false;
                 CustomerAccess.WriteAll(accounts);
-                MainMenu.NewStart();
+                MainMenu.NewStart(false);
             }   
             else
             {

@@ -159,7 +159,7 @@ public static class AdminLogin
         else if (answer == "2")
         {
             Console.Clear();
-            MainMenu.NewStart();
+            MainMenu.NewStart(true);
         }
 
     }

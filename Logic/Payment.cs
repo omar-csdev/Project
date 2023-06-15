@@ -27,7 +27,7 @@ public class Payment
                     ClearCart(reservationCode);
                     Helper.ContinueDisplay();
                     Console.Clear();
-                    OrderFood.Start();
+                    OrderFood.Start(false);
                 }
                 else
                 {
@@ -46,12 +46,12 @@ public class Payment
                 ClearCart(reservationCode);
                 Helper.ContinueDisplay();
                 Console.Clear();
-                OrderFood.Start();
+                OrderFood.Start(false);
             }
             else if (input == "3")
             {
                 Console.Clear();
-                OrderFood.Start();
+                OrderFood.Start(false);
             }
             else
             {

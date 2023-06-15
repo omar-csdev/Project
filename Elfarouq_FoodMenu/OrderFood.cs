@@ -12,7 +12,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-
 public static class OrderFood
 {
     static string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
@@ -20,7 +19,7 @@ public static class OrderFood
     public static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
     public static Dictionary<string, int> orders = new Dictionary<string, int>();
     public static double AmountToPay;
-    public static void Start()
+    public static void Start(bool isGuest)
     {
         Console.Clear();
         WriteLogo();
@@ -28,19 +27,23 @@ public static class OrderFood
         Say("2", "Show menu");
         Say("3", "Check order-basket");
         Say("4", "Check-out");
-        Say("5", "Go back to the main menu");
+        Say("5", "Remove item from order");
+        Say("6", "Go back to the main menu");
 
         int firstinput;
         while (true)
         {
             try
             {
+                // Read user input as an integer
                 firstinput = int.Parse(Console.ReadLine());
-                if (firstinput < 1 || firstinput > 5)
+
+                // Validate user input
+                if (firstinput < 1 || firstinput > 6)
                 {
                     string message = ("Please enter a valid number between 1 and 5.");
                     Helper.Error(message);
-                    Start();
+                    Start(isGuest);
                 }
                 break;
             }
@@ -48,29 +51,31 @@ public static class OrderFood
             {
                 string message = ("Please enter a valid number between 1 and 5.");
                 Helper.Error(message);
-                Start();
+                Start(isGuest);
             }
             catch (Exception ex)
             {
                 string message = ex.Message;
                 Helper.Error(message);
-                Start();
+                Start(isGuest);
             }
         }
+
         if (firstinput == 1)
         {
             bool found = false;
             Console.Clear();
-            Helper.Say("B", "Go back");
+            Helper.Say("!", "Type '/back' to go back");
             Console.WriteLine("Please enter your reservation code: ");
             string code = Console.ReadLine();
             List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
-            if (code.ToUpper() == "B") 
+            if (code == "/back")
             {
-                Start();
+                Start(isGuest);
             }
             foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
             {
+                // Check if the reservation code exists
                 if (reservation.Code == code)
                 {
                     found = true;
@@ -81,104 +86,37 @@ public static class OrderFood
                 Console.WriteLine("Reservation code invalid\nPress enter to go back...");
                 Console.ReadKey();
                 Console.Clear();
-                Start();
             }
-            if (Payment.IsReservationCodeEmpty(code))
-            {
-                ReservationSystem.SetHasOrderdAnything(code, false);
-                ReservationSystem.SetReservationStatusToPaid(code, false);
-            }
-
-            MenuItem.Start();
-            Helper.Say("B", "Go back");
-            Console.WriteLine("What would you like to order? Select the number.");
-            
-            string inputstr = Console.ReadLine();
-            if (inputstr.ToUpper() == "B")
-            {
-                Start();
-            }
-            bool check = int.TryParse(inputstr, out int input);
-            if (!check)
-            {
-                Console.WriteLine("Input format incorrect.");
-                Console.WriteLine("Click enter to go back.");
-                Console.ReadLine();
-                Console.Clear();
-                Start();
-
-            }
-            Item item = menu.FirstOrDefault(i => i.Id == input);
-            if (item != null)
-            {
-                Console.WriteLine($"You have selected {item.Name}. How many would you like to order?");
-                string quantitystr = Console.ReadLine();
-                check = int.TryParse(quantitystr, out int quantity);
-                if (!check)
-                {
-                    Console.WriteLine("Input format incorrect.");
-                    Console.WriteLine("Click enter to go back.");
-                    Console.ReadLine();
-                    Console.Clear();
-                    Start();
-                }
-                if (quantity <= 0)
-                {
-                    Console.WriteLine("Invalid quantity.");
-                    Console.WriteLine("Click enter to go back.");
-                    Console.ReadLine();
-                    Console.Clear();
-                    Start();
-                }
-                if (orders.ContainsKey(item.Name))
-                {
-                    orders[item.Name] += quantity;
-                }
-                else
-                {
-                    orders[item.Name] = quantity;
-                }
-
-                ReservationSystem.SetHasOrderdAnything(code, true) ;
-                Console.WriteLine($"Successfully added {quantity}x {item.Name} to your cart.");
-                AddOrderJSON(code, item.Id, quantity);
-                Helper.ContinueDisplay();
-                Console.Clear();
-                Start();
-            }
-            else
-            {
-                Console.WriteLine("Invalid Item ID...");
-                Helper.ContinueDisplay();
-                Console.Clear();
-                Start();
-            }
+            OptionOne(code, isGuest);
         }
         else if (firstinput == 2)
         {
             Console.Clear();
             MenuItem.Start();
             Helper.ContinueDisplay();
-            Start();
+            Start(isGuest);
         }
         else if (firstinput == 3)
         {
-            // show order basket
+            // Show order basket
             Console.Clear();
             Console.WriteLine("Please enter your reservation code: ");
             string code = Console.ReadLine();
             TotalPrice(code);
             Helper.ContinueDisplay();
-            Start();
-
+            Start(isGuest);
         }
         else if (firstinput == 4)
         {
-            // pay 
+            Helper.Say("!", "Type '/back' to go back");
             Console.WriteLine("Please enter your reservation code: ");
             string code = Console.ReadLine();
-            // checking if the bill is open or not
-            if (!ReservationSystem.IsReservationPaid(code)) 
+            if (code == "/back")
+            {
+                Start(isGuest);
+            }
+            // Checking if the bill is open or not
+            if (!ReservationSystem.IsReservationPaid(code))
             {
                 if (ReservationSystem.IsAnythingOrderd(code))
                 {
@@ -186,16 +124,16 @@ public static class OrderFood
                 }
                 else
                 {
-                    Console.WriteLine("\nYou have not orderd anything yet.");
+                    Console.WriteLine("\nYou have not ordered anything yet.");
                     Helper.ContinueDisplay();
-                    Start();
+                    Start(isGuest);
                 }
             }
             else
             {
                 Console.WriteLine("\nYour reservation has already been paid for.");
                 Helper.ContinueDisplay();
-                Start();
+                Start(isGuest);
             }
             Console.WriteLine("\nPress a key to continue to the payment...");
             Console.ReadLine();
@@ -205,14 +143,22 @@ public static class OrderFood
         else if (firstinput == 5)
         {
             Console.Clear();
-            FoodMenu.Start();
+            Console.WriteLine("Please enter your reservation code: ");
+            string code = Console.ReadLine();
+            RemoveItemFromOrder(code);
+            Helper.ContinueDisplay();
+            Start(isGuest);
+        }
+        else if (firstinput == 6)
+        {
+            Console.Clear();
+            FoodMenu.Start(isGuest);
         }
         else
         {
             Console.WriteLine("Invalid input. Try again please");
             Helper.ContinueDisplay();
         }
-
     }
     public static void AddOrderJSON(string orderCode, int itemId, int quantity)
     {
@@ -282,7 +228,7 @@ public static class OrderFood
             Console.WriteLine("Reservation code invalid\nPress enter to go back...");
             Console.ReadKey();
             Console.Clear();
-            Start();
+            Start(false);
         }
         string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
 
@@ -324,14 +270,115 @@ public static class OrderFood
                 // Exit the loop after finding the specified code
 
                 Console.WriteLine("--------------");
-                Console.WriteLine($"Total Price: €{totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
+                Console.WriteLine($"Total Price: ${totalprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}");
                 AmountToPay = totalprice;
                 break;
             }
         }
     }
 
+    public static void OptionOne(string code, bool isGuest)
+    {
+        MenuItem.Start();
+        Helper.Say("!", "type '/back' to go back");
+        Console.WriteLine("What would you like to order? Select the number.");
 
+        string inputstr = Console.ReadLine();
+
+        if (inputstr == "/back")
+        {
+            Start(isGuest); // Go back to the previous menu if '/back' is entered
+        }
+
+        bool check = int.TryParse(inputstr, out int input);
+
+        if (!check)
+        {
+            Console.WriteLine("Input format incorrect.");
+            Console.WriteLine("Click enter to go back.");
+            Console.ReadLine();
+            Console.Clear();
+            OptionOne(code, isGuest); // Recursively call the method if input format is incorrect
+        }
+
+        Item item = menu.FirstOrDefault(i => i.Id == input);
+
+        if (item != null)
+        {
+            Console.WriteLine($"You have selected {item.Name}. How many would you like to order?");
+            string quantitystr = Console.ReadLine();
+            check = int.TryParse(quantitystr, out int quantity);
+
+            if (!check)
+            {
+                Console.WriteLine("Input format incorrect.");
+                Console.WriteLine("Click enter to go back.");
+                Console.ReadLine();
+                Console.Clear();
+                OptionOne(code, isGuest); // Recursively call the method if input format is incorrect
+            }
+
+            if (quantity <= 0)
+            {
+                Console.WriteLine("Invalid quantity.");
+                Console.WriteLine("Click enter to go back.");
+                Console.ReadLine();
+                Console.Clear();
+                OptionOne(code, isGuest); // Recursively call the method if quantity is invalid
+            }
+
+            if (orders.ContainsKey(item.Name))
+            {
+                orders[item.Name] += quantity;
+            }
+            else
+            {
+                orders[item.Name] = quantity;
+            }
+
+            ReservationSystem.SetHasOrderdAnything(code);
+            Console.WriteLine($"Successfully added {quantity}x {item.Name} to your cart.");
+            AddOrderJSON(code, item.Id, quantity);
+            Console.WriteLine("Would you like to continue ordering? Y/N");
+            string choices;
+            bool checkloop = true;
+
+            try
+            {
+                choices = Console.ReadLine();
+
+                if (choices.ToUpper() != "Y" && choices.ToUpper() != "N")
+                {
+                    string message = "Please enter a valid answer: Y or N.";
+                    Helper.Error(message);
+                    OptionOne(code, isGuest); // Recursively call the method if invalid input is entered
+                }
+                else if (choices.ToUpper() == "N")
+                {
+                    checkloop = false;
+                }
+            }
+            catch (FormatException)
+            {
+                string message = "Please enter a valid answer: Y or N.";
+                Helper.Error(message);
+                OptionOne(code, isGuest); // Recursively call the method if invalid input format is entered
+            }
+
+            if (!checkloop)
+            {
+                Start(isGuest); // Go back to the main menu if user chooses not to continue ordering
+            }
+            OptionOne(code, isGuest); // Call the method if option is Y. Go back to ordering. 
+        }
+        else
+        {
+            Console.WriteLine("Invalid Item ID...");
+            Helper.ContinueDisplay();
+            Console.Clear();
+            OptionOne(code, isGuest); // Recursively call the method if invalid item ID is entered
+        }
+    }
     public static void Say(string prefix, string message)
     {
         Console.Write("[");
@@ -339,7 +386,102 @@ public static class OrderFood
         Console.WriteLine("] " + message);
     }
 
-public static void WriteLogo()
+
+    public static void RemoveItemFromOrder(string code)
+    {
+        // Retrieve the order data from the JSON file
+        string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
+        List<Dictionary<string, List<Dictionary<string, int>>>> jsonData;
+        string jsonString = File.ReadAllText(filePath);
+        jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<Dictionary<string, int>>>>>(jsonString);
+
+        // Find the dictionary with the given order code
+        Dictionary<string, List<Dictionary<string, int>>> orderData = jsonData.FirstOrDefault(d => d.ContainsKey(code));
+        if (orderData != null)
+        {
+            // Get the list of item dictionaries from the order data
+            List<Dictionary<string, int>> itemList = orderData[code];
+
+            Console.WriteLine("Your order basket:");
+            Console.WriteLine("--------------");
+
+            // Display the items in the order basket
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                Dictionary<string, int> itemDict = itemList[i];
+                int itemId = itemDict["itemId"];
+                int quantity = itemDict["quantity"];
+                Item item = menu.FirstOrDefault(item => item.Id == itemId);
+
+                if (item != null)
+                {
+                    Console.WriteLine($"{i + 1}. {item.Name} (Quantity: {quantity})");
+                }
+            }
+
+            Console.WriteLine("--------------");
+
+            try
+            {
+                // Prompt the user to select an item to remove
+                Console.WriteLine("Enter the number of the item to remove:");
+                int selectedIndex = int.Parse(Console.ReadLine());
+
+                if (selectedIndex >= 1 && selectedIndex <= itemList.Count)
+                {
+                    Dictionary<string, int> selectedItem = itemList[selectedIndex - 1];
+                    Item item = menu.FirstOrDefault(i => i.Id == selectedItem["itemId"]);
+                    int currentQuantity = selectedItem["quantity"];
+
+                    Console.WriteLine($"Enter the quantity to remove (1-{currentQuantity}):");
+                    int quantityToRemove = int.Parse(Console.ReadLine());
+
+                    if (quantityToRemove >= 1 && quantityToRemove <= currentQuantity)
+                    {
+                        if (quantityToRemove == currentQuantity)
+                        {
+                            itemList.RemoveAt(selectedIndex - 1);
+                        }
+                        else
+                        {
+                            selectedItem["quantity"] -= quantityToRemove;
+                        }
+
+                        // Serialize the updated JSON data and write it back to the file
+                        string updatedJsonString = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
+                        File.WriteAllText(filePath, updatedJsonString);
+
+                        Console.WriteLine("Item(s) removed from the order.");
+                        
+                    }
+                    else
+                    {
+
+                        Console.WriteLine("Invalid quantity to remove."); // Error message and sending user back to the start of the removeItemFromOrder method
+                        RemoveItemFromOrder(code);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid item selection."); // Error message and sending user back to the start of the removeItemFromOrder method
+                    RemoveItemFromOrder(code);
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid input format. Please enter a valid number."); // Error message and sending user back to the start of the removeItemFromOrder method
+                RemoveItemFromOrder(code);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Order not found. Try again"); // Error message and sending user back to the start of the removeItemFromOrder method
+            RemoveItemFromOrder(code);
+        }
+    }
+
+
+    public static void WriteLogo()
 {
     Console.ForegroundColor = ConsoleColor.Blue;
     Console.WriteLine(@"   ___          _           _             
