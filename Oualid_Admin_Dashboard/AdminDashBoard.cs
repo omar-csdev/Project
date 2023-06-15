@@ -16,8 +16,9 @@ public static class AdminDashboard
             WriteLogo();
             WriteToConsole(1, "Reservations");
             WriteToConsole(2, "Menu");
-            WriteToConsole(3, "View Accounts");
-            WriteToConsole(4, "Log out");
+            WriteToConsole(3, "Manage Menu Accounts");
+            WriteToConsole(4, "Manage statistics");
+            WriteToConsole(5, "Log out");
             int input = Convert.ToInt32(Console.ReadLine());
             if (input == 1)
 
@@ -32,10 +33,14 @@ public static class AdminDashboard
             {
                 AdminManager.Start();
             }
-            else if (input == 4)
+            else if (input == 4) 
+            {
+                StatisticsMenu.Start();
+            }
+            else if (input == 5)
             {
                 //Log out
-                List<Admin> test = LoginAccess.LoadAll("admindata.json");
+                List<Admin> test = LoginAccess.LoadAll();
                 foreach (Admin admin in test)
                 {
                     admin.IsLoggedIn = false;

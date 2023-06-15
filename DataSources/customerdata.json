@@ -2,7 +2,7 @@
   {
     "IsLoggedIn": false,
     "ID": 1,
-    "UserNameSetter": "cho",
+    "UserNameSetter": "Elfarouq",
     "PasswordSetter": "cho123!"
   },
   {
@@ -18,9 +18,24 @@
     "PasswordSetter": "!1"
   },
   {
-    "IsLoggedIn": true,
+    "IsLoggedIn": false,
     "ID": 4,
+
     "UserNameSetter": "abc",
     "PasswordSetter": "a!1"
+    "UserNameSetter": "Omar",
+    "PasswordSetter": "123!"
+  },
+  {
+    "IsLoggedIn": false,
+    "ID": 5,
+    "UserNameSetter": "TESTINGnow",
+    "PasswordSetter": "123!"
+  },
+  {
+    "IsLoggedIn": false,
+    "ID": 6,
+    "UserNameSetter": "chox",
+    "PasswordSetter": "1!"
   }
 ]

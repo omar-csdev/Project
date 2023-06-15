@@ -42,7 +42,7 @@ static class AdminMenuView
                         break;
                     }else{
                         Console.WriteLine("Error! Please choose a valid option!", Color.Red);
-                        Thread.Sleep(1500);
+                        Helper.ContinueDisplay();
                     }
                 }
             }

@@ -1,10 +1,62 @@
 [
   {
+    "Name": "Olivier",
+    "LastName": "Schutte",
+    "groupSize": 6,
+    "Code": "WF4483",
+    "TimeSlot": "2023-06-25T17:30:00",
+    "CustomerId": 4,
+    "Paid": false,
+    "HasOrderdAnything": false
+  },
+  {
     "Name": "a",
     "LastName": "b",
+    "groupSize": 1,
+    "Code": "CQ4318",
+    "TimeSlot": "2023-06-27T12:30:00",
+    "CustomerId": 3,
+    "Paid": false,
+    "HasOrderdAnything": false
+  },
+  {
+    "Name": "g",
+    "LastName": "f",
     "groupSize": 2,
-    "Code": "MP0064",
-    "TimeSlot": "2023-06-22T15:00:00",
-    "CustomerId": 4
+    "Code": "HJ4103",
+    "TimeSlot": "2023-06-20T17:30:00",
+    "CustomerId": 3,
+    "Paid": false,
+    "HasOrderdAnything": false
+  },
+  {
+    "Name": "Elfarouq",
+    "LastName": "Bakr",
+    "groupSize": 1,
+    "Code": "XC4790",
+    "TimeSlot": "2023-06-29T12:30:00",
+    "CustomerId": 3,
+    "Paid": false,
+    "HasOrderdAnything": false
+  },
+  {
+    "Name": "ELfarouq",
+    "LastName": "Bakr",
+    "groupSize": 2,
+    "Code": "WH5659",
+    "TimeSlot": "2023-06-16T17:30:00",
+    "CustomerId": 3,
+    "Paid": false,
+    "HasOrderdAnything": true
+  },
+  {
+    "Name": "A",
+    "LastName": "B",
+    "groupSize": 1,
+    "Code": "LH9013",
+    "TimeSlot": "2023-06-20T17:30:00",
+    "CustomerId": 0,
+    "Paid": false,
+    "HasOrderdAnything": true
   }
 ]

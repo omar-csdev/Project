@@ -30,21 +30,24 @@ public static class CustomerDashboard
             GetReservationsForCustomer();
             Console.WriteLine($"Logged in as: {customer.UserNameSetter}");
             WriteToConsole(1, "Make new reservation");
-            WriteToConsole(2, "View upcoming reservations");
-            WriteToConsole(3, "View all reservations");
-            WriteToConsole(4, "Edit account");
-            WriteToConsole(5, "Log out");
-            try
+            WriteToConsole(2, "Cancel a reservation");
+            WriteToConsole(3, "View upcoming reservations");
+            WriteToConsole(4, "View all reservations");
+            WriteToConsole(5, "Make order");
+            WriteToConsole(6, "Edit account");
+            WriteToConsole(7, "Log out");
+            string ? input = Console.ReadLine();
+            switch (input)
             {
-                string? input = Console.ReadLine();
-                switch (input)
-                {
-                    case "1":
-                        Project.Olivier_Reservations.Reservations.Reservationstart();
-                        break;
-                    case "2":
-                        Console.Clear();
-                        WriteLogo(@"
+                case "1":
+                    Project.Olivier_Reservations.Reservations.Reservationstart();
+                    break;
+                case "2":
+                    Project.Olivier_Reservations.CancelReservation.CancelNow();
+                    break;
+                case "3":
+                    Console.Clear();
+                    WriteLogo(@"
   _   _                           _                                                  _   _                 
  | | | |_ __   ___ ___  _ __ ___ (_)_ __   __ _   _ __ ___  ___  ___ _ ____   ____ _| |_(_) ___  _ __  ___ 
  | | | | '_ \ / __/ _ \| '_ ` _ \| | '_ \ / _` | | '__/ _ \/ __|/ _ \ '__\ \ / / _` | __| |/ _ \| '_ \/ __|
@@ -146,6 +149,15 @@ ____             __ _ _
             foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
             {
                 AdminReservationsView.DisplayReservation(reservation);
+                loggedInCustomer.IsLoggedIn = false;
+                CustomerAccess.WriteAll(accounts);
+                MainMenu.NewStart(false);
+            }   
+            else
+            {
+                Console.WriteLine("Something went wrong! You will be redirected back to the log in page.");
+                Console.ReadKey();
+                AccountManager.LogIn();
             }
         }   
 

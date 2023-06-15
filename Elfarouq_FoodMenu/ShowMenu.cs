@@ -54,6 +54,17 @@ namespace Menu_item_creëren
             createAndDisplayTable(foodItems, "Food Menu");
         }
 
+        public static void DisplayFood(int sort)
+        {
+            var allMenuItems = getMenuItems();
+
+            var foodItems = allMenuItems.Where(item => item.Type == "Food").ToList();
+
+            foodItems = SortingProcess(foodItems, sort);
+
+            createAndDisplayTable(foodItems, "Food Menu");
+        }
+
         public static void DisplayAlcoholic()
         {
             var allMenuItems = getMenuItems();
@@ -61,6 +72,17 @@ namespace Menu_item_creëren
             // Create and display tables for food and drinks
             var foodItems = allMenuItems.Where(item => item.Category == "Alcoholic").ToList();
             createAndDisplayTable(foodItems, "Alcoholic Menu");
+        }
+
+        public static void DisplayAlcoholic(int sort)
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Alcoholic").ToList();
+            foodItems = SortingProcess(foodItems, sort);
+            createAndDisplayTable(foodItems, "Alcoholic Menu");
+
         }
 
         public static void DisplayNonAlcoholic()
@@ -72,12 +94,31 @@ namespace Menu_item_creëren
             createAndDisplayTable(foodItems, "Non-Alcoholic Menu");
         }
 
+        public static void DisplayNonAlcoholic(int sort)
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Non-Alcoholic").ToList();
+            foodItems = SortingProcess(foodItems, sort);
+            createAndDisplayTable(foodItems, "Non-Alcoholic Menu");
+        }
         public static void DisplayHalal()
         {
             var allMenuItems = getMenuItems();
 
             // Create and display tables for food and drinks
             var foodItems = allMenuItems.Where(item => item.Category == "Halal").ToList();
+            createAndDisplayTable(foodItems, "Halal Menu");
+        }
+
+        public static void DisplayHalal(int sort)
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Halal").ToList();
+            foodItems = SortingProcess(foodItems, sort);
             createAndDisplayTable(foodItems, "Halal Menu");
         }
 
@@ -90,12 +131,33 @@ namespace Menu_item_creëren
             createAndDisplayTable(foodItems, "Vega Menu");
         }
 
+        public static void DisplayVega(int sort)
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Vega").ToList();
+            foodItems = SortingProcess(foodItems, sort);
+            foodItems = SortingProcess(foodItems, sort);
+            createAndDisplayTable(foodItems, "Vega Menu");
+        }
+
         public static void DisplayVegan()
         {
             var allMenuItems = getMenuItems();
 
             // Create and display tables for food and drinks
             var foodItems = allMenuItems.Where(item => item.Category == "Vegan").ToList();
+            createAndDisplayTable(foodItems, "Vegan Menu");
+        }
+
+        public static void DisplayVegan(int sort)
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "Vegan").ToList();
+            foodItems = SortingProcess(foodItems, sort);
             createAndDisplayTable(foodItems, "Vegan Menu");
         }
 
@@ -108,12 +170,32 @@ namespace Menu_item_creëren
             createAndDisplayTable(foodItems, "General Menu");
         }
 
+        public static void DisplayGeneral(int sort)
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var foodItems = allMenuItems.Where(item => item.Category == "General").ToList();
+            foodItems = SortingProcess(foodItems, sort);
+            createAndDisplayTable(foodItems, "General Menu");
+        }
+
         public static void DisplayDrink()
         {
             var allMenuItems = getMenuItems();
 
             // Create and display tables for food and drinks
             var drinkItems = allMenuItems.Where(item => item.Type == "Drink").ToList();
+            createAndDisplayTable(drinkItems, "Drink Menu");
+        }
+
+        public static void DisplayDrink(int sort)
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var drinkItems = allMenuItems.Where(item => item.Type == "Drink").ToList();
+            drinkItems = SortingProcess(drinkItems, sort);
             createAndDisplayTable(drinkItems, "Drink Menu");
         }
         public static void DisplayFullMenu()
@@ -125,12 +207,23 @@ namespace Menu_item_creëren
             createAndDisplayTable(FullMenuItems, "Whole Menu");
         }
 
+        public static void DisplayFullMenu(int sort)
+        {
+            var allMenuItems = getMenuItems();
+
+            // Create and display tables for food and drinks
+            var FullMenuItems = allMenuItems.Where(item => item.Type == "Drink" || item.Type == "Food").ToList();
+            FullMenuItems = SortingProcess(FullMenuItems, sort);
+            createAndDisplayTable(FullMenuItems, "Whole Menu");
+        }
+
         private static List<Item> getMenuItems()
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\menu.json");
             string JSONString = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
         }
+
 
 
         private static void createAndDisplayTable(List<Item> items, string tableName)
@@ -150,6 +243,79 @@ namespace Menu_item_creëren
             table.Configure(o => o.EnableCount = false);
             table.Write(Format.Default);
             Console.WriteLine();
+        }
+
+        public static int AskSort()
+        {
+            while (true)
+            {
+                Console.WriteLine("How would you like to sort the menu?");
+                Helper.Say("1", "Sort by price (ascending).");
+                Helper.Say("2", "Sort by price (descending).");
+                Helper.Say("3", "Sort by alphabetic order (a-z).");
+                Helper.Say("4", "Sort by alphabetic order (z-a).");
+                string choice1 = Console.ReadLine();
+                if (choice1 == null)
+                {
+                    Console.WriteLine("Invalid option! Please choose from 1-4");
+                    Helper.ContinueDisplay();
+                    continue;
+                }
+                int choice = Convert.ToInt32(choice1);
+                if (choice > 4 || choice < 1)
+                {
+                    Console.WriteLine("Invalid option! Please choose from 1-4");
+                    Helper.ContinueDisplay();
+                }
+
+                else if (choice == 1)
+                {
+                    return 1;
+                }
+
+                else if (choice == 2)
+                {
+                    return 2;
+                }
+
+                else if (choice == 3)
+                {
+                    return 3;
+                }
+
+                else if (choice == 4)
+                {
+                    return 4;
+                }
+            }
+        }
+
+        public static List<Item> SortingProcess(List<Item> items, int sort)
+        {
+            if (sort == 1)
+            {
+                items = items.OrderBy(x => x.Price).ToList();
+                return items;
+            }
+
+            else if (sort == 2)
+            {
+                items = items.OrderBy(x => x.Price).Reverse().ToList();
+                return items;
+            }
+
+            else if (sort == 3)
+            {
+                items = items.OrderBy(x => x.Name).ToList();
+                return items;
+            }
+
+            else if (sort == 4)
+            {
+                items = items.OrderBy(x => x.Name).Reverse().ToList();
+                return items;
+            }
+            return items;
         }
     }
 }

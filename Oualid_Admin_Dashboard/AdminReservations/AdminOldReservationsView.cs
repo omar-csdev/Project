@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Project.Olivier_Reservations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,6 @@ using System.Linq;
 
 static class AdminOldReservationsView
 {
-    public static List<Project.Olivier_Reservations.Reservation> reservations = Project.Olivier_Reservations.SaveReservations.LoadAll();
     private static Dictionary<int, string> filePaths = new Dictionary<int, string>()
     {
         { 2, @"..\..\..\DataSources\Oldreservations\oldReservationsWithin1YearAgo.json" },
@@ -19,13 +19,13 @@ static class AdminOldReservationsView
 
     public static void ViewOldReservations()
     {
-        Console.WriteLine("1, View All Old Reservations");
-        Console.WriteLine("2, View Reservations from 1 year ago");
-        Console.WriteLine("3, View Reservations from 2 years ago");
-        Console.WriteLine("4, View Reservations from 3 years ago");
-        Console.WriteLine("5, View Reservations from 4 years ago");
-        Console.WriteLine("6, View Reservations from 5 years ago");
-        Console.WriteLine("7, View Reservations from more than 5 years ago");
+        Helper.Say("1", "View All Old Reservations");
+        Helper.Say("2", "View Reservations from 1 year ago");
+        Helper.Say("3", "View Reservations from 2 years ago");
+        Helper.Say("4", "View Reservations from 3 years ago");
+        Helper.Say("5", "View Reservations from 4 years ago");
+        Helper.Say("6", "View Reservations from 5 years ago");
+        Helper.Say("7", "View Reservations from more than 5 years ago");
 
         int choice;
         // Input checks
@@ -61,6 +61,12 @@ static class AdminOldReservationsView
         {
             // View all old reservations
             var allReservations = GetAllOldReservations();
+
+            if (allReservations.Count == 0)
+            {
+                Console.WriteLine("There are no old reservations currently");
+            }
+
             foreach (var reservation in allReservations)
             {
                 PrintReservation(reservation);
@@ -71,6 +77,11 @@ static class AdminOldReservationsView
             string filePath = Path.Combine(Environment.CurrentDirectory, filePaths[choice]);
             string jsonString = File.ReadAllText(filePath);
             List<Reservation> existingReservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString) ?? new List<Reservation>();
+
+            if (existingReservations.Count == 0)
+            {
+                Console.WriteLine("There are no old reservations currently");
+            }
 
             foreach (var reservation in existingReservations)
             {
@@ -101,8 +112,8 @@ static class AdminOldReservationsView
     {
         Console.WriteLine("");
         Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);
-        Console.WriteLine("Group size: " + reservation.GroupSize);
-        Console.WriteLine("Reservation date and time: *NOT WORKING?*");
+        Console.WriteLine("Group size: " + reservation.groupSize);
+        Console.WriteLine("Reservation date and time: " + reservation.TimeSlot);
         Console.WriteLine("Reservation Code: " + reservation.Code);
         Console.WriteLine("");
     }

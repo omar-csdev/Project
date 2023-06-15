@@ -31,7 +31,21 @@ public class Helper
     public static void Succes(string message) 
     {
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine(message);
+        Console.WriteLine(message); 
         Console.ResetColor();
+    }
+
+    public static void DisplayRestaurantLogo()
+    {
+        string logo = @"  ____                  _    ____      _ _ _ 
+ |  _ \ ___  __ _  __ _| |  / ___|_ __(_) | |
+ | |_) / _ \/ _` |/ _` | | | |  _| '__| | | |
+ |  _ <  __/ (_| | (_| | | | |_| | |  | | | |
+ |_| \_\___|\__, |\__,_|_|  \____|_|  |_|_|_|
+            |___/                                                                            
+";
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine(logo);
+        Console.ResetColor ();
     }
 }

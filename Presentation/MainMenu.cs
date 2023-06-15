@@ -1,7 +1,7 @@
 using Project.Olivier_Reservations;
+using System;
 using System.Drawing;
 using Console = Colorful.Console;
-
 static class MainMenu
 {
 
@@ -9,18 +9,17 @@ static class MainMenu
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
 
-    public static void NewStart()
+    public static void NewStart(bool isGuest)
     {
         int choice;
-
         while (true)
         {
             SaveOldReservations.WriteOldReservationsToJSON();
             Console.Clear();
-            WriteLogo();
+            Helper.DisplayRestaurantLogo();
             Helper.Say("1", "Login");
             Helper.Say("2", "Create Account");
-            Helper.Say("3", "View Menu");
+            Helper.Say("3", "Continue as guest");
             Helper.Say("4", "Admin");
             Helper.Say("5", "Exit");
             choice = int.Parse(Console.ReadLine());
@@ -29,10 +28,11 @@ static class MainMenu
             {
                 case 1:
                     // Handle Option 1
-                    //Sign the User in
+                    // Sign the User in
 
-                    //SignIn();
-                    //invoke LoggedInUser();
+                    // SignIn();
+                    // Invoke LoggedInUser();
+                    //LoggedInUser(isGuest);
                     AccountManager.LogIn();
                     break;
                 case 2:
@@ -40,8 +40,9 @@ static class MainMenu
                     AccountManager.CreateAccount();
                     break;
                 case 3:
+                    isGuest = true;
                     // Handle Option 3
-                    FoodMenu.Start();
+                    ContinueAsGuest(isGuest); // Pass the isGuest parameter
                     break;
                 case 4:
                     // Handle Option 4
@@ -49,7 +50,9 @@ static class MainMenu
                     break;
                 case 5:
                     Console.WriteLine("Exiting...");
+                    Environment.Exit(0);
                     return; // Breaks out of the method, terminating the program
+                            // Does not work, goes back to admin for example if you log in as admin and then logout and return to main window instead of quitting.
                 default:
                     Helper.ErrorDisplay("1, 2, 3, 4 or 5");
                     break;
@@ -58,17 +61,18 @@ static class MainMenu
             Console.WriteLine(); // Empty line for spacing
         }
     }
-    public static void LoggedInUser()
+
+    public static void ContinueAsGuest(bool isGuest)
     {
         int choice;
 
         while (true)
         {
             Console.Clear();
-            WriteLogo();
+            Helper.DisplayRestaurantLogo();
             Helper.Say("1", "Make a Reservation");
             Helper.Say("2", "View Menu");
-            Helper.Say("3", "Sign Out");
+            Helper.Say("3", "Go back to main menu");
             choice = int.Parse(Console.ReadLine());
             switch (choice)
             {
@@ -79,12 +83,12 @@ static class MainMenu
                 case 2:
                     // Handle Option 2
                     Console.Clear();
-                    FoodMenu.Start();
+                    FoodMenu.Start(isGuest); // Pass the isGuest parameter
                     break;
                 case 3:
-                    //Sign the User out in the JSON
+                    // Sign the User out in the JSON
                     // Return the User to the start screen
-                    NewStart();
+                    NewStart(isGuest);
                     break;
                 default:
                     Helper.ErrorDisplay("1, 2 or 3");
@@ -93,18 +97,5 @@ static class MainMenu
 
             Console.WriteLine(); // Empty line for spacing
         }
-    }
-
-    public static void WriteLogo()
-    {
-        string logo = @"  ____           _                              _   
- |  _ \ ___  ___| |_ __ _ _   _ _ __ __ _ _ __ | |_ 
- | |_) / _ \/ __| __/ _` | | | | '__/ _` | '_ \| __|
- |  _ <  __/\__ \ || (_| | |_| | | | (_| | | | | |_ 
- |_| \_\___||___/\__\__,_|\__,_|_|  \__,_|_| |_|\__|
-                                                    
-";
-
-        Console.WriteLine(logo, Color.Wheat);
     }
 }

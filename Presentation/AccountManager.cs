@@ -22,8 +22,14 @@ public static class AccountManager
         {
             Console.Clear();
             Console.WriteLine("Creating Account");
+            Helper.Say("!", "Type '/back' to go back to the main menu");
             Console.WriteLine("Enter a username:");
             username = Console.ReadLine();
+            if (username == "/back")
+            {
+                MainMenu.NewStart(true);
+            }
+
             if (username != null && usernames.Contains(username) == false)
             {
                 askingName = false;
@@ -32,7 +38,7 @@ public static class AccountManager
             else
             {
                 Helper.Say("!", "Username unavailable");
-                Thread.Sleep(2500);
+                Helper.ContinueDisplay();
             }
         }
 
@@ -49,7 +55,14 @@ public static class AccountManager
             int checking = 0;
             Console.WriteLine("Enter a password:");
             Helper.Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
+            Helper.Say("!", "Type '/back' to go back to the main menu");
             password = Console.ReadLine();
+
+            if (password == "/back")
+            {
+                MainMenu.NewStart(true);
+            }
+
             foreach (char character in password)
             {
                 if (symbols.Contains(character))
@@ -67,7 +80,7 @@ public static class AccountManager
             else
             {
                 Helper.Say("!", "Password does not meet criteria");
-                Thread.Sleep(2500);
+                Helper.ContinueDisplay();
             }
         }
 
@@ -76,20 +89,30 @@ public static class AccountManager
         Console.WriteLine($"Registered user {username} succesfully!");
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
-        MainMenu.NewStart();
+        MainMenu.NewStart(false);
     }
 
     public static void LogIn()
     {
         Console.Clear();
         Console.WriteLine("Logging in");
+        Helper.Say("!", "Type '/back' to go back to the main menu");
         List<CustomerAccount> accounts = CustomerAccess.LoadAll();
+        foreach (CustomerAccount account in accounts)
+        {
+            account.IsLoggedIn = false;
+        }
+        CustomerAccess.WriteAll(accounts);
         string username = null;
         bool askingUsername = true;
         while (askingUsername)
         {
             Console.WriteLine("Username:");
             username = Console.ReadLine();
+            if (username == "/back")
+            {
+                MainMenu.NewStart(true);
+            }
             int check = 0;
             foreach (CustomerAccount i in accounts)
             {
@@ -103,7 +126,7 @@ public static class AccountManager
             if (check == 0)
             {
                 Console.WriteLine("Username doesn't exist!", Color.Red);
-                Thread.Sleep(2500);
+                Helper.ContinueDisplay();
 
             }
 
@@ -125,11 +148,12 @@ public static class AccountManager
                 customer.IsLoggedIn = true;
                 CustomerAccess.WriteAll(accounts);
                 Console.WriteLine($"User {username} logged in succesfully!");
-                Thread.Sleep(3000);
+                Helper.ContinueDisplay();
                 CustomerDashboard.DisplayDashboard();
             }
         }
         Helper.Say("!", "No users found with the matching credentials");
-        Thread.Sleep(3000);
+        Helper.ContinueDisplay();
+        MainMenu.NewStart(false);
     }
 }
