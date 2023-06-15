@@ -20,7 +20,7 @@ public static class OrderFood
     public static List<Item> menu = JsonConvert.DeserializeObject<List<Item>>(JSONString) ?? new List<Item>();
     public static Dictionary<string, int> orders = new Dictionary<string, int>();
     public static double AmountToPay;
-    public static void Start()
+    public static void Start(bool isGuest)
     {
         Console.Clear();
         WriteLogo();
@@ -40,7 +40,7 @@ public static class OrderFood
                 {
                     string message = ("Please enter a valid number between 1 and 5.");
                     Helper.Error(message);
-                    Start();
+                    Start(isGuest);
                 }
                 break;
             }
@@ -48,13 +48,13 @@ public static class OrderFood
             {
                 string message = ("Please enter a valid number between 1 and 5.");
                 Helper.Error(message);
-                Start();
+                Start(isGuest);
             }
             catch (Exception ex)
             {
                 string message = ex.Message;
                 Helper.Error(message);
-                Start();
+                Start(isGuest);
             }
         }
         if (firstinput == 1)
@@ -67,7 +67,7 @@ public static class OrderFood
             List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
             if (code.ToUpper() == "B") 
             {
-                Start();
+                Start(isGuest);
             }
             foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
             {
@@ -81,7 +81,7 @@ public static class OrderFood
                 Console.WriteLine("Reservation code invalid\nPress enter to go back...");
                 Console.ReadKey();
                 Console.Clear();
-                Start();
+                Start(isGuest);
             }
             MenuItem.Start();
             Helper.Say("B", "Go back");
@@ -90,7 +90,7 @@ public static class OrderFood
             string inputstr = Console.ReadLine();
             if (inputstr.ToUpper() == "B")
             {
-                Start();
+                Start(isGuest);
             }
             bool check = int.TryParse(inputstr, out int input);
             if (!check)
@@ -99,7 +99,7 @@ public static class OrderFood
                 Console.WriteLine("Click enter to go back.");
                 Console.ReadLine();
                 Console.Clear();
-                Start();
+                Start(isGuest);
 
             }
             Item item = menu.FirstOrDefault(i => i.Id == input);
@@ -114,7 +114,7 @@ public static class OrderFood
                     Console.WriteLine("Click enter to go back.");
                     Console.ReadLine();
                     Console.Clear();
-                    Start();
+                    Start(isGuest);
                 }
                 if (quantity <= 0)
                 {
@@ -122,7 +122,7 @@ public static class OrderFood
                     Console.WriteLine("Click enter to go back.");
                     Console.ReadLine();
                     Console.Clear();
-                    Start();
+                    Start(isGuest);
                 }
                 if (orders.ContainsKey(item.Name))
                 {
@@ -137,14 +137,14 @@ public static class OrderFood
                 AddOrderJSON(code, item.Id, quantity);
                 Helper.ContinueDisplay();
                 Console.Clear();
-                Start();
+                Start(isGuest);
             }
             else
             {
                 Console.WriteLine("Invalid Item ID...");
                 Helper.ContinueDisplay();
                 Console.Clear();
-                Start();
+                Start(isGuest);
             }
         }
         else if (firstinput == 2)
@@ -152,7 +152,7 @@ public static class OrderFood
             Console.Clear();
             MenuItem.Start();
             Helper.ContinueDisplay();
-            Start();
+            Start(isGuest);
         }
         else if (firstinput == 3)
         {
@@ -160,9 +160,9 @@ public static class OrderFood
             Console.Clear();
             Console.WriteLine("Please enter your reservation code: ");
             string code = Console.ReadLine();
-            TotalPrice(code);
+            TotalPrice(code, isGuest);
             Helper.ContinueDisplay();
-            Start();
+            Start(isGuest);
 
         }
         else if (firstinput == 4)
@@ -175,20 +175,20 @@ public static class OrderFood
             {
                 if (ReservationSystem.IsAnythingOrderd(code))
                 {
-                    TotalPrice(code);
+                    TotalPrice(code, isGuest);
                 }
                 else
                 {
                     Console.WriteLine("\nYou have not orderd anything yet.");
                     Helper.ContinueDisplay();
-                    Start();
+                    Start(isGuest);
                 }
             }
             else
             {
                 Console.WriteLine("\nYour reservation has already been paid for.");
                 Helper.ContinueDisplay();
-                Start();
+                Start(isGuest);
             }
             Console.WriteLine("\nPress a key to continue to the payment...");
             Console.ReadLine();
@@ -198,13 +198,28 @@ public static class OrderFood
         else if (firstinput == 5)
         {
             Console.Clear();
-            FoodMenu.Start();
+            FoodMenu.Start(isGuest);
         }
         else
         {
             Console.WriteLine("Invalid input. Try again please");
             Helper.ContinueDisplay();
         }
+        if (isGuest)
+        {
+            Console.WriteLine("\nOrder placed successfully!");
+            Helper.ContinueDisplay();
+            // Return to the main menu for guests
+            MainMenu.NewStart(isGuest);
+        }
+        else
+        {
+            Console.WriteLine("\nOrder placed successfully!");
+            Helper.ContinueDisplay();
+            // Redirect to the customer dashboard for customers
+            CustomerDashboard.DisplayDashboard();
+        }
+
 
     }
     public static void AddOrderJSON(string orderCode, int itemId, int quantity)
@@ -257,7 +272,7 @@ public static class OrderFood
         File.WriteAllText(filePath, updatedJsonString);
     }
 
-    public static void TotalPrice(string code)
+    public static void TotalPrice(string code, bool isGuest)
     {
         bool found = false;
         Console.Clear();
@@ -275,7 +290,7 @@ public static class OrderFood
             Console.WriteLine("Reservation code invalid\nPress enter to go back...");
             Console.ReadKey();
             Console.Clear();
-            Start();
+            Start(isGuest);
         }
         string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
 

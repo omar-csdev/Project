@@ -17,7 +17,7 @@ namespace Project.Presentation
 
         static void Main(string[] args)
         {
-            MainMenu.NewStart();
+            MainMenu.NewStart(false);
         }
     }
 }

@@ -77,7 +77,7 @@ public static class AccountManager
         Console.WriteLine($"Registered user {username} succesfully!");
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
-        MainMenu.NewStart();
+        MainMenu.NewStart(false);
     }
 
     public static void LogIn()

@@ -28,5 +28,15 @@
     "CustomerId": 3,
     "Paid": false,
     "HasOrderdAnything": false
+  },
+  {
+    "Name": "Elfarouq",
+    "LastName": "Bakr",
+    "groupSize": 1,
+    "Code": "XC4790",
+    "TimeSlot": "2023-06-29T12:30:00",
+    "CustomerId": 3,
+    "Paid": false,
+    "HasOrderdAnything": false
   }
 ]

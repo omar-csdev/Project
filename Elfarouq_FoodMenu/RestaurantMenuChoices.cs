@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ public class MenuChoices
 {
     public static Item[] menu = new Item[0];
 
-    static public void DisplayMenuOptions()
+    static public void DisplayMenuOptions(bool isGuest)
     {
         int choice;
         Console.Clear();
@@ -29,7 +30,7 @@ public class MenuChoices
                 {
                     string message = ("Please enter a valid number between 1 and 3.");
                     Helper.Error(message);
-                    DisplayMenuOptions();
+                    DisplayMenuOptions(isGuest);
                 }
                 break;
             }
@@ -37,13 +38,13 @@ public class MenuChoices
             {
                 string message = ("Please enter a valid number between 1 and 3.");
                 Helper.Error(message);
-                DisplayMenuOptions();
+                DisplayMenuOptions(isGuest);
             }
             catch (Exception ex)
             {
                 string message = ex.Message;
                 Helper.Error(message);
-                DisplayMenuOptions();
+                DisplayMenuOptions(isGuest);
             }
         }
         if (choice == 1)
@@ -68,7 +69,7 @@ public class MenuChoices
                     {
                         string message = ("Please enter a valid number between 1 and 2.");
                         Helper.Error(message);
-                        DisplayMenuOptions();
+                        DisplayMenuOptions(isGuest);
                     }
                     break;
                 }
@@ -76,13 +77,13 @@ public class MenuChoices
                 {
                     string message = ("Please enter a valid number between 1 and 2.");
                     Helper.Error(message);
-                    DisplayMenuOptions();
+                    DisplayMenuOptions(isGuest);
                 }
                 catch (Exception ex)
                 {
                     string message = ex.Message;
                     Helper.Error(message);
-                    DisplayMenuOptions();
+                    DisplayMenuOptions(isGuest);
                 }
             }
             if (type == 1)
@@ -125,7 +126,7 @@ public class MenuChoices
                     {
                         string message = ("Please enter a valid number between 1 and 6.");
                         Helper.Error(message);
-                        DisplayMenuOptions();
+                        DisplayMenuOptions(isGuest);
                     }
                     break;
                 }
@@ -133,15 +134,16 @@ public class MenuChoices
                 {
                     string message = ("Please enter a valid number between 1 and 6.");
                     Helper.Error(message);
-                    DisplayMenuOptions();
+                    DisplayMenuOptions(isGuest);
                 }
                 catch (Exception ex)
                 {
                     string message = ex.Message;
                     Helper.Error(message);
-                    DisplayMenuOptions();
+                    DisplayMenuOptions(isGuest);
                 }
             }
+
 
             switch (type)
             {
@@ -183,7 +185,7 @@ public class MenuChoices
         }
         else if (choice == 4)
         {
-            FoodMenu.Start();
+            FoodMenu.Start(isGuest);
         }
         else
         {

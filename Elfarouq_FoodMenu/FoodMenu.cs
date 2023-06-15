@@ -10,62 +10,75 @@ using System.Data;
 
 public static class FoodMenu
 {
-    public static void Start()
+    public static void Start(bool isGuest)
     {
-
         int choice;
-        // Input checks
-            Console.Clear();
-            WriteLogo();
-            Helper.Say("1", "Show food-menu");
-            Helper.Say("2", "Order food");
-            Helper.Say("3", "Go back");
+        Console.Clear();
+        WriteLogo();
+        Helper.Say("1", "view menu filter options");
+        Helper.Say("2", "Make Order");
+        Helper.Say("3", "Go back");
+
         while (true)
         {
-            
             try
             {
                 choice = int.Parse(Console.ReadLine());
+
                 if (choice < 1 || choice > 3)
                 {
-                    string message = ("Please enter a valid number between 1 and 3.");
+                    string message = "Please enter a valid number between 1 and 3.";
                     Helper.Error(message);
-                    Start();
+                    Start(isGuest);
                 }
+
                 break;
             }
             catch (FormatException)
             {
-                string message = ("Please enter a valid number between 1 and 3.");
+                string message = "Please enter a valid number between 1 and 3.";
                 Helper.Error(message);
-                Start();
+                Start(isGuest);
             }
             catch (Exception ex)
             {
                 string message = ex.Message;
                 Helper.Error(message);
-                Start();
+                Start(isGuest);
             }
         }
-            if (choice == 1) 
+
+        if (choice == 1)
+        {
+            Console.Clear();
+            MenuChoices.DisplayMenuOptions(isGuest);
+            Console.WriteLine("\nClick enter to go back");
+            Console.ReadLine();
+            Console.Clear();
+        }
+        else if (choice == 2)
+        {
+            Console.Clear();
+            OrderFood.Start(isGuest);
+            if (isGuest)
             {
+                
                 Console.Clear();
-                MenuChoices.DisplayMenuOptions();
-                Console.WriteLine("\nClick enter to go back");
-                Console.ReadLine();
-                Console.Clear();
-            }
-            if (choice == 2) 
-            {
-                Console.Clear();
-                OrderFood.Start();
-            }
-            if (choice == 3) 
-            {
-                MainMenu.LoggedInUser();
+                MainMenu.NewStart(isGuest);
             }
         }
-        
+        else if (choice == 3)
+        {
+            if (isGuest)
+            {
+                MainMenu.NewStart(isGuest);
+            }
+            else
+            {
+                CustomerDashboard.DisplayDashboard();
+            }
+        }
+    }
 
     public static void WriteLogo()
     {
@@ -78,7 +91,5 @@ public static class FoodMenu
                                                                                                 
 ");
         Console.ResetColor();
-
-        
     }
 }

@@ -25,7 +25,7 @@ public class Payment
                     Console.WriteLine($"You have successfully paid €{amount}");
                     Helper.ContinueDisplay();
                     Console.Clear();
-                    OrderFood.Start();
+                    OrderFood.Start(false);
                 }
                 else
                 {
@@ -42,12 +42,12 @@ public class Payment
                 Console.WriteLine($"You have successfully paid €{amount}");
                 Helper.ContinueDisplay();
                 Console.Clear();
-                OrderFood.Start();
+                OrderFood.Start(false);
             }
             else if (input == "3")
             {
                 Console.Clear();
-                OrderFood.Start();
+                OrderFood.Start(false);
             }
             else
             {
