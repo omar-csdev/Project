@@ -41,7 +41,7 @@ public static class OrderFood
                 // Validate user input
                 if (firstinput < 1 || firstinput > 6)
                 {
-                    string message = ("Please enter a valid number between 1 and 5.");
+                    string message = ("Please enter a valid number between 1 and 6.");
                     Helper.Error(message);
                     Start(isGuest);
                 }
@@ -49,7 +49,7 @@ public static class OrderFood
             }
             catch (FormatException)
             {
-                string message = ("Please enter a valid number between 1 and 5.");
+                string message = ("Please enter a valid number between 1 and 6.");
                 Helper.Error(message);
                 Start(isGuest);
             }

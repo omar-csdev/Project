@@ -11,7 +11,6 @@ static class MainMenu
 
     public static void NewStart(bool isGuest)
     {
-        int choice;
         while (true)
         {
             SaveOldReservations.WriteOldReservationsToJSON();
@@ -22,9 +21,38 @@ static class MainMenu
             Helper.Say("3", "Continue as guest");
             Helper.Say("4", "Admin");
             Helper.Say("5", "Exit");
-            choice = int.Parse(Console.ReadLine());
+            int firstinput;
+            while (true)
+            {
+                try
+                {
+                    // Read user input as an integer
+                    firstinput = int.Parse(Console.ReadLine());
 
-            switch (choice)
+                    // Validate user input
+                    if (firstinput < 1 || firstinput > 5)
+                    {
+                        string message = ("Please enter a valid number between 1 and 5.");
+                        Helper.Error(message);
+                        NewStart(isGuest);
+                    }
+                    break;
+                }
+                catch (FormatException)
+                {
+                    string message = ("Please enter a valid number between 1 and 5.");
+                    Helper.Error(message);
+                    NewStart(isGuest);
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                    Helper.Error(message);
+                    NewStart(isGuest);
+                }
+            }
+
+            switch (firstinput)
             {
                 case 1:
                     // Handle Option 1
