@@ -47,5 +47,5 @@ public class Helper
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine(logo);
         Console.ResetColor ();
-    }b
+    }
 }

@@ -7,10 +7,12 @@ public class CustomerStatistics
 {
     public static void GenerateCustomerVisits()
     {
+        // Define file paths and directories
         string mainDirectory = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\");
         string reservationsFilePath = Path.Combine(mainDirectory, "Reservations.json");
         string oldReservationsDirectory = Path.Combine(mainDirectory, "oldReservations");
 
+        // Create a list of JSON file paths
         List<string> jsonFiles = new List<string>
     {
         reservationsFilePath,
@@ -22,8 +24,10 @@ public class CustomerStatistics
         Path.Combine(oldReservationsDirectory, "oldReservationsMoreThan5YearsAgo.json")
     };
 
+        // Create a dictionary to store customer visits
         Dictionary<int, int> customerVisits = new Dictionary<int, int>();
 
+        // Get current date and calculate past years' dates
         DateTime dateNow = DateTime.Now;
         DateTime date1 = dateNow.AddYears(-1);
         DateTime date2 = dateNow.AddYears(-2);
@@ -32,16 +36,23 @@ public class CustomerStatistics
         DateTime date5 = dateNow.AddYears(-5);
         DateTime date5plus = dateNow.AddYears(-6);
 
+        // Process each JSON file
         foreach (string file in jsonFiles)
         {
+            // Read JSON file content
             string jsonString = File.ReadAllText(file);
+
+            // Deserialize JSON content into a list of Reservation objects
             List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString) ?? new List<Reservation>();
 
+            // Process each reservation
             foreach (Reservation reservation in reservations)
             {
+                // Extract visit date and group size from each reservation
                 DateTime visitDate = reservation.TimeSlot.Date;
                 int groupSize = reservation.groupSize;
 
+                // Determine the visit date's year and update customerVisits dictionary accordingly
                 if (visitDate.Year == dateNow.Year)
                 {
                     if (!customerVisits.ContainsKey(dateNow.Year))
@@ -122,7 +133,10 @@ public class CustomerStatistics
             }
         }
 
+        // Create a console table for displaying results
         ConsoleTable table = new ConsoleTable("Year", "Total Visits");
+
+        // Add rows to the table for each year and its corresponding total visits
         table.AddRow(dateNow.Year, customerVisits.GetValueOrDefault(dateNow.Year, 0));
         table.AddRow(date1.Year, customerVisits.GetValueOrDefault(date1.Year, 0));
         table.AddRow(date2.Year, customerVisits.GetValueOrDefault(date2.Year, 0));
@@ -131,8 +145,10 @@ public class CustomerStatistics
         table.AddRow(date5.Year, customerVisits.GetValueOrDefault(date5.Year, 0));
         table.AddRow(date5plus.Year, customerVisits.GetValueOrDefault(date5plus.Year, 0));
 
-        table.Configure(o =>o.EnableCount = false);
+        // Configure the table's options
+        table.Configure(o => o.EnableCount = false);
 
+        // Write the table to the console
         table.Write();
     }
 

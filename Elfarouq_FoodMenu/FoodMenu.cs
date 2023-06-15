@@ -52,9 +52,6 @@ public static class FoodMenu
         {
             Console.Clear();
             MenuChoices.DisplayMenuOptions(isGuest);
-            Console.WriteLine("\nClick enter to go back");
-            Console.ReadLine();
-            Console.Clear();
         }
         else if (choice == 2)
         {

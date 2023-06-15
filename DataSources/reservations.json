@@ -38,5 +38,25 @@
     "CustomerId": 3,
     "Paid": false,
     "HasOrderdAnything": false
+  },
+  {
+    "Name": "ELfarouq",
+    "LastName": "Bakr",
+    "groupSize": 2,
+    "Code": "WH5659",
+    "TimeSlot": "2023-06-16T17:30:00",
+    "CustomerId": 3,
+    "Paid": false,
+    "HasOrderdAnything": true
+  },
+  {
+    "Name": "A",
+    "LastName": "B",
+    "groupSize": 1,
+    "Code": "LH9013",
+    "TimeSlot": "2023-06-20T17:30:00",
+    "CustomerId": 0,
+    "Paid": false,
+    "HasOrderdAnything": true
   }
 ]
