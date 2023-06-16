@@ -161,6 +161,11 @@ public static class AdminLogin
             Console.Clear();
             MainMenu.NewStart(true);
         }
+        else
+        {
+            Console.Clear();
+            MainMenu.NewStart(true);
+        }
 
     }
 }
