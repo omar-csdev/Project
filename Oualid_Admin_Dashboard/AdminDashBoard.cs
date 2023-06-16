@@ -12,56 +12,66 @@ public static class AdminDashboard
     {
         for (; ; )
         {
-            Console.Clear();
-            WriteLogo();
-            WriteToConsole(1, "Reservations");
-            WriteToConsole(2, "Menu");
-            WriteToConsole(3, "Manage Menu Accounts");
-            WriteToConsole(4, "Manage statistics");
-            WriteToConsole(5, "Log out");
-            int input = Convert.ToInt32(Console.ReadLine());
-            if (input == 1)
-
+            try
             {
-                AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
-            }
-            else if (input == 2)
-            {
-                AdminDashboardMenuDashboard.DisplayMenuDashboard();
-            }
-            else if (input == 3)
-            {
-                AdminManager.Start();
-            }
-            else if (input == 4) 
-            {
-                StatisticsMenu.Start();
-            }
-            else if (input == 5)
-            {
-                //Log out
-                List<Admin> test = LoginAccess.LoadAll();
-                foreach (Admin admin in test)
-                {
-                    admin.IsLoggedIn = false;
-                }
-                LoginAccess.WriteAll(test);
-                
                 Console.Clear();
-                Console.WriteLine("Logged out succesfully!");
-                Console.WriteLine();
-                Console.WriteLine("Press any key to return...");
-                Console.ReadKey(); 
-                AdminLogin.Start();
+                WriteLogo();
+                WriteToConsole(1, "Reservations");
+                WriteToConsole(2, "Menu");
+                WriteToConsole(3, "Manage Menu Accounts");
+                WriteToConsole(4, "Manage statistics");
+                WriteToConsole(5, "Log out");
+                int input = Convert.ToInt32(Console.ReadLine());
+                if (input == 1)
+                {
+                    AdminDashboardReservationsDashboard.DisplayReservationsDashboard();
+                }
+                else if (input == 2)
+                {
+                    AdminDashboardMenuDashboard.DisplayMenuDashboard();
+                }
+                else if (input == 3)
+                {
+                    AdminManager.Start();
+                }
+                else if (input == 4)
+                {
+                    StatisticsMenu.Start();
+                }
+                else if (input == 5)
+                {
+                    // Log out
+                    List<Admin> test = LoginAccess.LoadAll();
+                    foreach (Admin admin in test)
+                    {
+                        admin.IsLoggedIn = false;
+                    }
+                    LoginAccess.WriteAll(test);
+
+                    Console.Clear();
+                    Console.WriteLine("Logged out successfully!");
+                    Console.WriteLine();
+                    Console.WriteLine("Press any key to return...");
+                    Console.ReadKey();
+                    AdminLogin.Start();
+                }
+                else
+                {
+                    Console.WriteLine("Error! Please choose a valid option!");
+                    Console.WriteLine();
+                    Console.WriteLine("Press any key to return...");
+                    Console.ReadKey();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Error! Please choose a valid option!", Color.Red);
+                Console.WriteLine("An error occurred: " + ex.Message);
                 Console.WriteLine();
                 Console.WriteLine("Press any key to return...");
                 Console.ReadKey();
             }
         }
+
     }
 
     public static void WriteToConsole(int prefix, string message)
