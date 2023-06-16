@@ -28,5 +28,15 @@
     "CustomerId": 0,
     "Paid": false,
     "HasOrderdAnything": false
+  },
+  {
+    "Name": "guest",
+    "LastName": "ing",
+    "groupSize": 2,
+    "Code": "RB0210",
+    "TimeSlot": "2023-06-30T20:00:00",
+    "CustomerId": 0,
+    "Paid": false,
+    "HasOrderdAnything": false
   }
 ]

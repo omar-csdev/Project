@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "UserName": "Admin",
+    "Password": "!23",
+    "IsLoggedIn": false
+  },
+  {
+    "UserName": "",
+    "Password": "!1",
+    "IsLoggedIn": false
+  }
+]
