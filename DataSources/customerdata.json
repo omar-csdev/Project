@@ -6,7 +6,7 @@
     "PasswordSetter": "a!1"
   },
   {
-    "IsLoggedIn": true,
+    "IsLoggedIn": false,
     "ID": 2,
     "UserNameSetter": "Fared",
     "PasswordSetter": "123!"

@@ -2,7 +2,7 @@
   {
     "UserName": "Admin",
     "Password": "!23",
-    "IsLoggedIn": false
+    "IsLoggedIn": true
   },
   {
     "UserName": "",

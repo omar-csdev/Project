@@ -10,7 +10,7 @@ public static class AdminDashboard
     //You could edit this to show different menus depending on the user's role
     public static void DisplayDashboard()
     {
-        for (; ; )
+        while(true)
         {
             try
             {
@@ -18,7 +18,7 @@ public static class AdminDashboard
                 WriteLogo();
                 WriteToConsole(1, "Reservations");
                 WriteToConsole(2, "Menu");
-                WriteToConsole(3, "Manage Menu Accounts");
+                WriteToConsole(3, "Manage Accounts");
                 WriteToConsole(4, "Manage statistics");
                 WriteToConsole(5, "Log out");
                 int input = Convert.ToInt32(Console.ReadLine());
@@ -57,21 +57,16 @@ public static class AdminDashboard
                 }
                 else
                 {
-                    Console.WriteLine("Error! Please choose a valid option!");
-                    Console.WriteLine();
-                    Console.WriteLine("Press any key to return...");
-                    Console.ReadKey();
+                    throw new Exception("Invalid input, please choose from option 1-5");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
                 Console.WriteLine();
-                Console.WriteLine("Press any key to return...");
-                Console.ReadKey();
+                Helper.ContinueDisplay();
             }
         }
-
     }
 
     public static void WriteToConsole(int prefix, string message)

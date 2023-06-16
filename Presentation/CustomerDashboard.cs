@@ -68,10 +68,22 @@ public static class CustomerDashboard
   / ___ \| | | | | |  __/\__ \  __/ |   \ V / (_| | |_| | (_) | | | \__ \
  /_/   \_\_|_| |_|  \___||___/\___|_|    \_/ \__,_|\__|_|\___/|_| |_|___/
 ");
-                    Console.WriteLine("Past reservations: ");
-                    DisplayReservations(oldReservations);
-                    Console.WriteLine("Upcoming reservations: ");
-                    DisplayReservations(upcomingReservations);
+                    if(oldReservations.Count == 0 && upcomingReservations.Count == 0)
+                    {
+                        Console.WriteLine("No reservations!");
+                        Helper.ContinueDisplay();
+                        break;
+                    }
+                    if (oldReservations.Count > 0)
+                    {
+                        Console.WriteLine("Past reservations: ");
+                        DisplayReservations(oldReservations);
+                    }
+                    if(upcomingReservations.Count > 0)
+                    {
+                        Console.WriteLine("Upcoming reservations: ");
+                        DisplayReservations(upcomingReservations);
+                    }
                     Helper.ContinueDisplay();
                     break;
                 case "5":
@@ -141,6 +153,7 @@ public static class CustomerDashboard
         {
             if(reservations.Count == 0) {
                 Console.WriteLine("No upcoming reservations!");
+                Helper.ContinueDisplay();
                 CustomerDashboard.DisplayDashboard();
             }
             else
