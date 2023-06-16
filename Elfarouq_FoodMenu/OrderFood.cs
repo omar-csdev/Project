@@ -87,6 +87,11 @@ public static class OrderFood
                 Console.ReadKey();
                 Console.Clear();
             }
+            if (Payment.IsReservationCodeEmpty(code))
+            {
+                ReservationSystem.SetHasOrderdAnything(code, false);
+                ReservationSystem.SetReservationStatusToPaid(code, false);
+            }
             OptionOne(code, isGuest);
         }
         else if (firstinput == 2)
@@ -262,7 +267,7 @@ public static class OrderFood
                     {
                         double itemprice = item.Price * quantity;
                         totalprice += itemprice;
-                        Console.WriteLine($"{quantity}x {item.Name} = {itemprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US")).Replace("?", "€")}");
+                        Console.WriteLine($"{quantity}x {item.Name} = {itemprice.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("en-US")).Replace("?", "$")}");
 
                     }
                 }

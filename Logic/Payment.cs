@@ -65,6 +65,7 @@ public class Payment
             Console.WriteLine(ex.Message);
             Console.ResetColor();
             Helper.ContinueDisplay();
+            Console.Clear();
             AskPay(amount, reservationCode);
         }
     }
