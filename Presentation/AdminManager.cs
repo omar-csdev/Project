@@ -9,6 +9,7 @@ public static class AdminManager
     public static void Start()
     {
         Console.Clear();
+        WriteLogo();
         Helper.Say("1", "View all Customer accounts");
         Helper.Say("2", "View all Admin accounts");
         Helper.Say("3", "Remove Admin");
@@ -263,5 +264,17 @@ public static class AdminManager
             }
         }
         return table;
+    }
+
+    public static void WriteLogo()
+    {
+        string logo = @"     _                             _       
+    / \   ___ ___ ___  _   _ _ __ | |_ ___ 
+   / _ \ / __/ __/ _ \| | | | '_ \| __/ __|
+  / ___ \ (_| (_| (_) | |_| | | | | |_\__ \
+ /_/   \_\___\___\___/ \__,_|_| |_|\__|___/
+                                 ";
+
+        Console.WriteLine(logo, Color.Wheat);
     }
 }

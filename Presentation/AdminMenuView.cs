@@ -9,7 +9,7 @@ static class AdminMenuView
 
     static public void DisplayMenuDisplayOptions()
     {
-        for (; ; )
+        while(true)
         {   
             getMenuItems();
             Console.Clear();
@@ -18,7 +18,7 @@ static class AdminMenuView
             WriteToConsole(2, "View Menu by Type");
             WriteToConsole(3, "Back to Menu Dashboard");
 
-            string? input = Console.ReadLine();
+            string ? input = Console.ReadLine();
 
             if (input == "1")
             {
@@ -30,20 +30,21 @@ static class AdminMenuView
             {
                 WriteToConsole(1, "Food");
                 WriteToConsole(2, "Drink");
-                string type = Convert.ToInt32(Console.ReadLine()) == 1 ? "Food" : "Drink";
+                string ? type = Console.ReadLine();
 
-                for(; ; ){
-                    if(type.ToLower() == "food"){
+                switch(type)
+                {
+                    case "1":
                         displayFoodMenuItems();
                         break;
-                    }
-                    else if(type.ToLower() == "drink"){
+
+                    case "2":
                         displayDrinkMenuItems();
                         break;
-                    }else{
+                    default:
                         Console.WriteLine("Error! Please choose a valid option!", Color.Red);
                         Helper.ContinueDisplay();
-                    }
+                        break;
                 }
             }
             else if (input == "3")
