@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "IsLoggedIn": false,
+    "ID": 1,
+    "UserNameSetter": "Olivier",
+    "PasswordSetter": "a!1"
+  }
+]

@@ -8,5 +8,25 @@
     "CustomerId": 0,
     "Paid": true,
     "HasOrderdAnything": false
+  },
+  {
+    "Name": "test",
+    "LastName": "ing",
+    "groupSize": 1,
+    "Code": "MT1011",
+    "TimeSlot": "2023-06-30T12:30:00",
+    "CustomerId": 0,
+    "Paid": false,
+    "HasOrderdAnything": false
+  },
+  {
+    "Name": "test",
+    "LastName": "ing",
+    "groupSize": 1,
+    "Code": "UR0978",
+    "TimeSlot": "2023-06-30T12:30:00",
+    "CustomerId": 0,
+    "Paid": false,
+    "HasOrderdAnything": false
   }
 ]

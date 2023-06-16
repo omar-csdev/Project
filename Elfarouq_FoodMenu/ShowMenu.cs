@@ -249,45 +249,53 @@ namespace Menu_item_creëren
         {
             while (true)
             {
-                Console.WriteLine("How would you like to sort the menu?");
-                Helper.Say("1", "Sort by price (ascending).");
-                Helper.Say("2", "Sort by price (descending).");
-                Helper.Say("3", "Sort by alphabetic order (a-z).");
-                Helper.Say("4", "Sort by alphabetic order (z-a).");
-                string choice1 = Console.ReadLine();
-                if (choice1 == null)
+                try
                 {
-                    Console.WriteLine("Invalid option! Please choose from 1-4");
+                    Console.WriteLine("How would you like to sort the menu?");
+                    Helper.Say("1", "Sort by price (ascending).");
+                    Helper.Say("2", "Sort by price (descending).");
+                    Helper.Say("3", "Sort by alphabetic order (a-z).");
+                    Helper.Say("4", "Sort by alphabetic order (z-a).");
+                    string choice1 = Console.ReadLine();
+
+                    if (choice1 == null)
+                    {
+                        Console.WriteLine("Invalid option! Please choose from 1-4");
+                        Helper.ContinueDisplay();
+                        continue;
+                    }
+
+                    int choice = Convert.ToInt32(choice1);
+
+                    if (choice > 4 || choice < 1)
+                    {
+                        Console.WriteLine("Invalid option! Please choose from 1-4");
+                        Helper.ContinueDisplay();
+                    }
+                    else if (choice == 1)
+                    {
+                        return 1;
+                    }
+                    else if (choice == 2)
+                    {
+                        return 2;
+                    }
+                    else if (choice == 3)
+                    {
+                        return 3;
+                    }
+                    else if (choice == 4)
+                    {
+                        return 4;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input! Please enter a valid number.");
                     Helper.ContinueDisplay();
-                    continue;
-                }
-                int choice = Convert.ToInt32(choice1);
-                if (choice > 4 || choice < 1)
-                {
-                    Console.WriteLine("Invalid option! Please choose from 1-4");
-                    Helper.ContinueDisplay();
-                }
-
-                else if (choice == 1)
-                {
-                    return 1;
-                }
-
-                else if (choice == 2)
-                {
-                    return 2;
-                }
-
-                else if (choice == 3)
-                {
-                    return 3;
-                }
-
-                else if (choice == 4)
-                {
-                    return 4;
                 }
             }
+
         }
 
         public static List<Item> SortingProcess(List<Item> items, int sort)
