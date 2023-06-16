@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project.Olivier_Reservations
+namespace Project.Presentation
 {
     internal class CancelReservation
     {
@@ -20,57 +20,57 @@ namespace Project.Olivier_Reservations
 
             Console.WriteLine("Enter the reservation code of the reservation you want to cancel");
 
-                try
+            try
+            {
+                string reservationCode = Console.ReadLine().ToUpper();
+                ValidateReservationCode(reservationCode);
+
+                bool codeFound = false;
+                for (int i = existingReservations.Count - 1; i >= 0; i--)
                 {
-                    string reservationCode = Console.ReadLine().ToUpper();
-                    ValidateReservationCode(reservationCode);
-
-                    bool codeFound = false;
-                    for (int i = existingReservations.Count - 1; i >= 0; i--)
+                    if (existingReservations[i].Code == reservationCode)
                     {
-                        if (existingReservations[i].Code == reservationCode)
+                        if (CancelationFee(existingReservations[i].TimeSlot))
                         {
-                            if (CancelationFee(existingReservations[i].TimeSlot))
-                            {
-                                existingReservations.RemoveAt(i);
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("Reservation successfully canceled");
-                                Console.ResetColor();
-                                WriteToJson(existingReservations);
-                                codeFound = true;
-                                Console.WriteLine("Press any key to exit...");
-                                Console.ReadKey();
-                                break;
-                            }
-
+                            existingReservations.RemoveAt(i);
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Reservation successfully canceled");
+                            Console.ResetColor();
+                            WriteToJson(existingReservations);
                             codeFound = true;
                             Console.WriteLine("Press any key to exit...");
                             Console.ReadKey();
                             break;
                         }
-                    }
 
-                    if (!codeFound)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Could not find a reservation linked to this code.");
-                        Console.WriteLine("Check if you have the correct code and try again.");
-                        Console.ResetColor();
+                        codeFound = true;
                         Console.WriteLine("Press any key to exit...");
                         Console.ReadKey();
-                        
+                        break;
                     }
                 }
-                catch (Exception ex)
+
+                if (!codeFound)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"Error: {ex.Message}");
-                    Console.WriteLine("Failed to cancel the reservation, Check your input and try again.");
+                    Console.WriteLine("Could not find a reservation linked to this code.");
+                    Console.WriteLine("Check if you have the correct code and try again.");
                     Console.ResetColor();
                     Console.WriteLine("Press any key to exit...");
                     Console.ReadKey();
+
                 }
             }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine("Failed to cancel the reservation, Check your input and try again.");
+                Console.ResetColor();
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+            }
+        }
         private static bool CancelationFee(DateTime matchedReservation)
         {
             TimeSpan difference = matchedReservation - DateTime.Now;

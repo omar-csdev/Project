@@ -8,12 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Oualid_Customer_Dashboard\**" />
+    <EmbeddedResource Remove="Oualid_Customer_Dashboard\**" />
+    <None Remove="Oualid_Customer_Dashboard\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 
     <PackageReference Include="Colorful.Console" Version="1.2.15" />
 
     <PackageReference Include="ConsoleTables" Version="2.4.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="ScottPlot" Version="4.1.64" />
+    <PackageReference Include="xunit" Version="2.4.2" />
 
   </ItemGroup>
 

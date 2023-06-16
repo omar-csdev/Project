@@ -8,7 +8,8 @@ using Newtonsoft.Json.Linq;
 using System.Globalization;
 using System.Data;
 
-namespace Project.Olivier_Reservations {
+namespace Project.Presentation
+{
     internal class Reservations
     {
 
@@ -298,7 +299,7 @@ namespace Project.Olivier_Reservations {
             // Define the sets of letters and digits that can be used to generate the code.
             const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string digits = "0123456789";
-            
+
             // Create a new random number generator.
             Random random = new Random();
 
@@ -342,7 +343,7 @@ namespace Project.Olivier_Reservations {
             var reservation = reservations.FirstOrDefault(r => r.Code == reservationCode);
 
             if (reservation != null)
-            { 
+            {
                 reservation.Paid = option;
 
                 // Serialize the updated reservations list back to JSON
@@ -471,7 +472,7 @@ namespace Project.Olivier_Reservations {
             }
 
             // Add reservation to the list
-            reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code , CustomerId = customerId});
+            reservations.Add(new Reservation { Name = name, LastName = lastname, groupSize = groupSize, TimeSlot = timeSlot, Code = code, CustomerId = customerId });
 
             Console.WriteLine($"Reservation made for {groupSize} people on {timeSlot:dd-MM-yyyy} at {timeSlot:HH:mm} under the name {name} {lastname}.");
             Console.Write($"Reservation code: ");

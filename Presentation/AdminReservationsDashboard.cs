@@ -1,7 +1,7 @@
 using System.Drawing;
 using Console = Colorful.Console;
 using Newtonsoft.Json;
-using Project.Oualid_Admin_Dashboard.AdminReservations;
+using Project.Logic;
 
 static class AdminDashboardReservationsDashboard
 {

@@ -1,12 +1,12 @@
 using System.Drawing;
 using Console = Colorful.Console;
 using Newtonsoft.Json;
-using Project.Olivier_Reservations;
+using Project.Presentation;
 
 static class AdminReservationsEditor
 {
 
-    public static List<Project.Olivier_Reservations.Reservation> reservations = Project.Olivier_Reservations.SaveReservations.LoadAll();
+    public static List<Reservation> reservations = SaveReservations.LoadAll();
 
     static public void Run()
     {
@@ -27,7 +27,7 @@ static class AdminReservationsEditor
                     {
                         try
                         {
-                            Project.Olivier_Reservations.AdminReservations.Reservationstart();
+                            AdminReservations.Reservationstart();
                         }
                         catch (Exception ex)
                         {
@@ -86,7 +86,7 @@ static class AdminReservationsEditor
                         }
                         else
                         {
-                            Project.Olivier_Reservations.Reservation reservationToUpdate = reservations.FirstOrDefault(r => r.Code == code);
+                            Reservation reservationToUpdate = reservations.FirstOrDefault(r => r.Code == code);
                             if(reservations != null)
                             {
                                 Console.WriteLine("Reservation Name: " + reservationToUpdate.Name);

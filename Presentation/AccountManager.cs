@@ -55,7 +55,7 @@ public static class AccountManager
         bool askingPassword = true;
         while (askingPassword)
         {
-            Console.Clear();
+            Console.WriteLine();
             Console.WriteLine("Creating Account");
             int checking = 0;
             Console.WriteLine("Enter a password:");
@@ -91,6 +91,7 @@ public static class AccountManager
 
         accounts.Add(new CustomerAccount(username, password, accounts));
         CustomerAccess.WriteAll(accounts);
+        Console.WriteLine();
         Console.WriteLine($"Registered user {username} succesfully!");
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
@@ -155,6 +156,7 @@ public static class AccountManager
             {
                 customer.IsLoggedIn = true;
                 CustomerAccess.WriteAll(accounts);
+                Console.WriteLine();
                 Console.WriteLine($"User {username} logged in succesfully!");
                 Helper.ContinueDisplay();
                 CustomerDashboard.DisplayDashboard();

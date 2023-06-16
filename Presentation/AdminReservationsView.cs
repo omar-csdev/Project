@@ -2,11 +2,12 @@ using System.Drawing;
 using Console = Colorful.Console;
 using Newtonsoft.Json;
 using System.Globalization;
+using Project.Presentation;
 
 static class AdminReservationsView
 {
 
-    public static List<Project.Olivier_Reservations.Reservation> reservations = Project.Olivier_Reservations.SaveReservations.LoadAll();
+    public static List<Reservation> reservations = SaveReservations.LoadAll();
 
     static public void Run()
     {
@@ -137,7 +138,7 @@ static class AdminReservationsView
     // Toont alle reserveringen gevonden in de json file reservations.json
     public static void DisplayAllReservations()
     {
-        foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+        foreach (Reservation reservation in reservations)
         {
             DisplayReservation(reservation);
         }
@@ -148,7 +149,7 @@ static class AdminReservationsView
     {
         DateTime inputDate = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
-        foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+        foreach (Reservation reservation in reservations)
         {
             if (reservation.TimeSlot.Date == inputDate)
             {
@@ -160,10 +161,10 @@ static class AdminReservationsView
     //Toont alle reserveringen op basis van gekregen 'name' en 'lastName' als deze geen null is.
     public static void DisplayAllReservationsByName(string name, string ? lastName)
     {
-        Project.Olivier_Reservations.Reservation foundReservation = null;
+        Reservation foundReservation = null;
         
         if (!string.IsNullOrEmpty(lastName)){
-            foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+            foreach (Reservation reservation in reservations)
             {
                 if (!string.IsNullOrEmpty(reservation.LastName)){
                     if (reservation.Name.ToLower() == name.ToLower() && reservation.LastName.ToLower() == lastName.ToLower())
@@ -176,7 +177,7 @@ static class AdminReservationsView
         }
         else
         {
-            foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+            foreach (Reservation reservation in reservations)
             {
                 if (reservation.Name.ToLower() == name.ToLower())
                 {
@@ -201,9 +202,9 @@ static class AdminReservationsView
     //Toont de reservering waar de reserverings code hetzelfde is als de gekregen 'code' parameter. Als deze niet gevonden is wordt dat gemeld.
     public static void DisplayAllReservationsByCode(string code)
     {
-        Project.Olivier_Reservations.Reservation foundReservation = null;
+        Reservation foundReservation = null;
         
-        foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+        foreach (Reservation reservation in reservations)
         {
             if (reservation.Code == code)
             {
@@ -223,7 +224,7 @@ static class AdminReservationsView
     }
 
     //Displays a reservations information
-    public static void DisplayReservation(Project.Olivier_Reservations.Reservation reservation)
+    public static void DisplayReservation(Reservation reservation)
     {
         Console.WriteLine();
         Console.WriteLine("Name: " + reservation.Name + " " + reservation.LastName);

@@ -1,13 +1,14 @@
 ﻿using System.Drawing;
 using Console = Colorful.Console;
 using Newtonsoft.Json;
+using Project.Presentation;
 
 public static class CustomerDashboard
 {
 
     
     private static CustomerAccount customer { get; set; }    
-    private static List<Project.Olivier_Reservations.Reservation> upcomingReservations { get; set; }
+    private static List<Reservation> upcomingReservations { get; set; }
   
     private static Dictionary<int, string> filePaths = new Dictionary<int, string>()
     {
@@ -39,10 +40,10 @@ public static class CustomerDashboard
             switch (input)
             {
                 case "1":
-                    Project.Olivier_Reservations.Reservations.Reservationstart();
+                    Reservations.Reservationstart();
                     break;
                 case "2":
-                    Project.Olivier_Reservations.CancelReservation.CancelNow();
+                    CancelReservation.CancelNow();
                     break;
                 case "3":
                     Console.Clear();
@@ -58,7 +59,7 @@ public static class CustomerDashboard
                     Helper.ContinueDisplay();
                     break;
                 case "4":
-                    List<Project.Olivier_Reservations.Reservation> oldReservations = GetAllOldReservations();
+                    List<Reservation> oldReservations = GetAllOldReservations();
                     Console.Clear();
                     WriteLogo(@"
      _    _ _                                      _   _                 
@@ -133,10 +134,10 @@ public static class CustomerDashboard
         }
         public static void GetReservationsForCustomer()
         {
-            List<Project.Olivier_Reservations.Reservation> allreservations = Project.Olivier_Reservations.SaveReservations.LoadAll();
+            List<Reservation> allreservations = SaveReservations.LoadAll();
             upcomingReservations = allreservations.Where(r => r.CustomerId == customer.ID).ToList();
         }
-        public static void DisplayReservations(List<Project.Olivier_Reservations.Reservation> reservations)
+        public static void DisplayReservations(List<Reservation> reservations)
         {
             if(reservations.Count == 0) {
                 Console.WriteLine("No upcoming reservations!");
@@ -144,7 +145,7 @@ public static class CustomerDashboard
             }
             else
             {
-                foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+                foreach (Reservation reservation in reservations)
                 {
                     AdminReservationsView.DisplayReservation(reservation);
                 }
@@ -169,15 +170,15 @@ public static class CustomerDashboard
             }
         }
 
-        private static List<Project.Olivier_Reservations.Reservation> GetAllOldReservations()
+        private static List<Reservation> GetAllOldReservations()
         {
-            var allReservations = new List<Project.Olivier_Reservations.Reservation>();
+            var allReservations = new List<Reservation>();
 
             foreach (var filePath in filePaths.Values)
             {
                 string fullPath = Path.Combine(Environment.CurrentDirectory, filePath);
                 string jsonString = File.ReadAllText(fullPath);
-                List<Project.Olivier_Reservations.Reservation> reservations = JsonConvert.DeserializeObject<List<Project.Olivier_Reservations.Reservation>>(jsonString) ?? new List<Project.Olivier_Reservations.Reservation>();
+                List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(jsonString) ?? new List<Reservation>();
                 allReservations.AddRange(reservations.Where(r => r.CustomerId == customer.ID));
         }
 

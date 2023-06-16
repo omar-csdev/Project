@@ -1,6 +1,5 @@
-﻿using Menu_item_creëren;
-using Newtonsoft.Json;
-using Project.Olivier_Reservations;
+﻿using Newtonsoft.Json;
+using Project.Presentation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -68,12 +67,12 @@ public static class OrderFood
             Helper.Say("!", "Type '/back' to go back");
             Console.WriteLine("Please enter your reservation code: ");
             string code = Console.ReadLine();
-            List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
+            List<Reservation> reservations = SaveReservations.LoadAll();
             if (code == "/back")
             {
                 Start(isGuest);
             }
-            foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+            foreach (Reservation reservation in reservations)
             {
                 // Check if the reservation code exists
                 if (reservation.Code == code)
@@ -220,8 +219,8 @@ public static class OrderFood
         bool found = false;
         Console.Clear();
 
-        List<Project.Olivier_Reservations.Reservation> reservations = SaveReservations.LoadAll();
-        foreach (Project.Olivier_Reservations.Reservation reservation in reservations)
+        List<Reservation> reservations = SaveReservations.LoadAll();
+        foreach (Reservation reservation in reservations)
         {
             if (reservation.Code == code)
             {

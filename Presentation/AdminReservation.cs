@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Globalization;
 using System.Data;
 
-namespace Project.Olivier_Reservations
+namespace Project.Presentation
 {
     internal class AdminReservations
     {

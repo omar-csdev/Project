@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Menu_item_creëren
+namespace Project.Presentation
 {
     static class MenuItem
     {
@@ -235,7 +235,7 @@ namespace Menu_item_creëren
             {
                 string formattedPrice = string.Format("${00:N2}", item.Price);
                 table.AddRow(item.Id, item.Name, formattedPrice);
-                
+
             }
 
             // Display table with given name
