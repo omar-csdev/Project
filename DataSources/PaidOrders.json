@@ -16,5 +16,11 @@
     "CustomerId": 2,
     "PaidTime": "2023-06-16T16:16:44.952298+02:00",
     "TotalPrice": 36.0
+  },
+  {
+    "ReservationCode": "XG1370",
+    "CustomerId": 3,
+    "PaidTime": "2023-06-16T23:53:19.8742791+02:00",
+    "TotalPrice": 40.0
   }
 ]

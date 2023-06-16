@@ -330,7 +330,7 @@ namespace Project.Presentation
                 return reservation.Paid;
             }
 
-            return false; // Reservation code not found
+            return false; 
         }
 
         public static void SetReservationStatusToPaid(string reservationCode, bool option)
@@ -346,10 +346,8 @@ namespace Project.Presentation
             {
                 reservation.Paid = option;
 
-                // Serialize the updated reservations list back to JSON
                 string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
 
-                // Write the updated JSON back to the file
                 File.WriteAllText(filePath, updatedJsonString);
             }
         }
@@ -370,7 +368,7 @@ namespace Project.Presentation
             }
             Console.WriteLine("Code not found");
 
-            return false; // Reservation code not found
+            return false;
         }
 
 
@@ -387,10 +385,8 @@ namespace Project.Presentation
             {
                 reservation.HasOrderdAnything = option;
 
-                // Serialize the updated reservations list back to JSON
                 string updatedJsonString = JsonConvert.SerializeObject(reservations, Formatting.Indented);
 
-                // Write the updated JSON back to the file
                 File.WriteAllText(filePath, updatedJsonString);
             }
         }
