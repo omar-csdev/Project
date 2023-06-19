@@ -4,5 +4,17 @@
     "ID": 1,
     "UserNameSetter": "Olivier",
     "PasswordSetter": "a!1"
+  },
+  {
+    "IsLoggedIn": false,
+    "ID": 2,
+    "UserNameSetter": "Fared",
+    "PasswordSetter": "123!"
+  },
+  {
+    "IsLoggedIn": false,
+    "ID": 3,
+    "UserNameSetter": "OmarNew",
+    "PasswordSetter": "Omar123!~"
   }
 ]

@@ -15,8 +15,8 @@ public static class FoodMenu
         int choice;
         Console.Clear();
         WriteLogo();
-        Helper.Say("1", "View menu filter options");
-        Helper.Say("2", "View order options");
+        Helper.Say("1", "View menu");
+        Helper.Say("2", "Order");
         Helper.Say("3", "Go back");
 
         while (true)

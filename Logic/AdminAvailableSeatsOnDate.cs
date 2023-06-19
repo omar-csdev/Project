@@ -1,4 +1,4 @@
-﻿using Project.Olivier_Reservations;
+﻿using Project.Presentation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project.Oualid_Admin_Dashboard.AdminReservations
+namespace Project.Logic
 {
     internal class AdminAvailableSeatsOnDate
     {

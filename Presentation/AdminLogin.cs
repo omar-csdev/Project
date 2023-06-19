@@ -33,7 +33,8 @@ public static class AdminLogin
                 string inp = Console.ReadLine().ToLower();
                 if (inp == "y")
                 {
-                    Helper.Say("!", "Type '/back' to go back to the admin menu");
+                    Console.Clear();
+                    Helper.Say("!", "Type '/back' to go back to the main menu");
                     Console.WriteLine("Username:");
                     string username = Console.ReadLine();
                     if (username == "/back")
@@ -52,15 +53,25 @@ public static class AdminLogin
                     }
 
                     //checks op het wachtwoord dat aangemaakt wordt
-                    Console.WriteLine("Password:");
                     List<char> symbols = new List<char>() { '!', '@', '?', '#', '&' };
 
                     bool creatingAccount = true;
                     while (creatingAccount)
                     {
+
                         int checking = 0;
+                        Console.WriteLine();
+                        Helper.Say("!", "Type '/back' to go back to the main menu");
                         Helper.Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
+                        Console.WriteLine("Password:");
                         string password = Console.ReadLine();
+
+                        if (password == "/back")
+                        {
+                            Console.Clear();
+                            MainMenu.NewStart(false);
+
+                        }
                         foreach (char character in password)
                         {
                             if (symbols.Contains(character))
@@ -108,7 +119,7 @@ public static class AdminLogin
             //wel accounts in de json: door naar inloggen
             else if (test.Count >= 1)
             {
-                Helper.Say("!", "Type '/back' to go back to the admin menu");
+                Helper.Say("!", "Type '/back' to go back to the main menu");
                 Console.WriteLine("Username:");
                 string username = Console.ReadLine();
                 int check = 0;
@@ -131,10 +142,15 @@ public static class AdminLogin
                     Helper.ContinueDisplay();
                     Start();
                 }
-
+                Console.WriteLine();
+                Helper.Say("!", "Type '/back' to go back to the main menu");
                 Console.WriteLine("Password:");
                 string password = Console.ReadLine();
-                
+                if (password == "/back")
+                {
+                    MainMenu.NewStart(true);
+                }
+
 
                 //kijken in de json of de gegeven combinatie van wachtwoord en gebruikersnaam bestaat.
                 foreach (Admin admin in test)

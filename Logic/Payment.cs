@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Project.Olivier_Reservations;
+using Project.Presentation;
 
 public class Payment
 {
@@ -137,7 +137,6 @@ public class Payment
     {
         string filePath = Path.Combine("..", "..", "..", "DataSources", "Orders.json");
 
-        // Deserialize the existing JSON data
         List<Dictionary<string, List<Dictionary<string, int>>>> jsonData;
         string jsonString = File.ReadAllText(filePath);
         jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, List<Dictionary<string, int>>>>>(jsonString);
@@ -146,13 +145,11 @@ public class Payment
         {
             if (dict.ContainsKey(reservationCode))
             {
-                // Clear the values associated with the reservation code
                 dict[reservationCode].Clear();
-                break; // Exit the loop after clearing the values
+                break; 
             }
         }
 
-        // Update
         string updatedJsonString = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
         File.WriteAllText(filePath, updatedJsonString);
 
@@ -166,7 +163,6 @@ public class Payment
 
         List<PaidOrder> paidOrders;
 
-        // Check if the file exists
         if (File.Exists(filePath))
         {
             string jsonString = File.ReadAllText(filePath);
@@ -174,7 +170,7 @@ public class Payment
         }
         else
         {
-            paidOrders = new List<PaidOrder>(); // Create a new list if the file doesn't exist
+            paidOrders = new List<PaidOrder>(); 
         }
 
         var paidOrder = paidOrders.FirstOrDefault(o => o.ReservationCode == reservationCode);
@@ -187,7 +183,6 @@ public class Payment
         }
         else
         {
-            // Create a new PaidOrder object and add it to the list
             var newPaidOrder = new PaidOrder
             {
                 ReservationCode = reservationCode,
@@ -198,10 +193,8 @@ public class Payment
             paidOrders.Add(newPaidOrder);
         }
 
-        // Serialize the updated paid orders list back to JSON
         string updatedJsonString = JsonConvert.SerializeObject(paidOrders, Formatting.Indented);
 
-        // Write the updated JSON back to the file
         File.WriteAllText(filePath, updatedJsonString);
     }
 

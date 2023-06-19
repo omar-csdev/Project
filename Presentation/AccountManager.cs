@@ -16,7 +16,7 @@ public static class AccountManager
         }
 
         //username checks
-        string username = null;
+        string username = "";
         bool askingName = true;
         while (askingName)
         {
@@ -30,11 +30,17 @@ public static class AccountManager
                 MainMenu.NewStart(true);
             }
 
+            if (string.IsNullOrEmpty(username))
+            {
+                Helper.Say("!", "Please enter a username"); 
+                Helper.ContinueDisplay();
+                Console.Clear();
+                CreateAccount();
+            }
             if (username != null && usernames.Contains(username) == false)
             {
                 askingName = false;
             }
-
             else
             {
                 Helper.Say("!", "Username unavailable");
@@ -49,9 +55,8 @@ public static class AccountManager
         bool askingPassword = true;
         while (askingPassword)
         {
-            Console.Clear();
-            Console.WriteLine("Creating Account");
             Console.WriteLine();
+            Console.WriteLine("Creating Account");
             int checking = 0;
             Console.WriteLine("Enter a password:");
             Helper.Say("!", "The password has got to contain 1 number and 1 symbol (!, @, ?, #, &)");
@@ -86,6 +91,7 @@ public static class AccountManager
 
         accounts.Add(new CustomerAccount(username, password, accounts));
         CustomerAccess.WriteAll(accounts);
+        Console.WriteLine();
         Console.WriteLine($"Registered user {username} succesfully!");
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
@@ -95,8 +101,6 @@ public static class AccountManager
     public static void LogIn()
     {
         Console.Clear();
-        Console.WriteLine("Logging in");
-        Helper.Say("!", "Type '/back' to go back to the main menu");
         List<CustomerAccount> accounts = CustomerAccess.LoadAll();
         foreach (CustomerAccount account in accounts)
         {
@@ -107,6 +111,9 @@ public static class AccountManager
         bool askingUsername = true;
         while (askingUsername)
         {
+            Console.WriteLine("Logging in");
+            Helper.Say("!", "Type '/back' to go back to the main menu");
+
             Console.WriteLine("Username:");
             username = Console.ReadLine();
             if (username == "/back")
@@ -127,6 +134,7 @@ public static class AccountManager
             {
                 Console.WriteLine("Username doesn't exist!", Color.Red);
                 Helper.ContinueDisplay();
+                Console.Clear();
 
             }
 
@@ -135,10 +143,11 @@ public static class AccountManager
                 askingUsername = false;
             }
         }
-
+        Console.WriteLine();
+        Helper.Say("!", "Type '/back' to go back to the main menu");
         Console.WriteLine("Password:");
         string password = Console.ReadLine();
-
+        if (password == "/back") MainMenu.NewStart(true);
 
         //kijken in de json of de gegeven combinatie van wachtwoord en gebruikersnaam bestaat.
         foreach (CustomerAccount customer in accounts)
@@ -147,6 +156,7 @@ public static class AccountManager
             {
                 customer.IsLoggedIn = true;
                 CustomerAccess.WriteAll(accounts);
+                Console.WriteLine();
                 Console.WriteLine($"User {username} logged in succesfully!");
                 Helper.ContinueDisplay();
                 CustomerDashboard.DisplayDashboard();

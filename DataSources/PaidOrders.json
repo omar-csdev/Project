@@ -4,5 +4,23 @@
     "CustomerId": 0,
     "PaidTime": "2023-06-16T02:58:31.1908682+02:00",
     "TotalPrice": 72.0
+  },
+  {
+    "ReservationCode": "PS1351",
+    "CustomerId": 2,
+    "PaidTime": "2023-06-16T15:25:05.5853702+02:00",
+    "TotalPrice": 16.0
+  },
+  {
+    "ReservationCode": "EQ3121",
+    "CustomerId": 2,
+    "PaidTime": "2023-06-16T16:16:44.952298+02:00",
+    "TotalPrice": 36.0
+  },
+  {
+    "ReservationCode": "XG1370",
+    "CustomerId": 3,
+    "PaidTime": "2023-06-16T23:53:19.8742791+02:00",
+    "TotalPrice": 40.0
   }
 ]

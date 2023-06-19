@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Drawing;
 using Console = Colorful.Console;
+using Project.Presentation;
 
 public class ReservationsEditor
 {
@@ -14,13 +15,13 @@ public class ReservationsEditor
             // Load existing reservations
             string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
             string JSONString = File.ReadAllText(filePath);
-            List<Project.Olivier_Reservations.Reservation> reservations = JsonConvert.DeserializeObject<List<Project.Olivier_Reservations.Reservation>>(JSONString) ?? new List<Project.Olivier_Reservations.Reservation>();
+            List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(JSONString) ?? new List<Reservation>();
 
 
 
 
             // Find the reservation to remove
-            Project.Olivier_Reservations.Reservation? reservationToRemove = reservations.FirstOrDefault(r => r.Code == code);
+            Reservation? reservationToRemove = reservations.FirstOrDefault(r => r.Code == code);
 
 
             if (reservationToRemove != null)
@@ -44,7 +45,7 @@ public class ReservationsEditor
         }
     }
 
-    public static bool UpdateReservation( Project.Olivier_Reservations.Reservation reservation)
+    public static bool UpdateReservation( Reservation reservation)
     {
         try
         {
@@ -53,10 +54,10 @@ public class ReservationsEditor
                 // Load existing reservations
                 string filePath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\DataSources\reservations.json");
                 string JSONString = File.ReadAllText(filePath);
-                List<Project.Olivier_Reservations.Reservation> reservations = JsonConvert.DeserializeObject<List<Project.Olivier_Reservations.Reservation>>(JSONString) ?? new List<Project.Olivier_Reservations.Reservation>();
+                List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(JSONString) ?? new List<Reservation>();
 
                 // Find the reservation to update
-                Project.Olivier_Reservations.Reservation? existingReservation = reservations.FirstOrDefault(r => r.Code == reservation.Code);
+                Reservation? existingReservation = reservations.FirstOrDefault(r => r.Code == reservation.Code);
 
 
                 if (existingReservation != null)
@@ -84,7 +85,7 @@ public class ReservationsEditor
         }
     }
 
-    private static bool IsValidReservation(Project.Olivier_Reservations.Reservation reservation)
+    private static bool IsValidReservation(Reservation reservation)
     {
         if (string.IsNullOrEmpty(reservation.Name) ||
             reservation.groupSize <= 0 ||
@@ -108,8 +109,8 @@ public class ReservationsEditor
         return !string.IsNullOrEmpty(value) && !string.IsNullOrWhiteSpace(value);
     }
 
-    private static List<Project.Olivier_Reservations.Reservation> GetReservations(){
-        List<Project.Olivier_Reservations.Reservation> reservations = Project.Olivier_Reservations.SaveReservations.LoadAll();
+    private static List<Reservation> GetReservations(){
+        List<Reservation> reservations = SaveReservations.LoadAll();
         return reservations;
     }
 }
