@@ -104,8 +104,42 @@ public static class OrderFood
         {
             // Show order basket
             Console.Clear();
+            Helper.Say("!", "Type '/back' to go back");
             Console.WriteLine("Please enter your reservation code: ");
-            string code = Console.ReadLine();
+            string code;
+            while (true)
+            {
+                try
+                {
+                    // Read user input as an integer
+                    code = Console.ReadLine();
+                    int codelength = code.Length;
+                    // Validate user input
+                    if (code == null || codelength >= 7 )
+                    {
+                        string message = ("Please enter a valid reservationcode. (Max 6 characters)");
+                        Helper.Error(message);
+                        Start(isGuest);
+                    }
+                    break;
+                }
+                catch (FormatException)
+                {
+                    string message = ("Please enter a valid reservationcode. (Max 6 characters)");
+                    Helper.Error(message);
+                    Start(isGuest);
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                    Helper.Error(message);
+                    Start(isGuest);
+                }
+            }
+            if (code == "/back")
+            {
+                Start(isGuest);
+            }
             TotalPrice(code);
             Helper.ContinueDisplay();
             Start(isGuest);

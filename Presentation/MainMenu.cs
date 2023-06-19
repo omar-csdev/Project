@@ -100,7 +100,7 @@ static class MainMenu
             Console.Clear();
             Helper.DisplayRestaurantLogo();
             Helper.Say("1", "Make a Reservation");
-            Helper.Say("2", "View Menu");
+            Helper.Say("2", "View Menu and order");
             Helper.Say("3", "Go back to main menu");
             choice = int.Parse(Console.ReadLine());
             switch (choice)
