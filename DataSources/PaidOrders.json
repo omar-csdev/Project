@@ -22,5 +22,11 @@
     "CustomerId": 3,
     "PaidTime": "2023-06-16T23:53:19.8742791+02:00",
     "TotalPrice": 40.0
+  },
+  {
+    "ReservationCode": "VZ8577",
+    "CustomerId": 0,
+    "PaidTime": "2023-06-20T00:16:45.7575517+02:00",
+    "TotalPrice": 36.0
   }
 ]

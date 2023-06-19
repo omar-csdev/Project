@@ -58,5 +58,15 @@
     "CustomerId": 2,
     "Paid": true,
     "HasOrderdAnything": false
+  },
+  {
+    "Name": "dasd",
+    "LastName": "d",
+    "groupSize": 3,
+    "Code": "VZ8577",
+    "TimeSlot": "2023-07-03T17:30:00",
+    "CustomerId": 0,
+    "Paid": false,
+    "HasOrderdAnything": true
   }
 ]
