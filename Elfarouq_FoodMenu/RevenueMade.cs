@@ -41,13 +41,13 @@ public class RevenueMade
             }
         }
 
-        ConsoleTable table = new ConsoleTable("Month", "Revenue", "Euro");
+        ConsoleTable table = new ConsoleTable("Month", "Revenue");
 
         // Populate the table with data from revenueByMonth dictionary
         foreach (var kvp in revenueByMonth)
         {
             string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(kvp.Key.Month);
-            table.AddRow(monthName, kvp.Value, "Euro");
+            table.AddRow(monthName, "$"+kvp.Value);
         }
 
         // Printing the Table with the revenues
@@ -115,14 +115,14 @@ public class RevenueMade
             else { continue; }
             
         }
-        ConsoleTable table = new ConsoleTable("Year", "RevenueMade", "Euro");
-        table.AddRow(dateNow.Year, yearNow, "Euro");
-        table.AddRow(date1.Year, oneYearAgo, "Euro");
-        table.AddRow(date2.Year, twoYearAgo, "Euro");
-        table.AddRow(date3.Year, threeYearAgo, "Euro");
-        table.AddRow(date4.Year, fourYearAgo, "Euro");
-        table.AddRow(date5.Year, fiveYearAgo, "Euro");
-        table.AddRow(date5plus.Year, aboveFiveYearAgo, "Euro");
+        ConsoleTable table = new ConsoleTable("Year", "RevenueMade");
+        table.AddRow(dateNow.Year, "$" + yearNow);
+        table.AddRow(date1.Year, "$" + oneYearAgo);
+        table.AddRow(date2.Year, "$" + twoYearAgo);
+        table.AddRow(date3.Year, "$" + threeYearAgo);
+        table.AddRow(date4.Year, "$" + fourYearAgo);
+        table.AddRow(date5.Year, "$" + fiveYearAgo);
+        table.AddRow(date5plus.Year, "$" + aboveFiveYearAgo);
         table.Configure(o => o.EnableCount = false);
         table.Write();
     }
